@@ -14,7 +14,7 @@ public interface CourseDAO {
     List<Course> getAllCourses();
 
     @Query("SELECT * FROM course WHERE cid IN (:courseId)")
-    List<Course> getCourse(int[] courseId);
+    Course getCourse(String courseId);
 
     @Insert
     void addCourse(Course course);
