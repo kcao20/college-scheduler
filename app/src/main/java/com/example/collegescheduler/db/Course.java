@@ -1,17 +1,16 @@
 package com.example.collegescheduler.db;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-import com.example.collegescheduler.CourseTime;
-import com.example.collegescheduler.Instructor;
-
 @Entity(tableName = "Course")
 public class Course {
-    @PrimaryKey(autoGenerate = true)
-    public int cid;
+    @PrimaryKey(autoGenerate = false)
+    @NonNull
+    public String cid;
 
     @ColumnInfo(name = "course_title")
     public String courseTitle;
@@ -29,9 +28,18 @@ public class Course {
     public Course() {
     }
 
-    public Course(String courseTitle) {
+    @Ignore
+    public Course(@NonNull String cid) {
+        this.cid = cid;
+    }
+
+    public Course(@NonNull String cid, String courseTitle) {
+        this.cid = cid;
         this.courseTitle = courseTitle;
-        this.cid = 0;
+    }
+
+    public String getCid() {
+        return cid;
     }
 
     public String getCourseTitle() {
