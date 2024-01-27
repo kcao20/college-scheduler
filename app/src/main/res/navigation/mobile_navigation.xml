@@ -12,19 +12,19 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_nav_home_to_nav_gallery"
-            app:destination="@id/nav_gallery" />
+            app:destination="@id/nav_calendar" />
         <action
             android:id="@+id/action_nav_home_to_nav_slideshow"
             app:destination="@id/nav_slideshow" />
     </fragment>
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.example.collegescheduler.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" >
+        android:id="@+id/nav_calendar"
+        android:name="com.example.collegescheduler.ui.calendar.CalendarFragment"
+        android:label="@string/menu_calendar"
+        tools:layout="@layout/fragment_calendar">
         <action
-            android:id="@+id/action_nav_gallery_to_nav_home"
+            android:id="@+id/action_nav_calendar_to_nav_home"
             app:destination="@id/nav_home" />
     </fragment>
 
