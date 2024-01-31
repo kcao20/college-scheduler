@@ -4,47 +4,49 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.collegescheduler.R;
 import com.example.collegescheduler.databinding.FragmentHomeBinding;
-import com.google.android.material.textfield.TextInputEditText;
+import com.example.collegescheduler.db.Course;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.List;
 
 public class HomeFragment extends Fragment {
 
+    public static final int NEW_COURSE_FRAGMENT_REQUEST_CODE = 1;
     private FragmentHomeBinding binding;
+    private HomeViewModel homeViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textHome;
-
-        final TextInputEditText courseID = binding.courseID;
-        final TextInputEditText courseTitle = binding.courseTitle;
-        final Button saveButton = binding.saveButton;
-        final Button queryButton = binding.queryButton;
-
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String cid = courseID.getText().toString();
-                String title = courseTitle.getText().toString();
-                homeViewModel.onSaveButtonClick(cid, title);
-            }
+        final FloatingActionButton addButton = binding.addButton;
+        addButton.setOnClickListener(v -> {
+            Navigation.findNavController(v).navigate(R.id.action_nav_home_to_modify_course);
         });
 
-        queryButton.setOnClickListener(new View.OnClickListener() {
+        RecyclerView recyclerView = root.findViewById(R.id.recyclerView);
+        final HomeListAdapter adapter = new HomeListAdapter(new HomeListAdapter.CourseDiff());
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        LiveData<List<Course>> courses = homeViewModel.getAllCourses();
+        courses.observe(getViewLifecycleOwner(), new Observer<List<Course>>() {
             @Override
-            public void onClick(View v) {
-                String cid = courseID.getText().toString();
-                homeViewModel.onQueryButtonClick(textView, cid);
+            public void onChanged(List<Course> courses) {
+                adapter.submitList(courses);
             }
         });
 
