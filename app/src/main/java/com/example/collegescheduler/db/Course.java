@@ -33,9 +33,11 @@ public class Course {
         this.cid = cid;
     }
 
-    public Course(@NonNull String cid, String courseTitle) {
+    public Course(@NonNull String cid, String courseTitle, String courseDescription, String instructor) {
         this.cid = cid;
         this.courseTitle = courseTitle;
+        this.courseDescription = courseDescription;
+        this.instructor = instructor;
     }
 
     public Course(Course course) {
@@ -60,6 +62,14 @@ public class Course {
 
     public void setCourseDescription(String courseDescription) {
         this.courseDescription = courseDescription;
+    }
+
+    public String getInstructor() {
+        return instructor;
+    }
+
+    public void setInstructor(String instructor) {
+        this.instructor = instructor;
     }
 
 }

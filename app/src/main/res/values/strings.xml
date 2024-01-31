@@ -13,4 +13,8 @@
     <string name="assignment_title">Assignments and Exam</string>
     <string name="assignment_date">Assignments and Exam</string>
     <string name="assignment_course">Assignments and Exam</string>
+    <string name="add_word">Add Course</string>
+    <string name="hint_word">Word…</string>
+    <string name="button_save">Save</string>
+    <string name="empty_not_saved">Word not saved because it is empty.</string>
 </resources>
