@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_nav_home_to_nav_slideshow"
             app:destination="@id/nav_slideshow" />
+        <action
+            android:id="@+id/action_nav_home_to_add_course"
+            app:destination="@id/add_course" />
     </fragment>
 
     <fragment
@@ -35,6 +38,15 @@
         tools:layout="@layout/fragment_slideshow" >
         <action
             android:id="@+id/action_nav_slideshow_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/add_course"
+        android:name="com.example.collegescheduler.ui.course.CourseFragment"
+        android:label="Course" >
+        <action
+            android:id="@+id/action_add_course_to_nav_home"
             app:destination="@id/nav_home" />
     </fragment>
 </navigation>

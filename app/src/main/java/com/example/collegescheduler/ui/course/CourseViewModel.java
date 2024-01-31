@@ -1,4 +1,4 @@
-package com.example.collegescheduler.ui.home;
+package com.example.collegescheduler.ui.course;
 
 import android.app.Application;
 import android.os.Handler;
@@ -18,24 +18,21 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class HomeViewModel extends AndroidViewModel {
+public class CourseViewModel extends AndroidViewModel {
 
     private CourseRepository courseRepository;
-    private final LiveData<List<Course>> allCourses;
 
-    public HomeViewModel(@NonNull Application application) {
+    public CourseViewModel(@NonNull Application application) {
         super(application);
         courseRepository = new CourseRepository(application);
-        allCourses = courseRepository.getAllCourses();
     }
 
-    public void onQueryButtonClick(TextView textView, String course) {
-    }
-
-    private void updateUIWithCourses(Course course, TextView textView) {
-        if (course != null) {
-            textView.setText(course.getCourseTitle());
-        }
+    public void onSaveButtonClick(String courseID, String courseTitle) {
+        courseRepository.getCourse(courseID).observeForever(course -> {
+            if (course == null) {
+                courseRepository.insert(new Course(courseID, courseTitle));
+            }
+        });
     }
 
 }

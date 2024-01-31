@@ -1,5 +1,6 @@
 package com.example.collegescheduler.db;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -11,7 +12,7 @@ import java.util.List;
 @Dao
 public interface CourseDAO {
     @Query("SELECT * FROM course")
-    List<Course> getAllCourses();
+    LiveData<List<Course>> getAllCourses();
 
     @Query("SELECT * FROM course WHERE cid IN (:courseId)")
     Course getCourse(String courseId);

@@ -4,15 +4,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
+import com.example.collegescheduler.R;
 import com.example.collegescheduler.databinding.FragmentHomeBinding;
-import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class HomeFragment extends Fragment {
 
@@ -24,27 +24,11 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textHome;
-
-        final TextInputEditText courseID = binding.courseID;
-        final TextInputEditText courseTitle = binding.courseTitle;
-        final Button saveButton = binding.saveButton;
-        final Button queryButton = binding.queryButton;
-
-        saveButton.setOnClickListener(new View.OnClickListener() {
+        final FloatingActionButton addButton = binding.addButton;
+        addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String cid = courseID.getText().toString();
-                String title = courseTitle.getText().toString();
-                homeViewModel.onSaveButtonClick(cid, title);
-            }
-        });
-
-        queryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String cid = courseID.getText().toString();
-                homeViewModel.onQueryButtonClick(textView, cid);
+                Navigation.findNavController(v).navigate(R.id.action_nav_home_to_add_course);
             }
         });
 

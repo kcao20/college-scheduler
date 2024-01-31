@@ -6,21 +6,28 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 @Database(entities = {Course.class}, version = 2, exportSchema = false)
 public abstract class CourseDatabase extends RoomDatabase {
 
-    private static CourseDatabase instance;
+    private static final int NUMBER_OF_THREADS = 4;
+    static final ExecutorService databaseExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
+    private static volatile CourseDatabase INSTANCE;
 
-    // Ensure there is only one instance of database
-    public static synchronized CourseDatabase getInstance(Context context) {
-        if (instance == null) {
-            instance = Room.databaseBuilder(context.getApplicationContext(), CourseDatabase.class, "CourseDB")
-                    // Add any callbacks or migration strategies if needed
-                    .fallbackToDestructiveMigration().build();
+    public static CourseDatabase getInstance(final Context context) {
+        if (INSTANCE == null) {
+            synchronized (CourseDatabase.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(), CourseDatabase.class, "CourseDB").build();
+                }
+            }
         }
-        return instance;
+        return INSTANCE;
     }
 
-    public abstract CourseDAO getCourseDao();
+    // Ensure there is only one instance of database
+    public abstract CourseDAO courseDao();
 
 }
