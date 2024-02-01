@@ -38,4 +38,10 @@ public class CourseRepository {
         });
     }
 
+    public void update(Course course) {
+        CourseDatabase.databaseExecutor.execute(() -> {
+            courseDao.updateCourse(course);
+        });
+    }
+
 }

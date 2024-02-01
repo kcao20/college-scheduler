@@ -29,13 +29,12 @@ public class HomeViewModel extends AndroidViewModel {
         allCourses = courseRepository.getAllCourses();
     }
 
-    public void onQueryButtonClick(TextView textView, String course) {
+    LiveData<List<Course>> getAllCourses() {
+        return allCourses;
     }
 
-    private void updateUIWithCourses(Course course, TextView textView) {
-        if (course != null) {
-            textView.setText(course.getCourseTitle());
-        }
+    public void insert(Course course) {
+        courseRepository.insert(course);
     }
 
 }
