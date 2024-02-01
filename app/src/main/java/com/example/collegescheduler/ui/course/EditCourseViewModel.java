@@ -10,29 +10,33 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.collegescheduler.db.Course;
 import com.example.collegescheduler.db.CourseRepository;
 
-public class NewCourseViewModel extends AndroidViewModel {
+public class EditCourseViewModel extends AndroidViewModel {
 
     private final CourseRepository courseRepository;
 
-    public NewCourseViewModel(@NonNull Application application) {
+    public EditCourseViewModel(@NonNull Application application) {
         super(application);
         courseRepository = new CourseRepository(application);
     }
 
-    public LiveData<Boolean> checkAndSaveCourse(String courseId, String courseTitle, String courseDescription, String courseInstructor) {
-        MutableLiveData<Boolean> courseSavedLiveData = new MutableLiveData<>();
+    public LiveData<Course> getCourse(String cid) {
+        return courseRepository.getCourse(cid);
+    }
+
+    public LiveData<Boolean> updateCourse(String courseId, String courseTitle, String courseDescription, String courseInstructor) {
+        MutableLiveData<Boolean> courseUpdatedLiveData = new MutableLiveData<>();
 
         courseRepository.courseExists(courseId).observeForever(courseExists -> {
             if (courseExists) {
-                courseSavedLiveData.setValue(false);
-            } else {
                 Course course = new Course(courseId, courseTitle, courseDescription, courseInstructor);
-                courseRepository.insert(course);
-                courseSavedLiveData.setValue(true);
+                courseRepository.update(course);
+                courseUpdatedLiveData.setValue(true);
+            } else {
+                courseUpdatedLiveData.setValue(false);
             }
         });
 
-        return courseSavedLiveData;
+        return courseUpdatedLiveData;
     }
 
 }

@@ -23,7 +23,7 @@ public interface CourseDAO {
     @Update
     void updateCourse(Course course);
 
-    @Delete
-    void deleteCourse(Course course);
+    @Query("DELETE FROM course WHERE cid = :courseId")
+    void deleteCourseById(String courseId);
 
 }

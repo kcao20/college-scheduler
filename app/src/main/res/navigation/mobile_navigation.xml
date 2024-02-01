@@ -17,8 +17,11 @@
             android:id="@+id/action_nav_home_to_nav_slideshow"
             app:destination="@id/nav_slideshow" />
         <action
-            android:id="@+id/action_nav_home_to_add_course"
+            android:id="@+id/action_nav_home_to_modify_course"
             app:destination="@id/add_course" />
+        <action
+            android:id="@+id/action_nav_home_to_course"
+            app:destination="@id/course" />
     </fragment>
 
     <fragment
@@ -44,22 +47,51 @@
     <fragment
         android:id="@+id/add_course"
         android:name="com.example.collegescheduler.ui.course.NewCourseFragment"
-        android:label="Course"
-        tools:layout="@layout/fragment_course">
+        android:label="Add Course"
+        tools:layout="@layout/fragment_add_course">
 
         <argument
             android:name="courseId"
             app:argType="string"
             app:nullable="true"
             android:defaultValue=""/>
-        <argument
-            android:name="courseTitle"
-            app:argType="string"
-            app:nullable="true"
-            android:defaultValue=""/>
-
         <action
             android:id="@+id/action_add_course_to_nav_home"
             app:destination="@id/nav_home" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/edit_course"
+        android:name="com.example.collegescheduler.ui.course.EditCourseFragment"
+        android:label="Edit Course"
+        tools:layout="@layout/fragment_edit_course">
+
+        <argument
+            android:name="courseId"
+            app:argType="string"
+            app:nullable="false"/>
+        <action
+            android:id="@+id/action_edit_course_to_course"
+            app:destination="@id/course"
+            app:popUpTo="@id/nav_home"
+            app:popUpToInclusive="true"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/course"
+        android:name="com.example.collegescheduler.ui.course.CourseFragment"
+        android:label="Course View"
+        tools:layout="@layout/fragment_course">
+
+        <argument
+            android:name="courseId"
+            app:argType="string"
+            app:nullable="false" />
+        <action
+            android:id="@+id/action_course_to_nav_home"
+            app:destination="@id/nav_home" />
+        <action
+            android:id="@+id/action_course_to_edit_course"
+            app:destination="@id/edit_course" />
     </fragment>
 </navigation>

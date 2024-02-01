@@ -1,16 +1,12 @@
 package com.example.collegescheduler.ui.home;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentResultListener;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -21,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.collegescheduler.R;
 import com.example.collegescheduler.databinding.FragmentHomeBinding;
 import com.example.collegescheduler.db.Course;
-import com.example.collegescheduler.ui.course.NewCourseFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
@@ -40,7 +35,7 @@ public class HomeFragment extends Fragment {
 
         final FloatingActionButton addButton = binding.addButton;
         addButton.setOnClickListener(v -> {
-            Navigation.findNavController(v).navigate(R.id.action_nav_home_to_add_course);
+            Navigation.findNavController(v).navigate(R.id.action_nav_home_to_modify_course);
         });
 
         RecyclerView recyclerView = root.findViewById(R.id.recyclerView);

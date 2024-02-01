@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -13,26 +14,33 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
-import com.example.collegescheduler.R;
-import com.example.collegescheduler.databinding.FragmentAddCourseBinding;
+import com.example.collegescheduler.databinding.FragmentEditCourseBinding;
 
-public class NewCourseFragment extends Fragment {
+public class EditCourseFragment extends Fragment {
 
-    private FragmentAddCourseBinding binding;
+    private FragmentEditCourseBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        NewCourseViewModel newCourseViewModel = new ViewModelProvider(this).get(NewCourseViewModel.class);
+        EditCourseViewModel editCourseViewModel = new ViewModelProvider(this).get(EditCourseViewModel.class);
 
-        binding = FragmentAddCourseBinding.inflate(inflater, container, false);
+        binding = FragmentEditCourseBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final EditText courseID = binding.courseID.getEditText();
+        final TextView courseID = binding.courseID;
         final EditText courseTitle = binding.courseTitle.getEditText();
         final EditText courseDescription = binding.courseDescription.getEditText();
         final EditText courseInstructor = binding.courseInstructor.getEditText();
-        final Button saveButton = binding.saveButton;
+        final Button editButton = binding.editButton;
 
-        saveButton.setOnClickListener(v -> {
+        courseID.setText(EditCourseFragmentArgs.fromBundle(getArguments()).getCourseId());
+
+        editCourseViewModel.getCourse(courseID.getText().toString()).observe(getViewLifecycleOwner(), course -> {
+            courseTitle.setText(course.getCourseTitle());
+            courseDescription.setText(course.getCourseDescription());
+            courseInstructor.setText(course.getInstructor());
+        });
+
+        editButton.setOnClickListener(v -> {
             String cID = courseID.getText().toString();
             String cTitle = courseTitle.getText().toString();
             String cDescription = courseDescription.getText().toString();
@@ -40,10 +48,12 @@ public class NewCourseFragment extends Fragment {
             if (cID.trim().isEmpty()) {
                 Toast.makeText(requireContext(), "Course ID can not be blank", Toast.LENGTH_SHORT).show();
             } else {
-                newCourseViewModel.checkAndSaveCourse(cID, cTitle, cDescription, cInstructor).observe(getViewLifecycleOwner(), courseSaved -> {
-                    if (courseSaved) {
-                        Toast.makeText(requireContext(), "Course saved successfully", Toast.LENGTH_SHORT).show();
-                        Navigation.findNavController(v).navigate(R.id.action_add_course_to_nav_home);
+                editCourseViewModel.updateCourse(cID, cTitle, cDescription, cInstructor).observe(getViewLifecycleOwner(), courseUpdated -> {
+                    if (courseUpdated) {
+                        Toast.makeText(requireContext(), "Course updated successfully", Toast.LENGTH_SHORT).show();
+                        EditCourseFragmentDirections.ActionEditCourseToCourse action =
+                                EditCourseFragmentDirections.actionEditCourseToCourse(cID);
+                        Navigation.findNavController(v).navigate(action);
                     } else {
                         Toast.makeText(requireContext(), "Course already exists", Toast.LENGTH_SHORT).show();
                     }

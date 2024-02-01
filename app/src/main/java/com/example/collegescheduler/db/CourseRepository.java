@@ -32,9 +32,25 @@ public class CourseRepository {
         return courseLiveData;
     }
 
+    public LiveData<Boolean> courseExists(String courseId) {
+        MutableLiveData<Boolean> existsLiveData = new MutableLiveData<>();
+        CourseDatabase.databaseExecutor.execute(() -> {
+            Course course = courseDao.getCourse(courseId);
+            boolean exists = (course != null);
+            existsLiveData.postValue(exists);
+        });
+        return existsLiveData;
+    }
+
     public void insert(Course course) {
         CourseDatabase.databaseExecutor.execute(() -> {
             courseDao.addCourse(course);
+        });
+    }
+
+    public void delete(String courseId) {
+        CourseDatabase.databaseExecutor.execute(() -> {
+            courseDao.deleteCourseById(courseId);
         });
     }
 
