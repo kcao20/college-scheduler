@@ -1,5 +1,6 @@
 package com.example.collegescheduler.ui.course;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,13 +46,17 @@ public class CourseFragment extends Fragment {
         });
 
         deleteButton.setOnClickListener(v -> {
-            courseViewModel.delete(courseId);
-            Navigation.findNavController(view).navigate(R.id.action_course_to_nav_home);
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+            builder.setMessage("Are you sure you want to delete this course?").setPositiveButton("Delete", (dialog, which) -> {
+                courseViewModel.delete(courseId);
+                Navigation.findNavController(view).navigate(R.id.action_course_to_nav_home);
+            }).setNegativeButton("Cancel", (dialog, which) -> {
+                // User cancelled the deletion, do nothing
+            }).show();
         });
 
         editButton.setOnClickListener(v -> {
-            CourseFragmentDirections.ActionCourseToEditCourse action =
-                    CourseFragmentDirections.actionCourseToEditCourse(courseId);
+            CourseFragmentDirections.ActionCourseToEditCourse action = CourseFragmentDirections.actionCourseToEditCourse(courseId);
             Navigation.findNavController(view).navigate(action);
         });
     }
