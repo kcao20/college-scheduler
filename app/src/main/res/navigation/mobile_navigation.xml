@@ -14,6 +14,9 @@
             android:id="@+id/action_nav_home_to_nav_gallery"
             app:destination="@id/nav_calendar" />
         <action
+            android:id="@+id/action_nav_home_to_nav_list"
+            app:destination="@id/nav_toDoList" />
+        <action
             android:id="@+id/action_nav_home_to_nav_slideshow"
             app:destination="@id/nav_slideshow" />
         <action
@@ -44,6 +47,16 @@
             app:destination="@id/nav_home" />
     </fragment>
 
+    <fragment
+        android:id="@+id/nav_toDoList"
+        android:name="com.example.collegescheduler.ui.toDoList.toDoListFragment"
+        android:label="@string/menu_toDoList"
+        tools:layout="@layout/fragment_to_do_list" >
+        <action
+            android:id="@+id/action_nav_toDoList_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
+    
     <fragment
         android:id="@+id/add_course"
         android:name="com.example.collegescheduler.ui.course.NewCourseFragment"
