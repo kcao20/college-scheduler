@@ -41,7 +41,7 @@ public class HomeViewModel extends AndroidViewModel {
             @Override
             public void run() {
                 // background task
-                Course courses = courseDB.getCourseDao().getCourse(course);
+                Course courses = courseDB.courseDao().getCourse(course);
                 // on finishing task
                 handler.post(new Runnable() {
                     @Override
@@ -60,9 +60,9 @@ public class HomeViewModel extends AndroidViewModel {
             @Override
             public void run() {
                 // background task
-                if (courseDB.getCourseDao().getCourse(courseID) == null) {
+                if (courseDB.courseDao().getCourse(courseID) == null) {
                     Course course = new Course(courseID, courseTitle);
-                    courseDB.getCourseDao().addCourse(course);
+                    courseDB.courseDao().addCourse(course);
                 }
                 // on finishing task
             }
