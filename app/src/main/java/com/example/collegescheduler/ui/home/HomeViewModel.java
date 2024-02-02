@@ -12,67 +12,29 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.collegescheduler.db.Course;
 import com.example.collegescheduler.db.CourseDatabase;
+import com.example.collegescheduler.db.CourseRepository;
 
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class HomeViewModel extends AndroidViewModel {
 
-    private final CourseDatabase courseDB;
+    private CourseRepository courseRepository;
+    private final LiveData<List<Course>> allCourses;
 
     public HomeViewModel(@NonNull Application application) {
         super(application);
-        courseDB = CourseDatabase.getInstance(getApplication());
+        courseRepository = new CourseRepository(application);
+        allCourses = courseRepository.getAllCourses();
     }
 
-    public void onSaveButtonClick(String courseID, String courseTitle) {
-        addCourseInBackground(courseID, courseTitle);
+    LiveData<List<Course>> getAllCourses() {
+        return allCourses;
     }
-
-    public void onQueryButtonClick(TextView textView, String course) {
-        getCourseInBackground(textView, course);
-    }
-
-    private void getCourseInBackground(TextView textView, String course) {
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        Handler handler = new Handler(Looper.getMainLooper());
-
-        executorService.execute(new Runnable() {
-            @Override
-            public void run() {
-                // background task
-                Course courses = courseDB.courseDao().getCourse(course);
-                // on finishing task
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        updateUIWithCourses(courses, textView);
-                    }
-                });
-            }
-        });
-    }
-
-    private void addCourseInBackground(String courseID, String courseTitle) {
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        Handler handler = new Handler(Looper.getMainLooper());
-        executorService.execute(new Runnable() {
-            @Override
-            public void run() {
-                // background task
-                if (courseDB.courseDao().getCourse(courseID) == null) {
-                    Course course = new Course(courseID, courseTitle);
-                    courseDB.courseDao().addCourse(course);
-                }
-                // on finishing task
-            }
-        });
-    }
-
-    private void updateUIWithCourses(Course course, TextView textView) {
-        if (course != null) {
-            textView.setText(course.getCourseTitle());
-        }
+  
+    public void insert(Course course) {
+        courseRepository.insert(course);
     }
 
 }
