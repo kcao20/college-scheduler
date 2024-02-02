@@ -11,7 +11,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Course.class}, version = 2, exportSchema = false)
+@Database(entities = {Course.class, Task.class}, version = 3, exportSchema = false)
 public abstract class CourseDatabase extends RoomDatabase {
 
     private static final int NUMBER_OF_THREADS = 4;
@@ -36,5 +36,7 @@ public abstract class CourseDatabase extends RoomDatabase {
     }
 
     public abstract CourseDAO courseDao();
+
+    public abstract TaskDAO taskDao();
 
 }

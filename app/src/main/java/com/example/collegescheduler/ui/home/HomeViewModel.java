@@ -32,7 +32,7 @@ public class HomeViewModel extends AndroidViewModel {
     LiveData<List<Course>> getAllCourses() {
         return allCourses;
     }
-
+  
     public void insert(Course course) {
         courseRepository.insert(course);
     }

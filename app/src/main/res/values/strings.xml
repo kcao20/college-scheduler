@@ -10,8 +10,10 @@
     <string name="menu_home">Home</string>
     <string name="menu_calendar">Calendar</string>
     <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_toDoList">To-Do-List</string>
+    <string name="to_Do_List">To-Do-List</string>
+    <string name="title_activity_scrolling">ScrollingActivity</string>
     <string name="add_word">Add Course</string>
-
     <string name="hint_word">Word…</string>
     <string name="button_save">Save</string>
     <string name="empty_not_saved">Word not saved because it is empty.</string>
