@@ -14,10 +14,10 @@ import com.example.collegescheduler.R;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Calendar;
 
 public class CalendarAdapter extends BaseAdapter {
 
@@ -61,14 +61,10 @@ public class CalendarAdapter extends BaseAdapter {
 
         if (localDate.getMonthValue() != currentDate.get(Calendar.MONTH) + 1) {
             dayTextView.setTextColor(ContextCompat.getColor(context, R.color.grey)); // Use your desired color resource
-        } else {
-            dayTextView.setTextColor(ContextCompat.getColor(context, android.R.color.black)); // Set the text color for days within the current month
         }
         // Set the day in the TextView
         SimpleDateFormat sdf = new SimpleDateFormat("d", Locale.getDefault());
         dayTextView.setText(sdf.format(date));
-
-
 
         return view;
     }

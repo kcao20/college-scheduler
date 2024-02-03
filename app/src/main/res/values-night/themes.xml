@@ -2,15 +2,17 @@
     <!-- Base application theme. -->
     <style name="Theme.CollegeScheduler" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/black</item>
+        <item name="android:textColorPrimary">@color/rosé_pine_text</item>
+        <item name="colorPrimary">@color/rosé_pine_overlay</item>
+        <item name="colorPrimaryVariant">@color/rosé_pine_subtle</item>
+        <item name="colorOnPrimary">@color/rosé_pine_text</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorSecondary">@color/rosé_pine_iris</item>
+        <item name="colorSecondaryVariant">@color/rosé_pine_foam</item>
+        <item name="colorOnSecondary">@color/rosé_pine_text</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">?attr/colorSecondary</item>
         <!-- Customize your theme here. -->
+        <item name="android:windowBackground">@color/rosé_pine_base</item>
     </style>
 </resources>

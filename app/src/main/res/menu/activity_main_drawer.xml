@@ -6,11 +6,11 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/rounded_dashboard_24"
             android:title="@string/menu_home" />
         <item
             android:id="@+id/nav_calendar"
-            android:icon="@android:drawable/ic_menu_my_calendar"
+            android:icon="@drawable/rounded_calendar_month_24"
             android:title="@string/menu_calendar" />
         <item
             android:id="@+id/nav_slideshow"
@@ -18,7 +18,7 @@
             android:title="@string/menu_slideshow" />
         <item
             android:id="@+id/nav_toDoList"
-            android:icon="@android:drawable/ic_menu_agenda"
+            android:icon="@drawable/rounded_add_task_24"
             android:title="@string/to_Do_List" />
     </group>
 </menu>

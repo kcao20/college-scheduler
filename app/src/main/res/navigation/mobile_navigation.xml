@@ -86,7 +86,7 @@
         <action
             android:id="@+id/action_edit_course_to_course"
             app:destination="@id/course"
-            app:popUpTo="@id/nav_home"
+            app:popUpTo="@id/course"
             app:popUpToInclusive="true"/>
     </fragment>
 

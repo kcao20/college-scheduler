@@ -1,30 +1,66 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:minHeight="300dp"
+    android:background="?attr/colorPrimary"
     android:orientation="vertical"
-    android:minHeight="400dp"
-    android:padding="16dp"
-    android:background="@drawable/rounded_background">
+    android:padding="16dp">
 
-    <!-- Title bubble -->
-    <TextView
+    <EditText
         android:id="@+id/titleTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:hint="Task Title"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:gravity="center"
-        android:background="@drawable/bubble" />
+        android:inputType="textMultiLine"
+        android:background="@null"
+        android:autofillHints="Task Title" />
 
-    <!-- Description bubble -->
-    <TextView
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="6dp"
+        android:background="@android:color/darker_gray" />
+
+    <EditText
         android:id="@+id/descriptionTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:layout_marginTop="20dp"
-        android:minHeight="200dp"
-        android:padding="8dp"
-        android:background="@drawable/bubble" />
+        android:autofillHints="Task Description"
+        android:background="@null"
+        android:hint="Task Description"
+        android:inputType="textMultiLine"
+        android:maxLines="8"
+        android:textSize="16sp" />
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/buttonDelete"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Delete" />
+
+        <Button
+            android:id="@+id/buttonEdit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Save" />
+
+    </LinearLayout>
+
 </LinearLayout>
