@@ -8,33 +8,24 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.example.collegescheduler.db.Task;
 import com.example.collegescheduler.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
-import java.util.List;
 
-public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
-
-    private List<Task> taskList;
+public class TaskAdapter extends ListAdapter<Task, TaskViewHolder> {
     private final TaskViewModel taskViewModel;
     private final Context context;
 
-    public TaskAdapter(List<Task> taskList, Context context, TaskViewModel taskViewModel) {
-        this.taskList = taskList;
+    public TaskAdapter(Context context, TaskViewModel taskViewModel) {
+        super(new TaskDiffCallback());
         this.context = context;
         this.taskViewModel = taskViewModel;
-    }
-
-    public void setTaskList (List<Task> taskList) {
-        this.taskList = taskList;
-        notifyDataSetChanged();
     }
 
     @NonNull
@@ -51,16 +42,31 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
             }
         });
 
+        viewHolder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            int position = viewHolder.getBindingAdapterPosition();
+            if (position != RecyclerView.NO_POSITION) {
+                Task task = getItem(position);
+                taskViewModel.updateTaskCompletionStatus(task, isChecked);
+
+                // Update the strikethrough flag based on the new completion status
+                if (isChecked) {
+                    viewHolder.textViewTaskTitle.setPaintFlags(viewHolder.textViewTaskTitle.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                } else {
+                    viewHolder.textViewTaskTitle.setPaintFlags(viewHolder.textViewTaskTitle.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+                }
+            }
+        });
+
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull TaskViewHolder holder, int position) {
-        Task task = taskList.get(position);
+        Task task = getItem(position);
         holder.textViewTaskTitle.setText(task.getTaskTitle());
         holder.checkBox.setChecked(task.isCompleted());
-        holder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> taskViewModel.updateTaskCompletionStatus(task, isChecked));
 
+        //Initial UI loading
         if (task.isCompleted()) {
             // If completed, apply the strikethrough to the text
             holder.textViewTaskTitle.setPaintFlags(holder.textViewTaskTitle.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
@@ -71,7 +77,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
     }
 
     private void showPopupForTask(int position) {
-        Task task = taskList.get(position);
+        Task task = getItem(position);
         final BottomSheetDialog dialog = new BottomSheetDialog(context);
         View dialogView = LayoutInflater.from(context).inflate(R.layout.custom_task_dialog_layout, null);
         dialog.setContentView(dialogView);
@@ -105,8 +111,20 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
         dialog.show();
     }
 
-    @Override
-    public int getItemCount() {
-        return taskList.size();
+    static class TaskDiffCallback extends DiffUtil.ItemCallback<Task> {
+
+        @Override
+        public boolean areItemsTheSame(Task oldItem, Task newItem) {
+            // Check if the IDs are the same
+            return oldItem.getTaskid() == newItem.getTaskid();
+        }
+
+        @Override
+        public boolean areContentsTheSame(Task oldItem, Task newItem) {
+            // Check if all the fields are the same
+            return oldItem.isCompleted() == newItem.isCompleted() &&
+                    oldItem.getTaskTitle().equals(newItem.getTaskTitle()) &&
+                    oldItem.getTaskDescription().equals(newItem.getTaskDescription());
+        }
     }
 }
