@@ -26,7 +26,6 @@ import com.example.collegescheduler.db.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class toDoListFragment extends Fragment {
@@ -45,7 +44,7 @@ public class toDoListFragment extends Fragment {
 
         taskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
 
-        taskAdapter = new TaskAdapter(new ArrayList<>(), getContext(), taskViewModel); // Pass an empty list initially
+        taskAdapter = new TaskAdapter(getContext(), taskViewModel); // Pass an empty list initially
         recyclerView.setAdapter(taskAdapter);
 
         LiveData<List<Task>> tasksLiveData = taskViewModel.getAllTasks();
@@ -53,7 +52,21 @@ public class toDoListFragment extends Fragment {
         tasksLiveData.observe(getViewLifecycleOwner(), new Observer<List<Task>>() {
             @Override
             public void onChanged(List<Task> taskList) {
-                taskAdapter.setTaskList(taskList);
+                taskList.sort((task1, task2) -> {
+                    boolean isTask1Completed = task1.isCompleted();
+                    boolean isTask2Completed = task2.isCompleted();
+
+                    if (isTask1Completed && isTask2Completed) {
+                        return Integer.compare(task1.getTaskid(), task2.getTaskid());
+                    } else if (isTask1Completed) {
+                        return 1;
+                    } else if (isTask2Completed) {
+                        return -1;
+                    } else {
+                        return Integer.compare(task1.getTaskid(), task2.getTaskid());
+                    }
+                });
+                taskAdapter.submitList(taskList);
             }
         });
 
