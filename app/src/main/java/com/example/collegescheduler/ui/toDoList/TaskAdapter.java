@@ -98,6 +98,7 @@ public class TaskAdapter extends ListAdapter<Task, TaskViewHolder> {
             task.setTaskTitle(newTitle);
             task.setTaskDescription(newDescription);
             taskViewModel.updateTask(task);
+            notifyItemChanged(position);
 
             dialog.dismiss();
         });
