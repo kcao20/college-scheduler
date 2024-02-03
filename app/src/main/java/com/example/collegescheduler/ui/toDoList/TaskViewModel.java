@@ -45,4 +45,3 @@ public class TaskViewModel extends AndroidViewModel {
     }
 
 }
-
