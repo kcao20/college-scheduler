@@ -5,12 +5,16 @@ import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.collegescheduler.db.Task;
 import com.example.collegescheduler.R;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
@@ -50,7 +54,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
         return viewHolder;
     }
 
-
     @Override
     public void onBindViewHolder(@NonNull TaskViewHolder holder, int position) {
         Task task = taskList.get(position);
@@ -69,55 +72,37 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
 
     private void showPopupForTask(int position) {
         Task task = taskList.get(position);
-        View customView = LayoutInflater.from(context).inflate(R.layout.custom_task_dialog_layout, null);
+        final BottomSheetDialog dialog = new BottomSheetDialog(context);
+        View dialogView = LayoutInflater.from(context).inflate(R.layout.custom_task_dialog_layout, null);
+        dialog.setContentView(dialogView);
 
-        TextView title = customView.findViewById(R.id.titleTextView);
-        TextView description = customView.findViewById(R.id.descriptionTextView);
+        EditText title = dialogView.findViewById(R.id.titleTextView);
+        EditText description = dialogView.findViewById(R.id.descriptionTextView);
         title.setText(task.getTaskTitle());
         description.setText(task.getTaskDescription());
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.CustomAlertDialogStyle);
-        builder.setView(customView);
-        builder.setPositiveButton("Edit", (dialog, which) -> showEditDialog(task));
-        builder.setNegativeButton("Delete", (dialog, which) -> taskViewModel.deleteTask(task));
-        builder.show();
-    }
+        Button buttonEdit = dialogView.findViewById(R.id.buttonEdit);
+        Button buttonDelete = dialogView.findViewById(R.id.buttonDelete);
 
-    private void showEditDialog(Task task) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Edit Task");
-
-        // Create a layout for the dialog
-        LinearLayout layout = new LinearLayout(context);
-        layout.setOrientation(LinearLayout.VERTICAL);
-
-        // Set up the input fields
-        final EditText inputTitle = new EditText(context);
-        inputTitle.setHint("Task Title");
-        inputTitle.setText(task.getTaskTitle());
-        layout.addView(inputTitle);
-
-        final EditText inputDescription = new EditText(context);
-        inputDescription.setHint("Task Description");
-        inputDescription.setText(task.getTaskDescription());
-        layout.addView(inputDescription);
-
-        builder.setView(layout);
-
-        builder.setPositiveButton("Save", (dialog, which) -> {
-            // Handle the edited input when the user clicks "Save"
-            String newTitle = inputTitle.getText().toString();
-            String newDescription = inputDescription.getText().toString();
+        buttonEdit.setOnClickListener(v -> {
+            String newTitle = title.getText().toString();
+            String newDescription = description.getText().toString();
 
             // Update the task or perform other actions
             task.setTaskTitle(newTitle);
             task.setTaskDescription(newDescription);
             taskViewModel.updateTask(task);
+
+            dialog.dismiss();
         });
 
-        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+        buttonDelete.setOnClickListener(v -> {
+            taskViewModel.deleteTask(task);
+            dialog.dismiss();
+        });
 
-        builder.show();
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        dialog.show();
     }
 
     @Override

@@ -3,28 +3,27 @@ package com.example.collegescheduler.ui.toDoList;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.collegescheduler.R;
 import com.example.collegescheduler.databinding.FragmentToDoListBinding;
 import com.example.collegescheduler.db.Task;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -58,61 +57,58 @@ public class toDoListFragment extends Fragment {
             }
         });
 
-
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Create a new AlertDialog.Builder instance each time on click
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setTitle("Create New Task");
+                final BottomSheetDialog dialog = new BottomSheetDialog(getContext());
+                View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_new_task, null);
+                dialog.setContentView(dialogView);
 
-                // Set up the layout for the dialog
-                LinearLayout layout = new LinearLayout(getContext());
-                layout.setOrientation(LinearLayout.VERTICAL);
+                final EditText titleEditText = dialogView.findViewById(R.id.editTextTask);
+                final EditText descriptionEditText = dialogView.findViewById(R.id.editTextDescription);
 
-                // Set up the first input field
-                final EditText inputField1 = new EditText(getContext());
-                inputField1.setHint("Task Title");
-                layout.addView(inputField1);
+                Button buttonCancel = dialogView.findViewById(R.id.buttonCancel);
+                Button buttonCreate = dialogView.findViewById(R.id.buttonCreate);
 
-                // Set up the second input field
-                final EditText inputField2 = new EditText(getContext());
-                inputField2.setHint("Task Description");
-                layout.addView(inputField2);
-
-                // Set up the buttons
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                buttonCreate.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // Handle the input when the user clicks "OK"
-                        String title = inputField1.getText().toString().trim();
-                        String description = inputField2.getText().toString().trim();
+                    public void onClick(View v) {
+                        String title = titleEditText.getText().toString().trim();
+                        String description = descriptionEditText.getText().toString().trim();
                         if (!title.isEmpty()) {
                             Task task = new Task(title, description);
                             taskViewModel.createTask(task);
+                            dialog.dismiss();
                         } else {
-                            // Show a message to the user that input is required for the title
                             Toast.makeText(getContext(), "Title is required", Toast.LENGTH_SHORT).show();
                         }
-
                     }
                 });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+                buttonCancel.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onClick(View v) {
                         dialog.dismiss();
                     }
                 });
 
-                builder.setView(layout); // Set the custom layout for the AlertDialog
-                builder.show();
+                // Show the keyboard when the dialog is shown
+                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                    @Override
+                    public void onShow(DialogInterface dialogInterface) {
+                        InputMethodManager inputMethodManager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+                        titleEditText.requestFocus();
+                    }
+                });
+
+                // Set dialog behavior to adjust its size when the keyboard is shown
+                dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+                dialog.show();
             }
         });
-
         return view;
     }
-
-
 
     @Override
     public void onDestroyView() {
