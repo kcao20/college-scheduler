@@ -10,7 +10,7 @@
         android:layout_height="60dp"
         android:gravity="center"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@android:color/white"
+        android:textColor="?attr/colorOnPrimary"
         tools:ignore="MissingConstraints" />
 
 

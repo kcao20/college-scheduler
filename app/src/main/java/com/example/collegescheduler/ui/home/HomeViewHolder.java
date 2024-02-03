@@ -32,4 +32,5 @@ class HomeViewHolder extends RecyclerView.ViewHolder {
     public void bind(String text) {
         courseItemView.setText(text);
     }
+
 }
