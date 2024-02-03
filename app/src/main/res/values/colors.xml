@@ -10,4 +10,36 @@
     <color name="grey">#808080</color>
     <color name="lavender">#E6E6FA</color>
     <color name="buttonLabel">#FFFFFF</color>
+
+    <color name="rosé_pine_base">#191724</color>
+    <color name="rosé_pine_surface">#1f1d2e</color>
+    <color name="rosé_pine_overlay">#26233a</color>
+    <color name="rosé_pine_muted">#6e6a86</color>
+    <color name="rosé_pine_subtle">#908caa</color>
+    <color name="rosé_pine_text">#e0def4</color>
+    <color name="rosé_pine_love">#eb6f92</color>
+    <color name="rosé_pine_gold">#f6c177</color>
+    <color name="rosé_pine_rose">#ebbcba</color>
+    <color name="rosé_pine_pine">#31748f</color>
+    <color name="rosé_pine_foam">#9ccfd8</color>
+    <color name="rosé_pine_iris">#c4a7e7</color>
+    <color name="rosé_pine_highlight_low">#21202e</color>
+    <color name="rosé_pine_highlight_med">#403d52</color>
+    <color name="rosé_pine_highlight_high">#524f67</color>
+
+    <color name="rosé_pine_dawn_base">#faf4ed</color>
+    <color name="rosé_pine_dawn_surface">#fffaf3</color>
+    <color name="rosé_pine_dawn_overlay">#f2e9e1</color>
+    <color name="rosé_pine_dawn_muted">#9893a5</color>
+    <color name="rosé_pine_dawn_subtle">#797593</color>
+    <color name="rosé_pine_dawn_text">#575279</color>
+    <color name="rosé_pine_dawn_love">#b4637a</color>
+    <color name="rosé_pine_dawn_gold">#ea9d34</color>
+    <color name="rosé_pine_dawn_rose">#d7827e</color>
+    <color name="rosé_pine_dawn_pine">#286983</color>
+    <color name="rosé_pine_dawn_foam">#56949f</color>
+    <color name="rosé_pine_dawn_iris">#907aa9</color>
+    <color name="rosé_pine_dawn_highlight_low">#f4ede8</color>
+    <color name="rosé_pine_dawn_highlight_med">#dfdad9</color>
+    <color name="rosé_pine_dawn_highlight_high">#cecacd</color>
 </resources>
