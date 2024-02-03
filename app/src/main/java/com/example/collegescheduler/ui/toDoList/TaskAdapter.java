@@ -9,14 +9,14 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.collegescheduler.db.Task;
-import com.example.collegescheduler.R;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.collegescheduler.R;
+import com.example.collegescheduler.db.Task;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 public class TaskAdapter extends ListAdapter<Task, TaskViewHolder> {
     private final TaskViewModel taskViewModel;
@@ -98,6 +98,7 @@ public class TaskAdapter extends ListAdapter<Task, TaskViewHolder> {
             task.setTaskTitle(newTitle);
             task.setTaskDescription(newDescription);
             taskViewModel.updateTask(task);
+            notifyItemChanged(position);
 
             dialog.dismiss();
         });
