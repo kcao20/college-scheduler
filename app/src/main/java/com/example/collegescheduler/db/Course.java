@@ -10,19 +10,19 @@ import androidx.room.PrimaryKey;
 public class Course {
     @PrimaryKey(autoGenerate = false)
     @NonNull
-    public String cid;
+    private String cid;
 
     @ColumnInfo(name = "course_title")
-    public String courseTitle;
+    private String courseTitle;
 
     @ColumnInfo(name = "course_description")
-    public String courseDescription;
+    private String courseDescription;
 
     @ColumnInfo(name = "course_time")
-    public String courseTime;
+    private String courseTime;
 
     @ColumnInfo(name = "instructor")
-    public String instructor;
+    private String instructor;
 
     @Ignore
     public Course() {
@@ -36,6 +36,10 @@ public class Course {
     public Course(@NonNull String cid, String courseTitle) {
         this.cid = cid;
         this.courseTitle = courseTitle;
+    }
+
+    public Course(Course course) {
+        this(course.cid, course.courseTitle);
     }
 
     public String getCid() {

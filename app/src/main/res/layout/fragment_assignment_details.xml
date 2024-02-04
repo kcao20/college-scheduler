@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/back_to_assignment_list"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/assignment_course_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="216dp"
+        android:layout_marginEnd="32dp"
+        android:ems="10"
+        android:inputType="date"
+        android:paddingTop="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/assignment_course"
+        app:layout_constraintBottom_toTopOf="@id/back_to_assignment_list"
+        app:layout_constraintTop_toBottomOf="@+id/assignment_duedate_input" />
+
+    <EditText
+        android:id="@+id/assignment_duedate_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:ems="10"
+        android:inputType="time"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/assignment_due_date"
+        app:layout_constraintBottom_toTopOf="@id/assignment_course_input"
+        app:layout_constraintTop_toBottomOf="@+id/assignment_title_input" />
+
+    <TextView
+        android:id="@+id/assignment_due_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:text="Due Date:"
+        app:layout_constraintEnd_toStartOf="@+id/assignment_duedate_input"
+        app:layout_constraintBottom_toTopOf="@id/assignment_course"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/assignment_title" />
+
+    <TextView
+        android:id="@+id/assignment_course"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="144dp"
+        android:text="Course:"
+        app:layout_constraintEnd_toStartOf="@+id/assignment_course_input"
+        app:layout_constraintBottom_toTopOf="@id/back_to_assignment_list"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/assignment_due_date" />
+
+
+    <EditText
+        android:id="@+id/assignment_title_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/assignment_title"
+        tools:layout_editor_absoluteY="122dp" />
+
+    <TextView
+        android:id="@+id/assignment_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Title"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="188dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

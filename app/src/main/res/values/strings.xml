@@ -10,4 +10,7 @@
     <string name="menu_home">Home</string>
     <string name="menu_calendar">Calendar</string>
     <string name="menu_slideshow">Slideshow</string>
+    <string name="assignment_title">Assignments and Exam</string>
+    <string name="assignment_date">Assignments and Exam</string>
+    <string name="assignment_course">Assignments and Exam</string>
 </resources>
