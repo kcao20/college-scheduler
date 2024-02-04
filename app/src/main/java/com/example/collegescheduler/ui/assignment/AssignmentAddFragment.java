@@ -6,27 +6,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ScrollView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.collegescheduler.R;
 import com.example.collegescheduler.databinding.FragmentHomeBinding;
+import com.example.collegescheduler.db.Assignment;
 import com.example.collegescheduler.db.Course;
-import com.example.collegescheduler.ui.home.HomeFragment;
-import com.example.collegescheduler.ui.home.HomeViewModel;
-import com.google.android.material.textfield.TextInputEditText;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 
 public class AssignmentAddFragment extends Fragment {
 

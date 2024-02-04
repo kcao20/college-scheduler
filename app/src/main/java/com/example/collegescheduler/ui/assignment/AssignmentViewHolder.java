@@ -7,8 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.collegescheduler.R;
-
-import org.w3c.dom.Text;
+import com.example.collegescheduler.db.Assignment;
 
 public class AssignmentViewHolder extends RecyclerView.ViewHolder {
     private TextView assignmentTitleTextView;

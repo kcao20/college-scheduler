@@ -1,10 +1,8 @@
-package com.example.collegescheduler.ui.assignment;
+package com.example.collegescheduler.db;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-
-import com.example.collegescheduler.db.Course;
 
 import java.time.LocalDateTime;
 
@@ -17,6 +15,7 @@ public class Assignment {
     private String title;
 
     @ColumnInfo(name = "due_date")
+
     private String date;
 
     @ColumnInfo(name = "course")

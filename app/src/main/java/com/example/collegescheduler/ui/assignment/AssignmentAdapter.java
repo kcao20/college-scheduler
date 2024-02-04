@@ -1,7 +1,6 @@
 package com.example.collegescheduler.ui.assignment;
 
 import android.content.Context;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.collegescheduler.R;
+import com.example.collegescheduler.db.Assignment;
 import com.example.collegescheduler.db.Course;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 

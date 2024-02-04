@@ -8,11 +8,7 @@
     <string name="action_settings">Settings</string>
 
     <string name="menu_home">Home</string>
-    <string name="menu_calendar">Calendar</string>
-    <string name="menu_slideshow">Slideshow</string>
-    <string name="assignment_title">Assignments and Exam</string>
-    <string name="assignment_date">Assignments and Exam</string>
-    <string name="assignment_course">Assignments and Exam</string>
+    <string name="menu_calendar">Calendar</string>D
     <string name="menu_exam">Exams</string>
     <string name="menu_toDoList">To-Do-List</string>
     <string name="to_Do_List">To-Do-List</string>
@@ -21,4 +17,8 @@
     <string name="hint_word">Word…</string>
     <string name="button_save">Save</string>
     <string name="empty_not_saved">Word not saved because it is empty.</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="assignment_title">Assignments and Exam</string>
+    <string name="assignment_date">Assignments and Exam</string>
+    <string name="assignment_course">Assignments and Exam</string>
 </resources>

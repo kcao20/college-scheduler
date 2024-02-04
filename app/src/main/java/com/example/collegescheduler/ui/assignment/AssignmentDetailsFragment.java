@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,7 +14,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.example.collegescheduler.R;
 import com.example.collegescheduler.databinding.FragmentHomeBinding;
-import com.example.collegescheduler.db.Course;
+import com.example.collegescheduler.db.Assignment;
 
 public class AssignmentDetailsFragment extends Fragment {
 
