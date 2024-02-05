@@ -10,7 +10,6 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import com.example.collegescheduler.R;
 import com.example.collegescheduler.databinding.FragmentHomeBinding;
@@ -48,23 +47,7 @@ public class AssignmentEditFragment extends Fragment {
             }
         });
 
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                moveAssignmentListPage();
-            }
-        });
-
-
         return root;
-    }
-
-    private void moveAssignmentListPage() {
-        AssignmentList assignmentList = new AssignmentList();
-
-        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-
-        fragmentManager.beginTransaction().replace(R.id.assignment_list_scrollview, assignmentList).commit();
     }
 
     private void editDateAssignment() {
@@ -79,7 +62,7 @@ public class AssignmentEditFragment extends Fragment {
         if (!courseName.isEmpty()) {
             Course course = new Course();
             course.setCourseTitle(courseEditText.getText().toString());
-            AssignmentAdapter.editCourse(aid, course);
+            AssignmentAdapter.editCourse(aid, course.getCid());
         }
     }
 
@@ -93,7 +76,7 @@ public class AssignmentEditFragment extends Fragment {
     private void editStatusAssignment() {
         String status = statusEditText.getText().toString();
         if (!status.isEmpty()) {
-            AssignmentAdapter.editStatus(aid, status);
+            AssignmentAdapter.editStatus(aid, Boolean.getBoolean(status));
         }
     }
 

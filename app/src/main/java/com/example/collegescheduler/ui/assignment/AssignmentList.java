@@ -14,11 +14,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.collegescheduler.R;
 import com.example.collegescheduler.ui.calendar.CalendarAdapter;
 import com.example.collegescheduler.ui.home.HomeFragment;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,30 +37,16 @@ public class AssignmentList extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_assignment, container, false);
 
-        ScrollView scrollView = root.findViewById(R.id.assignment_list_scrollview);
-        Button addButton = root.findViewById(R.id.assignment_add);
-        Button backButton = root.findViewById(R.id.assignment_edit_back);
-        TextView titleTextView = root.findViewById(R.id.assignment_title);
+        FloatingActionButton addButton = root.findViewById(R.id.assignment_add);
         RecyclerView assignmentList = root.findViewById(R.id.assignment_list_recyclerview);
-
-
-        //ArrayList<Assignment> mainAssignmentList = new ArrayList<>();
 
         // Set click listeners for navigation buttons
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goToAdd();
+                Navigation.findNavController(v).navigate(R.id.nav_assignment_to_modifyAssignment);
             }
         });
-
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                moveToMainPage();
-            }
-        });
-
 
         return root;
     }
@@ -71,11 +59,4 @@ public class AssignmentList extends Fragment {
         fragmentManager.beginTransaction().replace(R.id.drawer_layout, homeFragment).commit();
     }
 
-    private void goToAdd() {
-        AssignmentAddFragment assignmentAddFragment = new AssignmentAddFragment();
-
-        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-
-        fragmentManager.beginTransaction().replace(R.id.drawer_layout, assignmentAddFragment).commit();
-    }
 }

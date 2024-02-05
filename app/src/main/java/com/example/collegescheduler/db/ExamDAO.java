@@ -25,4 +25,5 @@ public interface ExamDAO {
 
     @Delete
     void deleteExam(Exam exam);
+
 }

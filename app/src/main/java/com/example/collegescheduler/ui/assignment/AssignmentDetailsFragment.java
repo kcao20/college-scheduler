@@ -37,7 +37,7 @@ public class AssignmentDetailsFragment extends Fragment {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AssignmentAdapter.deleteData(assignment.getAid());
+                AssignmentAdapter.deleteData(assignment.getId());
             }
         });
 

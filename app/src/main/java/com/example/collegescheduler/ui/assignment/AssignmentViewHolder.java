@@ -22,8 +22,9 @@ public class AssignmentViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(Assignment assignment) {
-        assignmentTitleTextView.setText( assignment.getAssignmentTitle());
-        assignmentCourseTextView.setText(assignment.getCourse());
+        assignmentTitleTextView.setText(assignment.getTitle());
+        assignmentCourseTextView.setText(assignment.getCourseId());
         assignmentDateTextView.setText(assignment.getDate());
     }
+
 }

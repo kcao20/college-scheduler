@@ -3,12 +3,12 @@ package com.example.collegescheduler.ui.exam;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.CheckBox;
-import com.example.collegescheduler.R;
-import com.example.collegescheduler.db.Exam;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.collegescheduler.R;
+import com.example.collegescheduler.db.Exam;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -17,11 +17,9 @@ public class ExamViewHolder extends RecyclerView.ViewHolder {
 
     public TextView textViewExamLocation;
     public TextView textViewExamDateTime;
-
     public TextView textViewExamCourseId;
-
-    private ImageButton imageButtonDelete;
-    private ImageButton imageButtonEdit;
+    private final ImageButton imageButtonDelete;
+    private final ImageButton imageButtonEdit;
     private View.OnClickListener deleteButtonClickListener;
     private View.OnClickListener editButtonClickListener;
 
@@ -32,7 +30,6 @@ public class ExamViewHolder extends RecyclerView.ViewHolder {
         textViewExamCourseId = itemView.findViewById(R.id.textViewExamCourseId);
         imageButtonDelete = itemView.findViewById(R.id.imageButtonDelete);
         imageButtonEdit = itemView.findViewById(R.id.imageButtonEdit);
-
 
         imageButtonDelete.setOnClickListener(new View.OnClickListener() {
             @Override

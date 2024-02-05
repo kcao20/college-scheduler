@@ -4,49 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:isScrollContainer="true">
 
-    <ScrollView
-        android:id="@+id/assignment_list_scrollview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="44dp">
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/assignment_list_recyclerview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/fragment_assignment_title"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:text="My Assignment List"
-                android:textAlignment="center"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/assignment_list_recyclerview"
-                android:layout_width="match_parent"
-                android:layout_height="256dp" />
-
-            <Button
-                android:id="@+id/assignment_add"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Add" />
-
-            <Button
-                android:id="@+id/assignment_edit_back"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Back" />
-
-        </LinearLayout>
-    </ScrollView>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/assignment_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:contentDescription="Add"
+        android:src="@drawable/baseline_add_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

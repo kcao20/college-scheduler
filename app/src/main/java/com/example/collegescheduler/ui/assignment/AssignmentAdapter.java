@@ -28,7 +28,7 @@ public class AssignmentAdapter extends RecyclerView.Adapter<AssignmentViewHolder
 
     public static void deleteData(int aid) {
         for (int i = 0; i < assignmentList.size(); i++) {
-            if (assignmentList.get(i).getAid() == aid) {
+            if (assignmentList.get(i).getId() == aid) {
                 assignmentList.remove(i);
                 break;
             }
@@ -37,17 +37,17 @@ public class AssignmentAdapter extends RecyclerView.Adapter<AssignmentViewHolder
 
     public static void editDate(int aid, String date) {
         for (int i = 0; i < assignmentList.size(); i++) {
-            if (assignmentList.get(i).getAid() == aid) {
+            if (assignmentList.get(i).getId() == aid) {
                 assignmentList.get(i).setDate(date);
                 break;
             }
         }
     }
 
-    public static void editCourse(int aid, Course course) {
+    public static void editCourse(int aid, String courseId) {
         for (int i = 0; i < assignmentList.size(); i++) {
-            if (assignmentList.get(i).getAid() == aid) {
-                assignmentList.get(i).setCourse(course);
+            if (assignmentList.get(i).getId() == aid) {
+                assignmentList.get(i).setCourseId(courseId);
                 break;
             }
         }
@@ -55,16 +55,16 @@ public class AssignmentAdapter extends RecyclerView.Adapter<AssignmentViewHolder
 
     public static void editTitle(int aid, String title) {
         for (int i = 0; i < assignmentList.size(); i++) {
-            if (assignmentList.get(i).getAid() == aid) {
+            if (assignmentList.get(i).getId() == aid) {
                 assignmentList.get(i).setTitle(title);
                 break;
             }
         }
     }
 
-    public static void editStatus(int aid, String status) {
+    public static void editStatus(int aid, boolean status) {
         for (int i = 0; i < assignmentList.size(); i++) {
-            if (assignmentList.get(i).getAid() == aid) {
+            if (assignmentList.get(i).getId() == aid) {
                 assignmentList.get(i).setStatus(status);
                 break;
             }

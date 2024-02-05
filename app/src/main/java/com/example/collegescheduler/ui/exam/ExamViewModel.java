@@ -6,18 +6,17 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.example.collegescheduler.db.Course;
+import com.example.collegescheduler.db.CourseRepository;
 import com.example.collegescheduler.db.Exam;
 import com.example.collegescheduler.db.ExamRepository;
-import com.example.collegescheduler.db.CourseRepository;
 
 import java.util.List;
 
 public class ExamViewModel extends AndroidViewModel {
 
-    private ExamRepository examRepository;
-    private CourseRepository courseRepository;
-    private LiveData<List<Exam>> allExams;
+    private final ExamRepository examRepository;
+    private final CourseRepository courseRepository;
+    private final LiveData<List<Exam>> allExams;
 
     public ExamViewModel(@NonNull Application application) {
         super(application);

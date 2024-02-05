@@ -140,6 +140,21 @@
         android:name="com.example.collegescheduler.ui.assignment.AssignmentList"
         android:label="Assignment View"
         tools:layout="@layout/fragment_assignment">
+
+        <action
+            android:id="@+id/nav_assignment_to_modifyAssignment"
+            app:destination="@id/modifyAssignment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/modifyAssignment"
+        android:name="com.example.collegescheduler.ui.assignment.AssignmentAddFragment"
+        android:label="Add Assignment"
+        tools:layout="@layout/fragment_assignment_add">
+
+        <action
+            android:id="@+id/nav_modifyAssignment_to_nav_assignment"
+            app:destination="@+id/nav_assignment" />
     </fragment>
 
 </navigation>

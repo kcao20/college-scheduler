@@ -6,14 +6,12 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class CourseRepository {
 
-    private CourseDAO courseDao;
-    private LiveData<List<Course>> allCourses;
-
-    private LiveData<List<String>> allCourseIds;
+    private final CourseDAO courseDao;
+    private final LiveData<List<Course>> allCourses;
+    private final LiveData<List<String>> allCourseIds;
 
     public CourseRepository(Application application) {
         CourseDatabase db = CourseDatabase.getInstance(application);

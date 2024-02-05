@@ -59,7 +59,6 @@ public class ExamListFragment extends Fragment {
 
         });
 
-
         return view;
     }
 
