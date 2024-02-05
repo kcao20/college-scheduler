@@ -57,12 +57,12 @@
         android:id="@+id/nav_toDoList"
         android:name="com.example.collegescheduler.ui.toDoList.toDoListFragment"
         android:label="@string/menu_toDoList"
-        tools:layout="@layout/fragment_to_do_list" >
+        tools:layout="@layout/fragment_to_do_list">
         <action
             android:id="@+id/action_nav_toDoList_to_nav_home"
             app:destination="@id/nav_home" />
     </fragment>
-    
+
     <fragment
         android:id="@+id/add_course"
         android:name="com.example.collegescheduler.ui.course.NewCourseFragment"
@@ -71,9 +71,9 @@
 
         <argument
             android:name="courseId"
+            android:defaultValue=""
             app:argType="string"
-            app:nullable="true"
-            android:defaultValue=""/>
+            app:nullable="true" />
         <action
             android:id="@+id/action_add_course_to_nav_home"
             app:destination="@id/nav_home" />
@@ -88,12 +88,12 @@
         <argument
             android:name="courseId"
             app:argType="string"
-            app:nullable="false"/>
+            app:nullable="false" />
         <action
             android:id="@+id/action_edit_course_to_course"
             app:destination="@id/course"
             app:popUpTo="@id/course"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -138,12 +138,15 @@
     <fragment
         android:id="@+id/nav_assignment"
         android:name="com.example.collegescheduler.ui.assignment.AssignmentList"
-        android:label="Assignment View"
+        android:label="Assignments"
         tools:layout="@layout/fragment_assignment">
 
         <action
             android:id="@+id/nav_assignment_to_modifyAssignment"
             app:destination="@id/modifyAssignment" />
+        <action
+            android:id="@+id/nav_assignment_to_assignmentDetails"
+            app:destination="@id/assignmentDetails" />
     </fragment>
 
     <fragment
@@ -156,5 +159,11 @@
             android:id="@+id/nav_modifyAssignment_to_nav_assignment"
             app:destination="@+id/nav_assignment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/assignmentDetails"
+        android:name="com.example.collegescheduler.ui.assignment.AssignmentDetailsFragment"
+        android:label="Assignment Details"
+        tools:layout="@layout/fragment_assignment_details"></fragment>
 
 </navigation>

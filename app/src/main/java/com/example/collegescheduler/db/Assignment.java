@@ -4,6 +4,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.Objects;
+
 @Entity(tableName = "Assignment")
 public class Assignment {
     @PrimaryKey(autoGenerate = true)
@@ -66,6 +68,19 @@ public class Assignment {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Assignment that = (Assignment) obj;
+        return id == that.id && status == that.status && Objects.equals(title, that.title) && Objects.equals(date, that.date) && Objects.equals(courseId, that.courseId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, date, courseId, status);
     }
 
 }

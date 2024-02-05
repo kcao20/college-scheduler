@@ -40,10 +40,10 @@ public class AssignmentEditFragment extends Fragment {
         addCourseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editTitleAssignment();
-                editDateAssignment();
-                editCourseAssignment();
-                editStatusAssignment();
+//                editTitleAssignment();
+//                editDateAssignment();
+//                editCourseAssignment();
+//                editStatusAssignment();
             }
         });
 
@@ -51,33 +51,33 @@ public class AssignmentEditFragment extends Fragment {
     }
 
     private void editDateAssignment() {
-        String date = dateEditText.getText().toString();
-        if (!date.isEmpty()) {
-            AssignmentAdapter.editDate(aid, date);
-        }
+//        String date = dateEditText.getText().toString();
+//        if (!date.isEmpty()) {
+//            AssignmentAdapter.editDate(aid, date);
+//        }
     }
 
     private void editCourseAssignment() {
         String courseName = courseEditText.getText().toString();
-        if (!courseName.isEmpty()) {
-            Course course = new Course();
-            course.setCourseTitle(courseEditText.getText().toString());
-            AssignmentAdapter.editCourse(aid, course.getCid());
-        }
+//        if (!courseName.isEmpty()) {
+//            Course course = new Course();
+//            course.setCourseTitle(courseEditText.getText().toString());
+//            AssignmentAdapter.editCourse(aid, course.getCid());
+//        }
     }
 
     private void editTitleAssignment() {
         String title = titleEditText.getText().toString();
-        if (!title.isEmpty()) {
-            AssignmentAdapter.editTitle(aid, title);
-        }
+//        if (!title.isEmpty()) {
+//            AssignmentAdapter.editTitle(aid, title);
+//        }
     }
 
     private void editStatusAssignment() {
         String status = statusEditText.getText().toString();
-        if (!status.isEmpty()) {
-            AssignmentAdapter.editStatus(aid, Boolean.getBoolean(status));
-        }
+//        if (!status.isEmpty()) {
+//            AssignmentAdapter.editStatus(aid, Boolean.getBoolean(status));
+//        }
     }
 
     @Override

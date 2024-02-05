@@ -34,12 +34,12 @@ public class AssignmentDetailsFragment extends Fragment {
         TextView statusEditText = root.findViewById(R.id.assignment_status);
 
         // Set click listeners for navigation buttons
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AssignmentAdapter.deleteData(assignment.getId());
-            }
-        });
+//        deleteButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                AssignmentAdapter.deleteData(assignment.getId());
+//            }
+//        });
 
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override

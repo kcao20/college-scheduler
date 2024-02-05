@@ -1,105 +1,43 @@
 package com.example.collegescheduler.ui.assignment;
 
-import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 
-import com.example.collegescheduler.R;
 import com.example.collegescheduler.db.Assignment;
-import com.example.collegescheduler.db.Course;
+import com.example.collegescheduler.ui.home.HomeFragmentDirections;
 
-import java.util.ArrayList;
+public class AssignmentAdapter extends ListAdapter<Assignment, AssignmentViewHolder> {
 
-public class AssignmentAdapter extends RecyclerView.Adapter<AssignmentViewHolder> {
-
-    public static ArrayList<Assignment> assignmentList;
-
-    public AssignmentAdapter(ArrayList<Assignment> assignmentList) {
-        AssignmentAdapter.assignmentList = assignmentList;
+    protected AssignmentAdapter(@NonNull DiffUtil.ItemCallback<Assignment> diffCallback) {
+        super(diffCallback);
     }
 
-    public static void addData(Assignment newAssignment) {
-        assignmentList.add(newAssignment);
-    }
-
-    public static void deleteData(int aid) {
-        for (int i = 0; i < assignmentList.size(); i++) {
-            if (assignmentList.get(i).getId() == aid) {
-                assignmentList.remove(i);
-                break;
-            }
-        }
-    }
-
-    public static void editDate(int aid, String date) {
-        for (int i = 0; i < assignmentList.size(); i++) {
-            if (assignmentList.get(i).getId() == aid) {
-                assignmentList.get(i).setDate(date);
-                break;
-            }
-        }
-    }
-
-    public static void editCourse(int aid, String courseId) {
-        for (int i = 0; i < assignmentList.size(); i++) {
-            if (assignmentList.get(i).getId() == aid) {
-                assignmentList.get(i).setCourseId(courseId);
-                break;
-            }
-        }
-    }
-
-    public static void editTitle(int aid, String title) {
-        for (int i = 0; i < assignmentList.size(); i++) {
-            if (assignmentList.get(i).getId() == aid) {
-                assignmentList.get(i).setTitle(title);
-                break;
-            }
-        }
-    }
-
-    public static void editStatus(int aid, boolean status) {
-        for (int i = 0; i < assignmentList.size(); i++) {
-            if (assignmentList.get(i).getId() == aid) {
-                assignmentList.get(i).setStatus(status);
-                break;
-            }
-        }
-    }
-
-    public Object getItem(int position) {
-        return assignmentList.get(position);
-    }
-
-    @NonNull
     @Override
-    public AssignmentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
-        LayoutInflater inflater = LayoutInflater.from(context);
-
-        // Inflate the item layout
-        View assignmentView = inflater.inflate(R.layout.fragment_assignment_details, parent, false);
-
-        return new AssignmentViewHolder(assignmentView);
+    public AssignmentViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return AssignmentViewHolder.create(parent);
     }
 
     @Override
     public void onBindViewHolder(@NonNull AssignmentViewHolder holder, int position) {
-        Assignment assignment = assignmentList.get(position);
-        holder.bind(assignment);
+        Assignment current = getItem(position);
+        holder.bind(current);
     }
 
-    public long getItemId(int position) {
-        return position;
-    }
+    static class AssignmentDiff extends DiffUtil.ItemCallback<Assignment> {
 
-    @Override
-    public int getItemCount() {
-        return assignmentList.size();
+        @Override
+        public boolean areItemsTheSame(@NonNull Assignment oldItem, @NonNull Assignment newItem) {
+            return oldItem == newItem;
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull Assignment oldItem, @NonNull Assignment newItem) {
+            return oldItem.equals(newItem);
+        }
     }
 
 }
