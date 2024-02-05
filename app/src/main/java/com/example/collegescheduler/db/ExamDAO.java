@@ -17,6 +17,9 @@ public interface ExamDAO {
     @Query("SELECT * FROM exam WHERE examid IN (:examId)")
     Exam getExam(String examId);
 
+    @Query("SELECT * FROM exam where course in (:courseId)")
+    LiveData<List<Exam>> getExamsWithCourseId(String courseId);
+
     @Insert
     void addExam(Exam exam);
 

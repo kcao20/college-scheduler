@@ -48,4 +48,8 @@ public class ExamRepository {
             examDao.deleteExam(exam);
         });
     }
+
+    public LiveData<List<Exam>> getExamsWithCourseId(String courseId) {
+        return examDao.getExamsWithCourseId(courseId);
+    }
 }
