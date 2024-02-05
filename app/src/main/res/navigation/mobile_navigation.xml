@@ -17,11 +17,14 @@
             android:id="@+id/action_nav_home_to_nav_list"
             app:destination="@id/nav_toDoList" />
         <action
-            android:id="@+id/action_nav_home_to_nav_slideshow"
-            app:destination="@id/nav_slideshow" />
+            android:id="@+id/action_nav_home_to_nav_exam"
+            app:destination="@id/nav_exam" />
         <action
             android:id="@+id/action_nav_home_to_modify_course"
             app:destination="@id/add_course" />
+        <action
+            android:id="@+id/action_nav_exam_to_modify_exam"
+            app:destination="@id/modifyExam" />
         <action
             android:id="@+id/action_nav_home_to_course"
             app:destination="@id/course" />
@@ -38,13 +41,16 @@
     </fragment>
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.collegescheduler.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow">
+        android:id="@+id/nav_exam"
+        android:name="com.example.collegescheduler.ui.exam.ExamListFragment"
+        android:label="@string/menu_exam"
+        tools:layout="@layout/fragment_exam_list">
         <action
-            android:id="@+id/action_nav_slideshow_to_nav_home"
+            android:id="@+id/action_nav_exam_to_nav_home"
             app:destination="@id/nav_home" />
+        <action
+            android:id="@+id/action_nav_exam_to_modify_exam"
+            app:destination="@id/modifyExam" />
     </fragment>
 
     <fragment
@@ -107,4 +113,26 @@
             android:id="@+id/action_course_to_edit_course"
             app:destination="@id/edit_course" />
     </fragment>
+
+    <fragment
+        android:id="@+id/modifyExam"
+        android:name="com.example.collegescheduler.ui.exam.ModifyExamFragment"
+        android:label="Add Exam"
+        tools:layout="@layout/fragment_add_exam">
+
+        <argument
+            android:name="editMode"
+            app:argType="boolean" />
+
+        <argument
+            android:name="examId"
+            app:argType="string"
+            app:nullable="true" />
+
+        <action
+            android:id="@+id/action_add_exam_to_nav_exam"
+            app:destination="@id/nav_exam" />
+
+    </fragment>
+
 </navigation>
