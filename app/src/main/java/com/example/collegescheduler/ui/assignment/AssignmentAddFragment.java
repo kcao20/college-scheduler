@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -31,7 +32,7 @@ public class AssignmentAddFragment extends Fragment {
 
     private AssignmentViewModel viewModel;
     private FragmentAssignmentAddBinding binding;
-    private TextInputLayout titleEditText;
+    private EditText titleEditText;
     private Button dateSelector;
     private Spinner courseSpinner;
     private LocalDate selectedDate;
@@ -45,7 +46,7 @@ public class AssignmentAddFragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(AssignmentViewModel.class);
 
         Button addButton = root.findViewById(R.id.assignment_add_course);
-        titleEditText = root.findViewById(R.id.inputTitle);
+        titleEditText = binding.inputTitle.getEditText();
         dateSelector = root.findViewById(R.id.inputDate);
         courseSpinner = root.findViewById(R.id.inputCourse);
 
@@ -60,7 +61,7 @@ public class AssignmentAddFragment extends Fragment {
 
     private void add(View v) {
         String courseId = (courseSpinner.getSelectedItem().toString());
-        Assignment newAssignment = new Assignment(titleEditText.getEditText().toString(), dateSelector.getText().toString(), courseId);
+        Assignment newAssignment = new Assignment(titleEditText.getText().toString(), dateSelector.getText().toString(), courseId);
         viewModel.createAssignment(newAssignment);
         Toast.makeText(requireContext(), "Assignment saved successfully", Toast.LENGTH_SHORT).show();
         Navigation.findNavController(v).navigate(R.id.nav_modifyAssignment_to_nav_assignment);

@@ -164,6 +164,7 @@
         android:id="@+id/assignmentDetails"
         android:name="com.example.collegescheduler.ui.assignment.AssignmentDetailsFragment"
         android:label="Assignment Details"
-        tools:layout="@layout/fragment_assignment_details"></fragment>
+        tools:layout="@layout/fragment_assignment_details">
+    </fragment>
 
 </navigation>

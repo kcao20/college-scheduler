@@ -7,6 +7,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 
+import com.example.collegescheduler.R;
 import com.example.collegescheduler.db.Assignment;
 import com.example.collegescheduler.ui.home.HomeFragmentDirections;
 
@@ -25,6 +26,9 @@ public class AssignmentAdapter extends ListAdapter<Assignment, AssignmentViewHol
     public void onBindViewHolder(@NonNull AssignmentViewHolder holder, int position) {
         Assignment current = getItem(position);
         holder.bind(current);
+        holder.itemView.setOnClickListener(v -> {
+            Navigation.findNavController(v).navigate(R.id.nav_assignment_to_assignmentDetails);
+        });
     }
 
     static class AssignmentDiff extends DiffUtil.ItemCallback<Assignment> {

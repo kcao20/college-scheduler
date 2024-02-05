@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentManager;
 import com.example.collegescheduler.R;
 import com.example.collegescheduler.databinding.FragmentHomeBinding;
 import com.example.collegescheduler.db.Assignment;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class AssignmentDetailsFragment extends Fragment {
 
@@ -26,20 +27,19 @@ public class AssignmentDetailsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_assignment_details, container, false);
 
-        Button deleteButton = root.findViewById(R.id.delete_assignment_button);
-        Button editButton = root.findViewById(R.id.assignment_edit);
+        FloatingActionButton deleteButton = root.findViewById(R.id.deleteButton);
+        Button editButton = root.findViewById(R.id.editButton);
         TextView assignmentTitleTextView = root.findViewById(R.id.assignment_title);
         TextView courseTextView = root.findViewById(R.id.assignment_course_title);
         TextView dateTextView = root.findViewById(R.id.assignment_due_date_title);
         TextView statusEditText = root.findViewById(R.id.assignment_status);
 
-        // Set click listeners for navigation buttons
-//        deleteButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                AssignmentAdapter.deleteData(assignment.getId());
-//            }
-//        });
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ;
+            }
+        });
 
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
