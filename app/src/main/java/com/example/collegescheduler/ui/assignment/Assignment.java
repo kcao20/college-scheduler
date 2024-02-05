@@ -17,7 +17,7 @@ public class Assignment {
     private String title;
 
     @ColumnInfo(name = "due_date")
-    private LocalDateTime date;
+    private String date;
 
     @ColumnInfo(name = "course")
     private Course course;
@@ -25,32 +25,28 @@ public class Assignment {
     @ColumnInfo(name = "status")
     private String status;
 
-    public Assignment(String title, LocalDateTime date, Course course, String status) {
+    public Assignment(String title, String date, Course course, String status) {
         this.title = title;
         this.date = date;
         this.course = course;
         this.status = status;
     }
 
-        public Assignment(Assignment assignment) {
-            this(assignment.getAssignmentTitle(), assignment.getDate()
-                    , new Course(assignment.course), assignment.getStatus());
-        }
-
     public String getAssignmentTitle() {
         return title;
     }
-    public LocalDateTime getDate() {
-        return date;
+    public String getDate() {
+        return "Due Date: " + date;
     }
-    public Course getCourse() {
-        return course;
+    public String getCourse() {
+        return "Course: " + course.getCourseTitle();
     }
     public String getStatus(){return status;}
+    public int getAid() { return aid; }
     public void setCourse(Course course) {
         this.course = course;
     }
-    public void setDate(LocalDateTime date) {
+    public void setDate(String date) {
         this.date = date;
     }
     public void setTitle(String title) {

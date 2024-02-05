@@ -1,6 +1,7 @@
 package com.example.collegescheduler.ui.assignment;
 
 import android.content.Context;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,60 +14,92 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.collegescheduler.R;
+import com.example.collegescheduler.db.Course;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
-public class AssignmentAdapter extends BaseAdapter {
+public class AssignmentAdapter extends RecyclerView.Adapter<AssignmentViewHolder> {
 
-    private final List<Assignment> assignmentList;
-    private Assignment assignment;
-    private Context context;
-
-    public AssignmentAdapter(Context context, List<Assignment> assignmentList, Assignment assignment) {
-        this.context = context;
-        this.assignmentList = assignmentList;
-        this.assignment = assignment;
+    public static ArrayList<Assignment> assignmentList;
+    public AssignmentAdapter(ArrayList<Assignment> assignmentList) {
+        AssignmentAdapter.assignmentList = assignmentList;
     }
 
-    public int getCount() { return assignmentList.size(); }
-
     public Object getItem(int position) { return assignmentList.get(position); }
-
-    public long getItemId(int position) { return position; }
 
     @NonNull
     @Override
     public AssignmentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_assignment, parent, false);
+        Context context = parent.getContext();
+        LayoutInflater inflater = LayoutInflater.from(context);
 
-        GridView gridView = view.findViewById(R.id.assignment_display);
-        Button addButton = view.findViewById(R.id.add_button);
-        Button editButton = view.findViewById(R.id.edit_button);
-        Button deleteButton = view.findViewById(R.id.delete_button);
-        TextView titleTextView = view.findViewById(R.id.assignment_display_title);
-        TextView dateTextView = view.findViewById(R.id.assignment_display_date);
-        TextView courseTextView = view.findViewById(R.id.assignment_display_course);
-        return new AssignmentViewHolder(view);
+        // Inflate the item layout
+        View assignmentView = inflater.inflate(R.layout.fragment_assignment_details, parent, false);
+
+        return new AssignmentViewHolder(assignmentView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull AssignmentViewHolder holder, int position) {
         Assignment assignment = assignmentList.get(position);
-
-        // Bind assignment data to the ViewHolder
-        holder.titleTextView.setText(assignment.getAssignmentTitle());
-        holder.titleTextView.setText(assignment.getDate().toString());
-        holder.titleTextView.setText(assignment.getCourse().getCourseTitle());
-        holder.titleTextView.setText(assignment.getStatus());
+        holder.bind(assignment);
     }
 
-    public static class AssignmentViewHolder extends RecyclerView.ViewHolder {
-        TextView titleTextView;
+    public long getItemId(int position) { return position; }
 
-        public AssignmentViewHolder(@NonNull View itemView) {
-            super(itemView);
-            titleTextView = itemView.findViewById(R.id.titleTextView);
-            // ... (initialize other views as needed)
+    @Override
+    public int getItemCount() {
+        return assignmentList.size();
+    }
+
+    public static void addData(Assignment newAssignment) {
+        assignmentList.add(newAssignment);
+    }
+
+    public static void deleteData(int aid) {
+        for (int i = 0; i < assignmentList.size(); i++) {
+            if (assignmentList.get(i).getAid() == aid) {
+                assignmentList.remove(i);
+                break;
+            }
+        }
+    }
+
+    public static void editDate(int aid, String date) {
+        for (int i = 0; i < assignmentList.size(); i++) {
+            if (assignmentList.get(i).getAid() == aid) {
+                assignmentList.get(i).setDate(date);
+                break;
+            }
+        }
+    }
+
+    public static void editCourse(int aid, Course course) {
+        for (int i = 0; i < assignmentList.size(); i++) {
+            if (assignmentList.get(i).getAid() == aid) {
+                assignmentList.get(i).setCourse(course);
+                break;
+            }
+        }
+    }
+
+    public static void editTitle(int aid, String title) {
+        for (int i = 0; i < assignmentList.size(); i++) {
+            if (assignmentList.get(i).getAid() == aid) {
+                assignmentList.get(i).setTitle(title);
+                break;
+            }
+        }
+    }
+
+    public static void editStatus(int aid, String status) {
+        for (int i = 0; i < assignmentList.size(); i++) {
+            if (assignmentList.get(i).getAid() == aid) {
+                assignmentList.get(i).setStatus(status);
+                break;
+            }
         }
     }
 }
