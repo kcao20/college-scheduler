@@ -1,32 +1,86 @@
 package com.example.collegescheduler.db;
 
-import com.example.collegescheduler.ui.assignment.Assignment;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverter;
+import androidx.room.TypeConverters;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.util.Objects;
 
-public class Exam extends Assignment {
-    private LocalDateTime time;
-    private String location;
-    // LocalDate date;
-    public Exam(String title, LocalDateTime date, Course course, String status, LocalDateTime time, String location) {
-        super(title, date, course, status);
-        this.time = time;
-        this.location = location;
+@Entity(tableName = "Exam")
+@TypeConverters(Exam.Converters.class)
+public class Exam {
+    @PrimaryKey(autoGenerate = true)
+    public int examId;
+
+    @ColumnInfo(name = "location")
+    public String examLocation;
+
+    @ColumnInfo(name = "dateTime")
+    public LocalDateTime dateTime;
+
+    @ColumnInfo(name = "course")
+    public String courseId;
+
+    public Exam(String examLocation, LocalDateTime dateTime, String courseId) {
+        this.examLocation = examLocation;
+        this.dateTime = dateTime;
+        this.courseId = courseId;
     }
 
-    public LocalDateTime getTime() {
-        return time;
+    public int getExamId() {
+        return examId;
     }
 
-    public String getLocation() {
-        return location;
+    public String getExamLocation() {
+        return examLocation;
     }
 
-    public void setTime(LocalDateTime time) {
-        this.time = time;
+    public LocalDateTime getDateTime() {
+        return dateTime;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public String getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(String courseId) {
+        this.courseId = courseId;
+    }
+
+    public void setExamLocation(String examLocation) {
+        this.examLocation = examLocation;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+
+        Exam exam = (Exam) obj;
+        return examId == exam.examId &&
+                Objects.equals(examLocation, exam.examLocation) &&
+                Objects.equals(dateTime, exam.dateTime) &&
+                Objects.equals(courseId, exam.courseId);
+    }
+
+    static class Converters {
+        @TypeConverter
+        public static LocalDateTime fromTimestamp(long value) {
+            return Instant.ofEpochMilli(value).atZone(ZoneOffset.UTC).toLocalDateTime();
+        }
+
+        @TypeConverter
+        public static long dateToTimestamp(LocalDateTime date) {
+            return date.atZone(ZoneOffset.UTC).toInstant().toEpochMilli();
+        }
     }
 }

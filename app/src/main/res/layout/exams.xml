@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/textViewExamCourseId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:id="@+id/textViewExamLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp"
+        android:layout_below="@id/textViewExamCourseId"/>
+
+    <TextView
+        android:id="@+id/textViewExamDateTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:layout_marginBottom="8dp"
+        android:layout_below="@id/textViewExamLocation"/>
+
+
+    <!-- Add delete and edit buttons -->
+    <ImageButton
+        android:id="@+id/imageButtonDelete"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:src="@drawable/rounded_delete_24"
+        android:layout_alignParentEnd="true"
+        android:contentDescription="delete" />
+
+    <ImageButton
+        android:id="@+id/imageButtonEdit"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_toStartOf="@id/imageButtonDelete"
+        android:contentDescription="edit"
+        android:src="@android:drawable/ic_menu_edit" />
+
+
+</RelativeLayout>

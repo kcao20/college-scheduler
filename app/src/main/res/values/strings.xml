@@ -13,6 +13,7 @@
     <string name="assignment_title">Assignments and Exam</string>
     <string name="assignment_date">Assignments and Exam</string>
     <string name="assignment_course">Assignments and Exam</string>
+    <string name="menu_exam">Exams</string>
     <string name="menu_toDoList">To-Do-List</string>
     <string name="to_Do_List">To-Do-List</string>
     <string name="title_activity_scrolling">ScrollingActivity</string>
