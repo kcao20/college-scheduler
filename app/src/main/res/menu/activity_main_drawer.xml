@@ -13,9 +13,9 @@
             android:icon="@drawable/rounded_calendar_month_24"
             android:title="@string/menu_calendar" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_exam"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow" />
+            android:title="@string/menu_exam" />
         <item
             android:id="@+id/nav_toDoList"
             android:icon="@drawable/rounded_add_task_24"

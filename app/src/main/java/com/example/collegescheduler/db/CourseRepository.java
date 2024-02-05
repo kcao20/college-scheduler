@@ -13,14 +13,21 @@ public class CourseRepository {
     private CourseDAO courseDao;
     private LiveData<List<Course>> allCourses;
 
+    private LiveData<List<String>> allCourseIds;
+
     public CourseRepository(Application application) {
         CourseDatabase db = CourseDatabase.getInstance(application);
         courseDao = db.courseDao();
         allCourses = courseDao.getAllCourses();
+        allCourseIds = courseDao.getAllCourseIds();
     }
 
     public LiveData<List<Course>> getAllCourses() {
         return allCourses;
+    }
+
+    public LiveData<List<String>> getAllCourseIds() {
+        return allCourseIds;
     }
 
     public LiveData<Course> getCourse(String courseId) {

@@ -9,7 +9,7 @@
 
     <string name="menu_home">Home</string>
     <string name="menu_calendar">Calendar</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_exam">Exams</string>
     <string name="menu_toDoList">To-Do-List</string>
     <string name="to_Do_List">To-Do-List</string>
     <string name="title_activity_scrolling">ScrollingActivity</string>
