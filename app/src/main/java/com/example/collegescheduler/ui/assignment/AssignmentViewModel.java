@@ -37,15 +37,15 @@ public class AssignmentViewModel extends AndroidViewModel {
         assignmentRepository.update(newAssignment);
     }
 
-    public void deleteAssignment(Assignment assignment) {
-        assignmentRepository.delete(assignment);
+    public void deleteAssignment(int assignmentId) {
+        assignmentRepository.delete(assignmentId);
     }
 
     public LiveData<List<String>> getAllCourseIds() {
         return courseRepository.getAllCourseIds();
     }
 
-    public LiveData<Assignment> getAssignment(String id) {
+    public LiveData<Assignment> getAssignment(int id) {
         return assignmentRepository.getAssignment(id);
     }
 

@@ -3,10 +3,17 @@ package com.example.collegescheduler.db;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverter;
+import androidx.room.TypeConverters;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.Objects;
 
 @Entity(tableName = "Assignment")
+@TypeConverters(Assignment.Converters.class)
 public class Assignment {
     @PrimaryKey(autoGenerate = true)
     private int id;
@@ -15,7 +22,7 @@ public class Assignment {
     private String title;
 
     @ColumnInfo(name = "due_date")
-    private String date;
+    private LocalDate date;
 
     @ColumnInfo(name = "course")
     private String courseId;
@@ -23,7 +30,7 @@ public class Assignment {
     @ColumnInfo(name = "status")
     private boolean status;
 
-    public Assignment(String title, String date, String courseId) {
+    public Assignment(String title, LocalDate date, String courseId) {
         this.title = title;
         this.date = date;
         this.courseId = courseId;
@@ -46,11 +53,11 @@ public class Assignment {
         this.title = title;
     }
 
-    public String getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
@@ -81,6 +88,18 @@ public class Assignment {
     @Override
     public int hashCode() {
         return Objects.hash(id, title, date, courseId, status);
+    }
+
+    static class Converters {
+        @TypeConverter
+        public static LocalDate fromTimestamp(long value) {
+            return Instant.ofEpochMilli(value).atZone(ZoneOffset.UTC).toLocalDate();
+        }
+
+        @TypeConverter
+        public static long dateToTimestamp(LocalDate date) {
+            return date.atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli();
+        }
     }
 
 }

@@ -3,6 +3,7 @@ package com.example.collegescheduler.ui.assignment;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
@@ -27,7 +28,8 @@ public class AssignmentAdapter extends ListAdapter<Assignment, AssignmentViewHol
         Assignment current = getItem(position);
         holder.bind(current);
         holder.itemView.setOnClickListener(v -> {
-            Navigation.findNavController(v).navigate(R.id.nav_assignment_to_assignmentDetails);
+            NavDirections action = AssignmentListDirections.navAssignmentToAssignmentDetails(current.getId());
+            Navigation.findNavController(v).navigate(action);
         });
     }
 

@@ -165,6 +165,16 @@
         android:name="com.example.collegescheduler.ui.assignment.AssignmentDetailsFragment"
         android:label="Assignment Details"
         tools:layout="@layout/fragment_assignment_details">
+
+        <argument
+            android:name="assignmentId"
+            app:argType="integer"
+            app:nullable="false"/>
+
+        <action
+            android:id="@+id/action_assignmentDetails_to_nav_assignments"
+            app:destination="@id/nav_assignment" />
+
     </fragment>
 
 </navigation>

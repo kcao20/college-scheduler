@@ -61,7 +61,7 @@ public class AssignmentAddFragment extends Fragment {
 
     private void add(View v) {
         String courseId = (courseSpinner.getSelectedItem().toString());
-        Assignment newAssignment = new Assignment(titleEditText.getText().toString(), dateSelector.getText().toString(), courseId);
+        Assignment newAssignment = new Assignment(titleEditText.getText().toString(), selectedDate, courseId);
         viewModel.createAssignment(newAssignment);
         Toast.makeText(requireContext(), "Assignment saved successfully", Toast.LENGTH_SHORT).show();
         Navigation.findNavController(v).navigate(R.id.nav_modifyAssignment_to_nav_assignment);

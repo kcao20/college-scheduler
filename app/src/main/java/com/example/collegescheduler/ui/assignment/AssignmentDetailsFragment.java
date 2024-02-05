@@ -10,54 +10,57 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import com.example.collegescheduler.R;
-import com.example.collegescheduler.databinding.FragmentHomeBinding;
-import com.example.collegescheduler.db.Assignment;
+import com.example.collegescheduler.databinding.FragmentAssignmentDetailsBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class AssignmentDetailsFragment extends Fragment {
 
-    private FragmentHomeBinding binding;
-    private Assignment assignment;
+    @NonNull
+    FragmentAssignmentDetailsBinding binding;
+    private AssignmentViewModel viewModel;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_assignment_details, container, false);
+        binding = FragmentAssignmentDetailsBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
 
-        FloatingActionButton deleteButton = root.findViewById(R.id.deleteButton);
-        Button editButton = root.findViewById(R.id.editButton);
-        TextView assignmentTitleTextView = root.findViewById(R.id.assignment_title);
-        TextView courseTextView = root.findViewById(R.id.assignment_course_title);
-        TextView dateTextView = root.findViewById(R.id.assignment_due_date_title);
-        TextView statusEditText = root.findViewById(R.id.assignment_status);
+        viewModel = new ViewModelProvider(this).get(AssignmentViewModel.class);
+        FloatingActionButton deleteButton = binding.deleteButton;
+        Button editButton = binding.editButton;
+        TextView assignmentTitle = binding.assignmentTitle;
+        TextView courseTextView = binding.courseTitle;
+        TextView dateTextView = binding.dueDate;
+        TextView statusEditText = binding.status;
+
+        int assignmentId = getArguments().getInt("assignmentId");
+
+        viewModel.getAssignment(assignmentId).observe(getViewLifecycleOwner(), assignment -> {
+            assignmentTitle.setText(assignment.getTitle());
+            courseTextView.setText(assignment.getCourseId());
+            dateTextView.setText(assignment.getDate().toString());
+            statusEditText.setText(assignment.getStatus() ? "Uncompleted" : "Completed");
+        });
 
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ;
+                viewModel.deleteAssignment(assignmentId);
+                Navigation.findNavController(v).navigate(R.id.action_assignmentDetails_to_nav_assignments);
             }
         });
 
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                moveAssignmentEditPage();
             }
         });
 
-
         return root;
-    }
-
-    private void moveAssignmentEditPage() {
-        AssignmentEditFragment assignmentEditFragment = new AssignmentEditFragment();
-
-        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-
-        fragmentManager.beginTransaction().replace(R.id.fragment_asssignment_editpage, assignmentEditFragment).commit();
     }
 
     @Override

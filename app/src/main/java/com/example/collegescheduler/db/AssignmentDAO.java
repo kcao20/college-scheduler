@@ -15,7 +15,7 @@ public interface AssignmentDAO {
     LiveData<List<Assignment>> getAllAssignments();
 
     @Query("SELECT * FROM assignment WHERE id IN (:id)")
-    Assignment getAssignment(String id);
+    Assignment getAssignment(int id);
 
     @Insert
     void addAssignment(Assignment assignment);
@@ -23,7 +23,7 @@ public interface AssignmentDAO {
     @Update
     void updateAssignment(Assignment assignment);
 
-    @Delete
-    void deleteAssignment(Assignment assignment);
+    @Query("DELETE FROM assignment WHERE id = :id")
+    void deleteAssignment(int id);
 
 }

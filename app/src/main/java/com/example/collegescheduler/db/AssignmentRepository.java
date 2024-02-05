@@ -22,7 +22,7 @@ public class AssignmentRepository {
         return allAssignments;
     }
 
-    public LiveData<Assignment> getAssignment(String id) {
+    public LiveData<Assignment> getAssignment(int id) {
         MutableLiveData<Assignment> assignmentLiveData = new MutableLiveData<>();
         CourseDatabase.databaseExecutor.execute(() -> {
             Assignment assignment = assignmentDAO.getAssignment(id);
@@ -43,9 +43,9 @@ public class AssignmentRepository {
         });
     }
 
-    public void delete(Assignment assignment) {
+    public void delete(int id) {
         CourseDatabase.databaseExecutor.execute(() -> {
-            assignmentDAO.deleteAssignment(assignment);
+            assignmentDAO.deleteAssignment(id);
         });
     }
 
