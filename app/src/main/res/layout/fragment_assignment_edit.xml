@@ -87,7 +87,7 @@
         app:layout_constraintTop_toBottomOf="@+id/assignment_edit_due_date" />
 
     <EditText
-        android:id="@+id/editTextText2"
+        android:id="@+id/assignment_input_course"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -107,7 +107,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText2" />
+        app:layout_constraintTop_toBottomOf="@+id/assignment_input_course" />
 
     <EditText
         android:id="@+id/assignment_edit_status"

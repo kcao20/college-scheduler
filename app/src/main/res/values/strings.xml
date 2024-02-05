@@ -21,4 +21,5 @@
     <string name="assignment_title">Assignments and Exam</string>
     <string name="assignment_date">Assignments and Exam</string>
     <string name="assignment_course">Assignments and Exam</string>
+    <string name="assignments">Assignments</string>
 </resources>

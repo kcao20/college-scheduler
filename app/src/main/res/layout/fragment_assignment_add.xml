@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/teal_200"
-    app:id="@+id/assignment_add_fragment">
+    android:background="@color/teal_200">
 
     <Button
         android:id="@+id/assignment_add_course"
@@ -14,18 +13,18 @@
         android:text="Add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/assignment_back" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/assignment_back"
         android:layout_width="166dp"
         android:layout_height="77dp"
         android:text="Back"
+        app:layout_constraintBottom_toTopOf="@+id/assignment_add_course"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="479dp" />
+        app:layout_constraintTop_toBottomOf="@+id/assignment_input_status" />
 
     <TextView
         android:id="@+id/assignment_edit_title"
@@ -35,8 +34,10 @@
         android:textAlignment="viewStart"
         android:textSize="34sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="91dp" />
+        app:layout_constraintBottom_toTopOf="@+id/editTextText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/assignment_edit_due_date"
@@ -47,8 +48,9 @@
         android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/assignment_input_date"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText"
-        tools:layout_editor_absoluteX="91dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextText" />
 
     <TextView
         android:id="@+id/assignment_edit_course"
@@ -58,28 +60,33 @@
         android:textAlignment="viewStart"
         android:textSize="34sp"
         android:textStyle="bold"
-        tools:layout_editor_absoluteX="93dp"
-        tools:layout_editor_absoluteY="224dp" />
+        app:layout_constraintBottom_toTopOf="@+id/assignment_input_course"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/assignment_input_date" />
 
     <EditText
         android:id="@+id/editTextText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="22dp"
         android:ems="10"
         android:inputType="text"
-        app:layout_constraintTop_toBottomOf="@+id/assignment_edit_title"
-        tools:layout_editor_absoluteX="91dp" />
+        app:layout_constraintBottom_toTopOf="@+id/assignment_edit_due_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/assignment_edit_title" />
 
     <EditText
-        android:id="@+id/editTextText2"
+        android:id="@+id/assignment_input_course"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="text"
         app:layout_constraintBottom_toTopOf="@+id/assignment_add_status"
-        app:layout_constraintTop_toBottomOf="@+id/assignment_edit_course"
-        tools:layout_editor_absoluteX="93dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/assignment_edit_course" />
 
     <TextView
         android:id="@+id/assignment_add_status"
@@ -90,7 +97,9 @@
         android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/assignment_input_status"
-        tools:layout_editor_absoluteX="104dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/assignment_input_course" />
 
     <EditText
         android:id="@+id/assignment_input_status"
@@ -100,15 +109,20 @@
         android:inputType="text"
         android:textAlignment="viewStart"
         app:layout_constraintBottom_toTopOf="@+id/assignment_back"
-        tools:layout_editor_absoluteX="100dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/assignment_add_status" />
 
     <EditText
         android:id="@+id/assignment_input_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
         android:ems="10"
         android:inputType="date"
         app:layout_constraintBottom_toTopOf="@+id/assignment_edit_course"
-        tools:layout_editor_absoluteX="91dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/assignment_edit_due_date" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

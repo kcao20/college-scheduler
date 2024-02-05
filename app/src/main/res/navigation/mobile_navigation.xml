@@ -135,4 +135,11 @@
 
     </fragment>
 
+    <fragment
+        android:id="@+id/nav_assignment"
+        android:name="com.example.collegescheduler.ui.assignment.AssignmentList"
+        android:label="Assignment View"
+        tools:layout="@layout/fragment_assignment">
+    </fragment>
+
 </navigation>

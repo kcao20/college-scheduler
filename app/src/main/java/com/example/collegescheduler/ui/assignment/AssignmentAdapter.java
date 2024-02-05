@@ -4,10 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.GridView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,40 +13,13 @@ import com.example.collegescheduler.db.Assignment;
 import com.example.collegescheduler.db.Course;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class AssignmentAdapter extends RecyclerView.Adapter<AssignmentViewHolder> {
 
     public static ArrayList<Assignment> assignmentList;
+
     public AssignmentAdapter(ArrayList<Assignment> assignmentList) {
         AssignmentAdapter.assignmentList = assignmentList;
-    }
-
-    public Object getItem(int position) { return assignmentList.get(position); }
-
-    @NonNull
-    @Override
-    public AssignmentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
-        LayoutInflater inflater = LayoutInflater.from(context);
-
-        // Inflate the item layout
-        View assignmentView = inflater.inflate(R.layout.fragment_assignment_details, parent, false);
-
-        return new AssignmentViewHolder(assignmentView);
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull AssignmentViewHolder holder, int position) {
-        Assignment assignment = assignmentList.get(position);
-        holder.bind(assignment);
-    }
-
-    public long getItemId(int position) { return position; }
-
-    @Override
-    public int getItemCount() {
-        return assignmentList.size();
     }
 
     public static void addData(Assignment newAssignment) {
@@ -101,4 +70,36 @@ public class AssignmentAdapter extends RecyclerView.Adapter<AssignmentViewHolder
             }
         }
     }
+
+    public Object getItem(int position) {
+        return assignmentList.get(position);
+    }
+
+    @NonNull
+    @Override
+    public AssignmentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        Context context = parent.getContext();
+        LayoutInflater inflater = LayoutInflater.from(context);
+
+        // Inflate the item layout
+        View assignmentView = inflater.inflate(R.layout.fragment_assignment_details, parent, false);
+
+        return new AssignmentViewHolder(assignmentView);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull AssignmentViewHolder holder, int position) {
+        Assignment assignment = assignmentList.get(position);
+        holder.bind(assignment);
+    }
+
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public int getItemCount() {
+        return assignmentList.size();
+    }
+
 }

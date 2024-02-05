@@ -35,7 +35,7 @@ public class AssignmentEditFragment extends Fragment {
         titleEditText = root.findViewById(R.id.editTextText);
         dateEditText = root.findViewById(R.id.editTextDate);
         statusEditText = root.findViewById(R.id.assignment_edit_status);
-        courseEditText = root.findViewById(R.id.editTextText2);
+        courseEditText = root.findViewById(R.id.assignment_input_course);
 
         // Set click listeners for navigation buttons
         addCourseButton.setOnClickListener(new View.OnClickListener() {

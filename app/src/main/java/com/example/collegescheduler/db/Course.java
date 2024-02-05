@@ -18,9 +18,6 @@ public class Course {
     @ColumnInfo(name = "course_description")
     private String courseDescription;
 
-    @ColumnInfo(name = "course_time")
-    private String courseTime;
-
     @ColumnInfo(name = "instructor")
     private String instructor;
 
@@ -38,10 +35,6 @@ public class Course {
         this.courseTitle = courseTitle;
         this.courseDescription = courseDescription;
         this.instructor = instructor;
-    }
-
-    public Course(Course course) {
-        this(course.cid, course.courseTitle);
     }
 
     public String getCid() {
