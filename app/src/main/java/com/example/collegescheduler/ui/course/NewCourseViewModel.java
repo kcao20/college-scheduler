@@ -21,14 +21,14 @@ public class NewCourseViewModel extends AndroidViewModel {
         courseRepository = new CourseRepository(application);
     }
 
-    public LiveData<Boolean> checkAndSaveCourse(String courseId, String courseTitle, String courseDescription, String courseInstructor, LocalTime courseTime, int[] repeat) {
+    public LiveData<Boolean> checkAndSaveCourse(String courseId, String courseTitle, String courseDescription, String courseInstructor, LocalTime startTime, LocalTime endTime, int[] repeat) {
         MutableLiveData<Boolean> courseSavedLiveData = new MutableLiveData<>();
 
         courseRepository.courseExists(courseId).observeForever(courseExists -> {
             if (courseExists) {
                 courseSavedLiveData.setValue(false);
             } else {
-                Course course = new Course(courseId, courseTitle, courseDescription, courseInstructor, courseTime, repeat);
+                Course course = new Course(courseId, courseTitle, courseDescription, courseInstructor, startTime, endTime, repeat);
                 courseRepository.insert(course);
                 courseSavedLiveData.setValue(true);
             }

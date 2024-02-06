@@ -52,5 +52,10 @@ public class ExamRepository {
     public LiveData<List<Exam>> getExamsWithCourseId(String courseId) {
         return examDao.getExamsWithCourseId(courseId);
     }
+    public void deleteExamsWithCourseId(String courseId) {
+        CourseDatabase.databaseExecutor.execute(() -> {
+            examDao.deleteExamsWithCourseId(courseId);
+        });
+    }
 
 }

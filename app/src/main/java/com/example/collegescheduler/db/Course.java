@@ -31,8 +31,11 @@ public class Course {
     @ColumnInfo(name = "instructor")
     private String instructor;
 
-    @ColumnInfo(name = "time")
-    private LocalTime courseTime;
+    @ColumnInfo(name = "startTime")
+    private LocalTime courseStartTime;
+
+    @ColumnInfo(name = "endTime")
+    private LocalTime courseEndTime;
 
     @ColumnInfo(name = "DOWs")
     private int[] repeat;
@@ -46,13 +49,14 @@ public class Course {
         this.cid = cid;
     }
 
-    public Course(@NonNull String cid, String courseTitle, String courseDescription, String instructor, LocalTime courseTime, int[] repeat) {
+    public Course(@NonNull String cid, String courseTitle, String courseDescription, String instructor, LocalTime courseStartTime, LocalTime courseEndTime, int[] repeat) {
         this.cid = cid;
         this.courseTitle = courseTitle;
         this.courseDescription = courseDescription;
         this.instructor = instructor;
         this.repeat = repeat;
-        this.courseTime = courseTime;
+        this.courseStartTime = courseStartTime;
+        this.courseEndTime = courseEndTime;
     }
 
     public String getCid() {
@@ -63,12 +67,20 @@ public class Course {
         return courseTitle;
     }
 
-    public LocalTime getCourseTime() {
-        return courseTime;
+    public LocalTime getCourseStartTime() {
+        return courseStartTime;
     }
 
-    public void setCourseTime(LocalTime courseTime) {
-        this.courseTime = courseTime;
+    public LocalTime getCourseEndTime() {
+        return courseEndTime;
+    }
+
+    public void setCourseEndTime(LocalTime courseEndTime) {
+        this.courseEndTime = courseEndTime;
+    }
+
+    public void setCourseStartTime(LocalTime courseStartTime) {
+        this.courseStartTime = courseStartTime;
     }
 
     public int[] getRepeat() {

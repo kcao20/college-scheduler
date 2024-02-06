@@ -66,14 +66,14 @@ public class CourseFragment extends Fragment {
                     course.getCourseTitle(),
                     course.getCourseDescription(),
                     course.getInstructor(),
-                    timeView + course.getCourseTime().format(formatter)
-
+                    timeView + course.getCourseStartTime().format(formatter) + " to " + course.getCourseEndTime().format(formatter)
             ));
         });
 
         deleteButton.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-            builder.setMessage("Are you sure you want to delete this course?").setPositiveButton("Delete", (dialog, which) -> {
+            builder.setMessage("Delete this course? All associated assignments and exams will also be removed.").setPositiveButton("Delete", (dialog, which) -> {
+                courseViewModel.deleteAllAssociatedWithCourseId(courseId);
                 courseViewModel.delete(courseId);
                 Navigation.findNavController(view).navigate(R.id.action_course_to_nav_home);
             }).setNegativeButton("Cancel", (dialog, which) -> {

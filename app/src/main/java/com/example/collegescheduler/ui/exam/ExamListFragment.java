@@ -101,7 +101,7 @@ public class ExamListFragment extends Fragment {
             @Override
             public void onChanged(List<String> courseIds) {
                 if (courseIds != null) {
-                    if (!courseIds.get(0).equals("All Courses")) {
+                    if (!courseIds.contains("All Courses")) {
                         courseIds.add(0, "All Courses");
                     }
                     ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, courseIds);

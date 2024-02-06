@@ -29,4 +29,7 @@ public interface AssignmentDAO {
     @Query("DELETE FROM assignment WHERE id = :id")
     void deleteAssignment(int id);
 
+    @Query("DELETE FROM assignment WHERE course = :courseId")
+    void deleteAssignmentsWithCourseId(String courseId);
+
 }
