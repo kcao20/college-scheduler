@@ -17,6 +17,9 @@ public interface AssignmentDAO {
     @Query("SELECT * FROM assignment WHERE id IN (:id)")
     Assignment getAssignment(int id);
 
+    @Query("SELECT * FROM assignment where course in (:courseId)")
+    LiveData<List<Assignment>> getAssignmentWithCourseId(String courseId);
+
     @Insert
     void addAssignment(Assignment assignment);
 

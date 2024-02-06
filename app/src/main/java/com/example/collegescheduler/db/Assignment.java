@@ -21,6 +21,9 @@ public class Assignment {
     @ColumnInfo(name = "title")
     private String title;
 
+    @ColumnInfo(name = "description")
+    private String description;
+
     @ColumnInfo(name = "due_date")
     private LocalDate date;
 
@@ -30,8 +33,9 @@ public class Assignment {
     @ColumnInfo(name = "status")
     private boolean status;
 
-    public Assignment(String title, LocalDate date, String courseId) {
+    public Assignment(String title, String description, LocalDate date, String courseId) {
         this.title = title;
+        this.description = description;
         this.date = date;
         this.courseId = courseId;
         this.status = false;
@@ -51,6 +55,14 @@ public class Assignment {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public LocalDate getDate() {

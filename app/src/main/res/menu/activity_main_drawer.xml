@@ -8,22 +8,23 @@
             android:id="@+id/nav_home"
             android:icon="@drawable/rounded_dashboard_24"
             android:title="@string/menu_home" />
-        <item
-            android:id="@+id/nav_calendar"
-            android:icon="@drawable/rounded_calendar_month_24"
-            android:title="@string/menu_calendar" />
+
         <item
             android:id="@+id/nav_exam"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_exam" />
         <item
+            android:id="@+id/nav_assignment"
+            android:icon="@drawable/baseline_assignment_24"
+            android:title="@string/assignments" />
+        <item
             android:id="@+id/nav_toDoList"
             android:icon="@drawable/rounded_add_task_24"
             android:title="@string/to_Do_List" />
         <item
-            android:id="@+id/nav_assignment"
-            android:icon="@drawable/baseline_assignment_24"
-            android:title="@string/assignments" />
+            android:id="@+id/nav_calendar"
+            android:icon="@drawable/rounded_calendar_month_24"
+            android:title="@string/menu_calendar" />
     </group>
 
 </menu>

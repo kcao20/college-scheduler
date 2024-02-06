@@ -36,6 +36,7 @@ public class ModifyAssignmentFragment extends Fragment {
     private AssignmentViewModel viewModel;
     private FragmentModifyAssignmentBinding binding;
     private EditText title;
+    private EditText description;
     private Button dateSelector;
     private Spinner courseSpinner;
     private LocalDate selectedDate;
@@ -55,6 +56,7 @@ public class ModifyAssignmentFragment extends Fragment {
 
         Button addButton = root.findViewById(R.id.assignment_add_course);
         title = binding.inputTitle.getEditText();
+        description = binding.inputDescription.getEditText();
         dateSelector = root.findViewById(R.id.inputDate);
         courseSpinner = root.findViewById(R.id.inputCourse);
 
@@ -65,6 +67,7 @@ public class ModifyAssignmentFragment extends Fragment {
                 if (assignment != null) {
                     assignmentToEdit = assignment;
                     title.setText(assignment.getTitle());
+                    description.setText(assignment.getDescription());
                     selectedDate = assignment.getDate();
                 }
             });
@@ -81,13 +84,14 @@ public class ModifyAssignmentFragment extends Fragment {
         if (isEditMode) {
             assignmentToEdit.setCourseId(courseId);
             assignmentToEdit.setTitle(title.getText().toString());
+            assignmentToEdit.setDescription(description.getText().toString());
             assignmentToEdit.setDate(selectedDate);
             viewModel.updateAssignment(assignmentToEdit);
             Toast.makeText(requireContext(), "Assignment edited successfully", Toast.LENGTH_SHORT).show();
             NavDirections action = ModifyAssignmentFragmentDirections.actionModifyAssignmentsToAssignmentDetails(assignmentToEdit.getId());
             Navigation.findNavController(v).navigate(action);
         } else {
-            Assignment newAssignment = new Assignment(title.getText().toString(), selectedDate, courseId);
+            Assignment newAssignment = new Assignment(title.getText().toString(), description.getText().toString(), selectedDate, courseId);
             viewModel.createAssignment(newAssignment);
             Toast.makeText(requireContext(), "Assignment saved successfully", Toast.LENGTH_SHORT).show();
             Navigation.findNavController(v).navigate(R.id.nav_modifyAssignment_to_nav_assignment);
