@@ -97,7 +97,7 @@ public class CourseFragment extends Fragment {
                     course.getInstructor()));
             String timeView = repeatStringBuilder + " at ";
             courseTime.setText(String.format("%s",
-                    timeView + course.getCourseTime().format(formatter)));
+                    timeView + course.getCourseStartTime().format(formatter) + " to " + course.getCourseEndTime().format(formatter)));
             courseDescription.setText(course.getCourseDescription());
 
             // Grab & Set Exams

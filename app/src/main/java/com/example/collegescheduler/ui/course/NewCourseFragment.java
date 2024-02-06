@@ -34,7 +34,7 @@ public class NewCourseFragment extends Fragment {
     private TextView endTime;
     private LocalTime selectedStartTime;
     private LocalTime selectedEndTime;
-    private int[] repeat = new int[5];
+    private final int[] repeat = new int[5];
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         NewCourseViewModel newCourseViewModel = new ViewModelProvider(this).get(NewCourseViewModel.class);
@@ -89,9 +89,13 @@ public class NewCourseFragment extends Fragment {
             String cInstructor = courseInstructor.getText().toString();
             if (cID.trim().isEmpty()) {
                 Toast.makeText(requireContext(), "Course ID can not be blank", Toast.LENGTH_SHORT).show();
+            } else if (cTitle.trim().isEmpty()) {
+                Toast.makeText(requireContext(), "Course title can not be blank", Toast.LENGTH_SHORT).show();
+            } else if (cInstructor.trim().isEmpty()) {
+                Toast.makeText(requireContext(), "Course instructor can not be blank", Toast.LENGTH_SHORT).show();
             } else if (selectedStartTime == null || selectedEndTime == null) {
                 Toast.makeText(requireContext(), "Select start and end times!", Toast.LENGTH_SHORT).show();
-            } else if (Arrays.stream(repeat).allMatch(element -> element == 0)){
+            } else if (Arrays.stream(repeat).allMatch(element -> element == 0)) {
                 Toast.makeText(requireContext(), "Courses repeat!", Toast.LENGTH_SHORT).show();
             } else {
                 newCourseViewModel.checkAndSaveCourse(cID, cTitle, cDescription, cInstructor, selectedStartTime, selectedEndTime, repeat).observe(getViewLifecycleOwner(), courseSaved -> {
@@ -120,12 +124,12 @@ public class NewCourseFragment extends Fragment {
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 if (start) {
                     selectedStartTime = LocalTime.of(hourOfDay, minute);
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mm a");
                     String formattedTime = selectedStartTime.format(formatter);
                     startTime.setText(formattedTime);
                 } else {
                     selectedEndTime = LocalTime.of(hourOfDay, minute);
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mm a");
                     String formattedTime = selectedEndTime.format(formatter);
                     endTime.setText(formattedTime);
                 }
@@ -136,9 +140,6 @@ public class NewCourseFragment extends Fragment {
         // Show the time picker dialog
         timePickerDialog.show();
     }
-
-
-
 
     @Override
     public void onDestroyView() {
