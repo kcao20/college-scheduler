@@ -14,9 +14,77 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:text="TextView"
+        android:textAppearance="@android:style/TextAppearance.Medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/courseTime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="TextView"
+        android:textAppearance="@android:style/TextAppearance.Small"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/courseInfo" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/courseTime" />
+
+    <TextView
+        android:id="@+id/courseDescription"
+        android:layout_width="0dp"
+        android:layout_height="96dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:text="TextView"
+        android:textAppearance="@android:style/TextAppearance.Small"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/exams"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:padding="4dp"
+        android:background="@drawable/background_surface"
+        app:layout_constraintBottom_toTopOf="@+id/assignments"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/courseDescription" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/assignments"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="128dp"
+        android:padding="4dp"
+        android:background="@drawable/background_surface"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/exams" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/deleteButton"
@@ -40,4 +108,31 @@
         android:text="Edit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/examText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="You have no exams"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/exams"
+        app:layout_constraintEnd_toEndOf="@+id/exams"
+        app:layout_constraintStart_toStartOf="@+id/exams"
+        app:layout_constraintTop_toTopOf="@+id/exams" />
+
+    <TextView
+        android:id="@+id/assignmentText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="You have no assignments"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/assignments"
+        app:layout_constraintEnd_toEndOf="@+id/assignments"
+        app:layout_constraintStart_toStartOf="@+id/assignments"
+        app:layout_constraintTop_toTopOf="@+id/assignments" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

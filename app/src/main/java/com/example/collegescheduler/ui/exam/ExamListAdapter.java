@@ -17,17 +17,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.collegescheduler.R;
 import com.example.collegescheduler.db.Exam;
+import com.example.collegescheduler.ui.course.CourseFragmentDirections;
 
 public class ExamListAdapter extends ListAdapter<Exam, ExamViewHolder> {
 
     private final ExamViewModel examViewModel;
     private final Context context;
-    private View.OnClickListener itemClickListener;
+    private final boolean onCoursePage;
 
-    public ExamListAdapter(ExamViewModel examViewModel, Context context) {
+    public ExamListAdapter(ExamViewModel examViewModel, Context context, boolean onCoursePage) {
         super(new ExamDiffCallback());
         this.examViewModel = examViewModel;
         this.context = context;
+        this.onCoursePage = onCoursePage;
     }
 
     @NonNull
@@ -51,6 +53,7 @@ public class ExamListAdapter extends ListAdapter<Exam, ExamViewHolder> {
                 }
             }
         });
+
         holder.setDeleteButtonClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,14 +76,16 @@ public class ExamListAdapter extends ListAdapter<Exam, ExamViewHolder> {
                 int position = holder.getBindingAdapterPosition();
                 if (position != RecyclerView.NO_POSITION) {
                     Exam editedExam = getItem(position);
-
-                    NavDirections action = ExamListFragmentDirections.actionNavExamToModifyExam(true, String.valueOf(editedExam.getExamId()));
+                    NavDirections action;
+                    if (onCoursePage) {
+                        action = CourseFragmentDirections.actionCourseToModifyExam(true, String.valueOf(editedExam.getExamId()), true);
+                    } else {
+                        action = ExamListFragmentDirections.actionNavExamToModifyExam(true, String.valueOf(editedExam.getExamId()), false);
+                    }
                     Navigation.findNavController(v).navigate(action);
-
                 }
             }
         });
-
 
     }
 

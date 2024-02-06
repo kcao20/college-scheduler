@@ -11,14 +11,18 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.collegescheduler.db.Assignment;
+import com.example.collegescheduler.ui.course.CourseFragmentDirections;
+import com.example.collegescheduler.ui.home.HomeFragmentDirections;
 
 public class AssignmentAdapter extends ListAdapter<Assignment, AssignmentViewHolder> {
 
     private final AssignmentViewModel viewModel;
+    private final boolean onCoursePage;
 
-    protected AssignmentAdapter(@NonNull DiffUtil.ItemCallback<Assignment> diffCallback, AssignmentViewModel viewModel) {
-        super(diffCallback);
+    public AssignmentAdapter(AssignmentViewModel viewModel, boolean onCoursePage) {
+        super(new AssignmentDiff());
         this.viewModel = viewModel;
+        this.onCoursePage = onCoursePage;
     }
 
     @Override
@@ -31,7 +35,12 @@ public class AssignmentAdapter extends ListAdapter<Assignment, AssignmentViewHol
         Assignment current = getItem(position);
         holder.bind(current);
         holder.itemView.setOnClickListener(v -> {
-            NavDirections action = AssignmentListFragmentDirections.navAssignmentToAssignmentDetails(current.getId());
+            NavDirections action;
+            if (onCoursePage) {
+                action = CourseFragmentDirections.actionCourseToAssignmentDetails(current.getId(), true);
+            } else {
+                action = AssignmentListFragmentDirections.navAssignmentToAssignmentDetails(current.getId(), false);
+            }
             Navigation.findNavController(v).navigate(action);
         });
         holder.getStatusCheckBox().setOnCheckedChangeListener((buttonView, isChecked) -> {

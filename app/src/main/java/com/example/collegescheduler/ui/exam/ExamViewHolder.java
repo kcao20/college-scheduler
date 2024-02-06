@@ -67,7 +67,7 @@ public class ExamViewHolder extends RecyclerView.ViewHolder {
     }
 
     private String formatDateTime(LocalDateTime dateTime) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm a");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd h:mm a");
         return dateTime.format(formatter);
     }
 }
