@@ -115,8 +115,25 @@ public class NewCourseFragment extends Fragment {
     private void showTimePickerDialog(Boolean start) {
         // Get the current time
         Calendar calendar = Calendar.getInstance();
+
         int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
         int currentMinute = calendar.get(Calendar.MINUTE);
+
+        if (start) {
+            if (selectedStartTime == null) {
+                selectedStartTime = LocalTime.of(currentHour, currentMinute);
+            } else {
+                currentHour = selectedStartTime.getHour();
+                currentMinute = selectedStartTime.getMinute();
+            }
+        } else {
+            if (selectedEndTime == null) {
+                selectedEndTime = LocalTime.of(currentHour, currentMinute);
+            } else {
+                currentHour = selectedEndTime.getHour();
+                currentMinute = selectedEndTime.getMinute();
+            }
+        }
 
         // Create a TimePickerDialog
         TimePickerDialog timePickerDialog = new TimePickerDialog(requireContext(), new TimePickerDialog.OnTimeSetListener() {
