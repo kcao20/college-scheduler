@@ -10,6 +10,8 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.collegescheduler.db.Course;
 import com.example.collegescheduler.db.CourseRepository;
 
+import java.time.LocalTime;
+
 public class EditCourseViewModel extends AndroidViewModel {
 
     private final CourseRepository courseRepository;
@@ -23,12 +25,12 @@ public class EditCourseViewModel extends AndroidViewModel {
         return courseRepository.getCourse(cid);
     }
 
-    public LiveData<Boolean> updateCourse(String courseId, String courseTitle, String courseDescription, String courseInstructor) {
+    public LiveData<Boolean> updateCourse(String courseId, String courseTitle, String courseDescription, String courseInstructor, LocalTime courseTime, int[] repeat) {
         MutableLiveData<Boolean> courseUpdatedLiveData = new MutableLiveData<>();
 
         courseRepository.courseExists(courseId).observeForever(courseExists -> {
             if (courseExists) {
-                Course course = new Course(courseId, courseTitle, courseDescription, courseInstructor);
+                Course course = new Course(courseId, courseTitle, courseDescription, courseInstructor, courseTime, repeat);
                 courseRepository.update(course);
                 courseUpdatedLiveData.setValue(true);
             } else {
