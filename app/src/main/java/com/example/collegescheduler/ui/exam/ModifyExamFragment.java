@@ -64,17 +64,17 @@ public class ModifyExamFragment extends Fragment {
 
         String examId = getArguments().getString("examId");
 
+        Button saveButton = binding.saveExamButton;
         final EditText examLocation = binding.examLocation.getEditText();
-
         final EditText examDetails = binding.examDetails.getEditText();
 
         loadCourseIds();
 
         datePickerButton = binding.datePickerButton;
-
         timePickerButton = binding.timePickerButton;
 
         if (isEditMode) {
+            saveButton.setText("Save");
             viewModel.getExam(examId).observe(getViewLifecycleOwner(), exam -> {
                 if (exam != null) {
                     examToEdit = exam;
@@ -91,10 +91,7 @@ public class ModifyExamFragment extends Fragment {
         }
 
         datePickerButton.setOnClickListener(view -> showDatePickerDialog());
-
         timePickerButton.setOnClickListener(view -> showTimePickerDialog());
-
-        Button saveButton = binding.saveExamButton;
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,7 +120,7 @@ public class ModifyExamFragment extends Fragment {
                     } else {
                         Exam exam = new Exam(location, selectedDateTime, courseId, details);
                         viewModel.createExam(exam);
-                        Toast.makeText(requireContext(), "Exam saved successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(requireContext(), "Exam added successfully", Toast.LENGTH_SHORT).show();
                     }
                     Navigation.findNavController(view).navigate(R.id.action_add_exam_to_nav_exam);
                 }

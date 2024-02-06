@@ -124,7 +124,7 @@
         android:id="@+id/nav_assignment"
         android:name="com.example.collegescheduler.ui.assignment.AssignmentListFragment"
         android:label="Assignments"
-        tools:layout="@layout/fragment_assignment">
+        tools:layout="@layout/fragment_assignment_list">
 
         <action
             android:id="@+id/nav_assignment_to_modifyAssignment"

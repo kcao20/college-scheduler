@@ -24,11 +24,8 @@ import androidx.navigation.Navigation;
 import com.example.collegescheduler.R;
 import com.example.collegescheduler.databinding.FragmentModifyAssignmentBinding;
 import com.example.collegescheduler.db.Assignment;
-import com.example.collegescheduler.db.Exam;
-import com.example.collegescheduler.ui.exam.ExamListFragmentDirections;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.List;
 
@@ -72,6 +69,7 @@ public class ModifyAssignmentFragment extends Fragment {
         loadCourseIds();
 
         if (isEditMode) {
+            addButton.setText("Save");
             viewModel.getAssignment(id).observe(getViewLifecycleOwner(), assignment -> {
                 if (assignment != null) {
                     assignmentToEdit = assignment;
@@ -102,7 +100,7 @@ public class ModifyAssignmentFragment extends Fragment {
         } else {
             Assignment newAssignment = new Assignment(title.getText().toString(), description.getText().toString(), selectedDate, courseId);
             viewModel.createAssignment(newAssignment);
-            Toast.makeText(requireContext(), "Assignment saved successfully", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), "Assignment added successfully", Toast.LENGTH_SHORT).show();
             Navigation.findNavController(v).navigate(R.id.nav_modifyAssignment_to_nav_assignment);
         }
     }
