@@ -66,6 +66,33 @@
         android:id="@+id/timePicker"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:minHeight="48dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:text="Select Time"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toStartOf="@+id/startToEnd"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/courseInstructor" />
+
+    <TextView
+        android:id="@+id/startToEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:text="Start -> End"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+        app:layout_constraintEnd_toStartOf="@+id/endTimePicker"
+        app:layout_constraintStart_toEndOf="@+id/timePicker"
+        app:layout_constraintTop_toBottomOf="@+id/courseDescription" />
+
+    <TextView
+        android:id="@+id/endTimePicker"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:minHeight="48dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
@@ -75,7 +102,7 @@
         android:text="Select Time"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/startToEnd"
         app:layout_constraintTop_toBottomOf="@+id/courseInstructor" />
 
 

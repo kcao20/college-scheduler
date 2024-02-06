@@ -25,13 +25,14 @@ import com.example.collegescheduler.db.Course;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
-import java.util.Calendar;
 
 public class EditCourseFragment extends Fragment {
 
     private FragmentEditCourseBinding binding;
-    private TextView courseTime;
-    private LocalTime selectedTime;
+    private TextView startTime;
+    private TextView endTime;
+    private LocalTime selectedStartTime;
+    private LocalTime selectedEndTime;
     private int[] repeat = new int[5];
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,19 +46,25 @@ public class EditCourseFragment extends Fragment {
         final EditText courseDescription = binding.courseDescription.getEditText();
         final EditText courseInstructor = binding.courseInstructor.getEditText();
         final Button editButton = binding.editButton;
-        courseTime = binding.timePicker;
+        startTime = binding.timePicker;
+        endTime = binding.endTimePicker;
         courseID.setText(EditCourseFragmentArgs.fromBundle(getArguments()).getCourseId());
 
         editCourseViewModel.getCourse(courseID.getText().toString()).observe(getViewLifecycleOwner(), course -> {
-            courseTime.setOnClickListener(view -> showTimePickerDialog(course));
+            startTime.setOnClickListener(view -> showTimePickerDialog(course, true));
+            endTime.setOnClickListener(view -> showTimePickerDialog(course, false));
             courseTitle.setText(course.getCourseTitle());
             courseDescription.setText(course.getCourseDescription());
             courseInstructor.setText(course.getInstructor());
-            selectedTime = course.getCourseTime();
+            selectedStartTime = course.getCourseStartTime();
+            selectedEndTime = course.getCourseEndTime();
             repeat = course.getRepeat();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
-            String formattedTime = selectedTime.format(formatter);
-            courseTime.setText(formattedTime);
+            String formattedStartTime = selectedStartTime.format(formatter);
+            startTime.setText(formattedStartTime);
+
+            String formattedEndTime = selectedEndTime.format(formatter);
+            endTime.setText(formattedEndTime);
 
             CheckBox checkboxMonday = root.findViewById(R.id.checkbox_monday);
             CheckBox checkboxTuesday = root.findViewById(R.id.checkbox_tuesday);
@@ -100,12 +107,12 @@ public class EditCourseFragment extends Fragment {
             String cInstructor = courseInstructor.getText().toString();
             if (cID.trim().isEmpty()) {
                 Toast.makeText(requireContext(), "Course ID can not be blank", Toast.LENGTH_SHORT).show();
-            } else if (selectedTime == null) {
+            } else if (selectedStartTime == null) {
                 Toast.makeText(requireContext(), "Select a time!", Toast.LENGTH_SHORT).show();
             } else if (Arrays.stream(repeat).allMatch(element -> element == 0)){
                 Toast.makeText(requireContext(), "Courses repeat!", Toast.LENGTH_SHORT).show();
             } else {
-                editCourseViewModel.updateCourse(cID, cTitle, cDescription, cInstructor, selectedTime, repeat).observe(getViewLifecycleOwner(), courseUpdated -> {
+                editCourseViewModel.updateCourse(cID, cTitle, cDescription, cInstructor, selectedStartTime, selectedEndTime, repeat).observe(getViewLifecycleOwner(), courseUpdated -> {
                     if (courseUpdated) {
                         Toast.makeText(requireContext(), "Course updated successfully", Toast.LENGTH_SHORT).show();
                         EditCourseFragmentDirections.ActionEditCourseToCourse action =
@@ -121,21 +128,33 @@ public class EditCourseFragment extends Fragment {
         return root;
     }
 
-    private void showTimePickerDialog(Course course) {
+    private void showTimePickerDialog(Course course, Boolean start) {
         // Get the current time
-
-        int initialHour = course.getCourseTime().getHour();
-        int initialMinute = course.getCourseTime().getMinute();
-        selectedTime = LocalTime.of(initialHour, initialMinute);
+        int initialHour = course.getCourseStartTime().getHour();
+        int initialMinute = course.getCourseStartTime().getMinute();
+        if (start) {
+            selectedStartTime = LocalTime.of(initialHour, initialMinute);
+        } else {
+            initialHour = course.getCourseEndTime().getHour();
+            initialMinute = course.getCourseEndTime().getMinute();
+            selectedEndTime = LocalTime.of(initialHour, initialMinute);
+        }
 
         // Create a TimePickerDialog
         TimePickerDialog timePickerDialog = new TimePickerDialog(requireContext(), new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                selectedTime = LocalTime.of(hourOfDay, minute);
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
-                String formattedTime = selectedTime.format(formatter);
-                courseTime.setText(formattedTime);
+                if (start) {
+                    selectedStartTime = LocalTime.of(hourOfDay, minute);
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
+                    String formattedTime = selectedStartTime.format(formatter);
+                    startTime.setText(formattedTime);
+                } else {
+                    selectedEndTime = LocalTime.of(hourOfDay, minute);
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
+                    String formattedTime = selectedEndTime.format(formatter);
+                    endTime.setText(formattedTime);
+                }
             }
         }, initialHour, initialMinute, false);
 

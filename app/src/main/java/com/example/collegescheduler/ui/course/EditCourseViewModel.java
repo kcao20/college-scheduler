@@ -25,12 +25,12 @@ public class EditCourseViewModel extends AndroidViewModel {
         return courseRepository.getCourse(cid);
     }
 
-    public LiveData<Boolean> updateCourse(String courseId, String courseTitle, String courseDescription, String courseInstructor, LocalTime courseTime, int[] repeat) {
+    public LiveData<Boolean> updateCourse(String courseId, String courseTitle, String courseDescription, String courseInstructor, LocalTime startTime, LocalTime endTime, int[] repeat) {
         MutableLiveData<Boolean> courseUpdatedLiveData = new MutableLiveData<>();
 
         courseRepository.courseExists(courseId).observeForever(courseExists -> {
             if (courseExists) {
-                Course course = new Course(courseId, courseTitle, courseDescription, courseInstructor, courseTime, repeat);
+                Course course = new Course(courseId, courseTitle, courseDescription, courseInstructor, startTime, endTime, repeat);
                 courseRepository.update(course);
                 courseUpdatedLiveData.setValue(true);
             } else {
