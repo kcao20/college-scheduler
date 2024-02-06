@@ -1,6 +1,7 @@
 package com.example.collegescheduler.ui.assignment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavBackStackEntry;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -50,6 +53,9 @@ public class AssignmentList extends Fragment {
         assignments.observe(getViewLifecycleOwner(), new Observer<List<Assignment>>() {
             @Override
             public void onChanged(List<Assignment> assignment) {
+                if (!assignment.isEmpty()) {
+                    binding.youdongxi.setVisibility(View.GONE);
+                }
                 adapter.submitList(assignments.getValue());
             }
         });

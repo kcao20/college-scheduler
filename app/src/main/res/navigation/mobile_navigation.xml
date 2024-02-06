@@ -150,12 +150,14 @@
 
         <action
             android:id="@+id/nav_modifyAssignment_to_nav_assignment"
-            app:destination="@+id/nav_assignment" />
+            app:destination="@+id/nav_assignment"
+            app:popUpTo="@id/nav_assignment"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_modify_assignments_to_assignment_details"
             app:destination="@id/assignmentDetails"
-            app:popUpTo="@id/nav_assignment"
-            app:popUpToInclusive="false"/>
+            app:popUpTo="@id/assignmentDetails"
+            app:popUpToInclusive="true"/>
     </fragment>
 
     <fragment
@@ -171,7 +173,9 @@
 
         <action
             android:id="@+id/action_assignmentDetails_to_nav_assignments"
-            app:destination="@id/nav_assignment" />
+            app:destination="@id/nav_assignment"
+            app:popUpTo="@id/nav_assignment"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_assignmentDetails_to_modify_assignments"
             app:destination="@id/modify_assignment" />

@@ -52,6 +52,9 @@ public class toDoListFragment extends Fragment {
         tasksLiveData.observe(getViewLifecycleOwner(), new Observer<List<Task>>() {
             @Override
             public void onChanged(List<Task> taskList) {
+                if (!taskList.isEmpty()) {
+                    binding.youdongxi.setVisibility(View.GONE);
+                }
                 taskList.sort((task1, task2) -> {
                     boolean isTask1Completed = task1.isCompleted();
                     boolean isTask2Completed = task2.isCompleted();
