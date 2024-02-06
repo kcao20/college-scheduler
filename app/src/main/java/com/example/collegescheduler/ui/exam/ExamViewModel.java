@@ -50,6 +50,10 @@ public class ExamViewModel extends AndroidViewModel {
         return examRepository.getExam(examId);
     }
 
+    public LiveData<List<Exam>> getAllExamsWithCourseId(String courseId) {
+        return examRepository.getExamsWithCourseId(courseId);
+    }
+
 
 
 
