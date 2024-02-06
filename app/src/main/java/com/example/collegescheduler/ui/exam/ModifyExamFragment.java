@@ -162,22 +162,21 @@ public class ModifyExamFragment extends Fragment {
     private void showTimePickerDialog() {
         // Get the current time
         Calendar calendar = Calendar.getInstance();
-        int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
-        int currentMinute = calendar.get(Calendar.MINUTE);
+        int initialHour = calendar.get(Calendar.HOUR_OF_DAY);
+        int initialMinute = calendar.get(Calendar.MINUTE);
 
-        int initialHour = isEditMode ? examToEdit.getDateTime().toLocalTime().getHour() : currentHour;
-        int initialMinute = isEditMode ? examToEdit.getDateTime().toLocalTime().getMinute() : currentMinute;
-
-        if (isEditMode) {
-            selectedTime = LocalTime.of(initialHour, initialMinute);
+        if (selectedTime != null) {
+            initialMinute = selectedTime.getMinute();
+            initialHour = selectedTime.getHour();
         }
+
 
         // Create a TimePickerDialog
         TimePickerDialog timePickerDialog = new TimePickerDialog(requireContext(), new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 selectedTime = LocalTime.of(hourOfDay, minute);
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mm a");
                 String formattedTime = selectedTime.format(formatter);
                 timePickerButton.setText(formattedTime);
             }
@@ -194,10 +193,10 @@ public class ModifyExamFragment extends Fragment {
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        if (isEditMode) {
-            year = examToEdit.getDateTime().getYear();
-            month = examToEdit.getDateTime().getMonthValue() - 1;
-            day = examToEdit.getDateTime().getDayOfMonth();
+        if (selectedDate != null) {
+            year = selectedDate.getYear();
+            month = selectedDate.getMonthValue() - 1;
+            day = selectedDate.getDayOfMonth();
         }
 
         // Create a DatePickerDialog

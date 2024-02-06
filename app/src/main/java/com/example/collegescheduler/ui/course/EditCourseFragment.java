@@ -51,15 +51,15 @@ public class EditCourseFragment extends Fragment {
         courseID.setText(EditCourseFragmentArgs.fromBundle(getArguments()).getCourseId());
 
         editCourseViewModel.getCourse(courseID.getText().toString()).observe(getViewLifecycleOwner(), course -> {
-            startTime.setOnClickListener(view -> showTimePickerDialog(course, true));
-            endTime.setOnClickListener(view -> showTimePickerDialog(course, false));
+            selectedStartTime = course.getCourseStartTime();
+            selectedEndTime = course.getCourseEndTime();
+            startTime.setOnClickListener(view -> showTimePickerDialog(true));
+            endTime.setOnClickListener(view -> showTimePickerDialog(false));
             courseTitle.setText(course.getCourseTitle());
             courseDescription.setText(course.getCourseDescription());
             courseInstructor.setText(course.getInstructor());
-            selectedStartTime = course.getCourseStartTime();
-            selectedEndTime = course.getCourseEndTime();
             repeat = course.getRepeat();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mm a");
             String formattedStartTime = selectedStartTime.format(formatter);
             startTime.setText(formattedStartTime);
 
@@ -132,18 +132,10 @@ public class EditCourseFragment extends Fragment {
         return root;
     }
 
-    private void showTimePickerDialog(Course course, Boolean start) {
+    private void showTimePickerDialog(Boolean start) {
         // Get the current time
-        int initialHour = course.getCourseStartTime().getHour();
-        int initialMinute = course.getCourseStartTime().getMinute();
-        if (start) {
-            selectedStartTime = LocalTime.of(initialHour, initialMinute);
-        } else {
-            initialHour = course.getCourseEndTime().getHour();
-            initialMinute = course.getCourseEndTime().getMinute();
-            selectedEndTime = LocalTime.of(initialHour, initialMinute);
-        }
-
+        int initialHour = start ? selectedStartTime.getHour() : selectedEndTime.getHour();
+        int initialMinute = start ? selectedStartTime.getMinute() : selectedEndTime.getMinute();
         // Create a TimePickerDialog
         TimePickerDialog timePickerDialog = new TimePickerDialog(requireContext(), new TimePickerDialog.OnTimeSetListener() {
             @Override
