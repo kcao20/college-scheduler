@@ -18,6 +18,8 @@ import com.example.collegescheduler.R;
 import com.example.collegescheduler.databinding.FragmentCourseBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.time.format.DateTimeFormatter;
+
 public class CourseFragment extends Fragment {
 
     private FragmentCourseBinding binding;
@@ -41,8 +43,32 @@ public class CourseFragment extends Fragment {
 
         String courseId = getArguments().getString("courseId");
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
+        String[] daysOfWeek = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
+
+
+
         courseViewModel.getCourse(courseId).observe(getViewLifecycleOwner(), course -> {
-            courseInfo.setText(String.format("%s\n%s\n%s\n%s", course.getCid(), course.getCourseTitle(), course.getCourseDescription(), course.getInstructor()));
+            int[] repeat = course.getRepeat();
+            StringBuilder repeatStringBuilder = new StringBuilder("Repeat: ");
+            for (int i = 0; i < repeat.length; i++) {
+                if (repeat[i] == 1) {
+                    repeatStringBuilder.append(daysOfWeek[i]);
+                    repeatStringBuilder.append(", ");
+                }
+            }
+            if (repeatStringBuilder.length() > "Repeat: ".length()) {
+                repeatStringBuilder.setLength(repeatStringBuilder.length() - 2);
+            }
+            String timeView = repeatStringBuilder.length() == "Repeat: ".length() ? "" : repeatStringBuilder.toString() + " at ";
+            courseInfo.setText(String.format("%s\n%s\n%s\n%s\n%s",
+                    course.getCid(),
+                    course.getCourseTitle(),
+                    course.getCourseDescription(),
+                    course.getInstructor(),
+                    timeView + course.getCourseTime().format(formatter)
+
+            ));
         });
 
         deleteButton.setOnClickListener(v -> {
