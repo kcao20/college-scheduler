@@ -1,5 +1,6 @@
 package com.example.collegescheduler.ui.assignment;
 
+import android.os.Handler;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -7,15 +8,17 @@ import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.collegescheduler.R;
 import com.example.collegescheduler.db.Assignment;
-import com.example.collegescheduler.ui.home.HomeFragmentDirections;
 
 public class AssignmentAdapter extends ListAdapter<Assignment, AssignmentViewHolder> {
 
-    protected AssignmentAdapter(@NonNull DiffUtil.ItemCallback<Assignment> diffCallback) {
+    private final AssignmentViewModel viewModel;
+
+    protected AssignmentAdapter(@NonNull DiffUtil.ItemCallback<Assignment> diffCallback, AssignmentViewModel viewModel) {
         super(diffCallback);
+        this.viewModel = viewModel;
     }
 
     @Override
@@ -31,13 +34,22 @@ public class AssignmentAdapter extends ListAdapter<Assignment, AssignmentViewHol
             NavDirections action = AssignmentListDirections.navAssignmentToAssignmentDetails(current.getId());
             Navigation.findNavController(v).navigate(action);
         });
+        holder.getStatusCheckBox().setOnCheckedChangeListener((buttonView, isChecked) -> {
+            int adapterPosition = holder.getBindingAdapterPosition();
+            if (adapterPosition != RecyclerView.NO_POSITION) {
+                Assignment clickedAssignment = getItem(adapterPosition);
+                clickedAssignment.setStatus(isChecked);
+                viewModel.updateAssignment(clickedAssignment);
+                new Handler().post(() -> notifyItemChanged(adapterPosition));
+            }
+        });
     }
 
     static class AssignmentDiff extends DiffUtil.ItemCallback<Assignment> {
 
         @Override
         public boolean areItemsTheSame(@NonNull Assignment oldItem, @NonNull Assignment newItem) {
-            return oldItem == newItem;
+            return oldItem.getId() == newItem.getId();
         }
 
         @Override

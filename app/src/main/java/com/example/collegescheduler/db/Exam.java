@@ -7,7 +7,9 @@ import androidx.room.TypeConverter;
 import androidx.room.TypeConverters;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneOffset;
 import java.util.Objects;
 
@@ -40,8 +42,24 @@ public class Exam {
         return examLocation;
     }
 
+    public void setExamLocation(String examLocation) {
+        this.examLocation = examLocation;
+    }
+
     public LocalDateTime getDateTime() {
         return dateTime;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public LocalDate getDate() {
+        return dateTime.toLocalDate();
+    }
+
+    public LocalTime getTime() {
+        return dateTime.toLocalTime();
     }
 
     public String getCourseId() {
@@ -52,24 +70,13 @@ public class Exam {
         this.courseId = courseId;
     }
 
-    public void setExamLocation(String examLocation) {
-        this.examLocation = examLocation;
-    }
-
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
 
         Exam exam = (Exam) obj;
-        return examId == exam.examId &&
-                Objects.equals(examLocation, exam.examLocation) &&
-                Objects.equals(dateTime, exam.dateTime) &&
-                Objects.equals(courseId, exam.courseId);
+        return examId == exam.examId && Objects.equals(examLocation, exam.examLocation) && Objects.equals(dateTime, exam.dateTime) && Objects.equals(courseId, exam.courseId);
     }
 
     static class Converters {

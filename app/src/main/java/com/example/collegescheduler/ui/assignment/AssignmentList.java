@@ -43,7 +43,7 @@ public class AssignmentList extends Fragment {
         });
 
         RecyclerView recyclerView = root.findViewById(R.id.assignment_list_recyclerview);
-        final AssignmentAdapter adapter = new AssignmentAdapter(new AssignmentAdapter.AssignmentDiff());
+        final AssignmentAdapter adapter = new AssignmentAdapter(new AssignmentAdapter.AssignmentDiff(), viewModel);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         LiveData<List<Assignment>> assignments = viewModel.getAllAssignments();

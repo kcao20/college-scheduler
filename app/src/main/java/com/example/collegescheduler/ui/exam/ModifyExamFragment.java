@@ -56,41 +56,21 @@ public class ModifyExamFragment extends Fragment {
 
         Button datePickerButton = binding.datePickerButton;
 
-        viewModel.getExam(examId).observe(getViewLifecycleOwner(), new Observer<Exam>() {
-            @Override
-            public void onChanged(Exam exam) {
-                if (exam != null && isEditMode) {
+        if (isEditMode) {
+            viewModel.getExam(examId).observe(getViewLifecycleOwner(), exam -> {
+                if (exam != null) {
                     examToEdit = exam;
                     examLocation.setText(examToEdit.getExamLocation());
-                    if (isEditMode) {
-                        int year = examToEdit.getDateTime().getYear();
-                        int month = examToEdit.getDateTime().getMonthValue();
-                        int day = examToEdit.getDateTime().getDayOfMonth();
-
-                        selectedDate = LocalDate.of(year, month, day);
-
-                        int initialHour = examToEdit.getDateTime().toLocalTime().getHour();
-                        int initialMinute = examToEdit.getDateTime().toLocalTime().getMinute();
-                        selectedTime = LocalTime.of(initialHour, initialMinute);
-
-                    }
+                    selectedDate = examToEdit.getDate();
+                    selectedTime = examToEdit.getTime();
                 }
-            }
-        });
-        datePickerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showDatePickerDialog();
-            }
-        });
+            });
+        }
+
+        datePickerButton.setOnClickListener(view -> showDatePickerDialog());
 
         Button timePickerButton = binding.timePickerButton;
-        timePickerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showTimePickerDialog();
-            }
-        });
+        timePickerButton.setOnClickListener(view -> showTimePickerDialog());
 
         Button saveButton = binding.saveExamButton;
 
@@ -190,15 +170,12 @@ public class ModifyExamFragment extends Fragment {
         }
 
         // Create a DatePickerDialog
-        DatePickerDialog datePickerDialog = new DatePickerDialog(
-                requireContext(),
-                new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        selectedDate = LocalDate.of(year, month + 1, dayOfMonth);
-                    }
-                },
-                year, month, day);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(), new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                selectedDate = LocalDate.of(year, month + 1, dayOfMonth);
+            }
+        }, year, month, day);
 
         // Show the date picker dialog
         datePickerDialog.show();

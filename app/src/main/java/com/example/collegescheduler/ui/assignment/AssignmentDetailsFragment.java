@@ -11,10 +11,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
 import com.example.collegescheduler.R;
 import com.example.collegescheduler.databinding.FragmentAssignmentDetailsBinding;
+import com.example.collegescheduler.ui.exam.ExamListFragmentDirections;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class AssignmentDetailsFragment extends Fragment {
@@ -46,18 +48,14 @@ public class AssignmentDetailsFragment extends Fragment {
             statusEditText.setText(assignment.getStatus() ? "Uncompleted" : "Completed");
         });
 
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewModel.deleteAssignment(assignmentId);
-                Navigation.findNavController(v).navigate(R.id.action_assignmentDetails_to_nav_assignments);
-            }
+        deleteButton.setOnClickListener(v -> {
+            viewModel.deleteAssignment(assignmentId);
+            Navigation.findNavController(v).navigate(R.id.action_assignmentDetails_to_nav_assignments);
         });
 
-        editButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
+        editButton.setOnClickListener(v -> {
+            NavDirections action = AssignmentDetailsFragmentDirections.actionAssignmentDetailsToModifyAssignments(true, assignmentId);
+            Navigation.findNavController(v).navigate(action);
         });
 
         return root;
