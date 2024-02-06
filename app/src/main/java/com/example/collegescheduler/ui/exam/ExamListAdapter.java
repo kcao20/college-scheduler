@@ -62,8 +62,6 @@ public class ExamListAdapter extends ListAdapter<Exam, ExamViewHolder> {
         });
     }
 
-
-
     static class ExamDiffCallback extends DiffUtil.ItemCallback<Exam> {
 
         @Override

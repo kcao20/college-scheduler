@@ -33,15 +33,13 @@ public class ExamListFragment extends Fragment {
     private FragmentExamListBinding binding;
     private RecyclerView recyclerView;
     private ExamListAdapter examListAdapter;
-
     private ExamViewModel examViewModel;
-
     private Spinner spinnerCourseId;
-
+  
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentExamListBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
-
+      
         spinnerCourseId = binding.examCourseId;
 
         FloatingActionButton addButton = view.findViewById(R.id.addButton);
@@ -91,7 +89,6 @@ public class ExamListFragment extends Fragment {
             }
         });
 
-
         return view;
     }
 
@@ -121,5 +118,5 @@ public class ExamListFragment extends Fragment {
             }
         });
     }
-
+  
 }

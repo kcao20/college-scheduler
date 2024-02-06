@@ -11,20 +11,8 @@
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_nav_home_to_nav_gallery"
-            app:destination="@id/nav_calendar" />
-        <action
-            android:id="@+id/action_nav_home_to_nav_list"
-            app:destination="@id/nav_toDoList" />
-        <action
-            android:id="@+id/action_nav_home_to_nav_exam"
-            app:destination="@id/nav_exam" />
-        <action
             android:id="@+id/action_nav_home_to_modify_course"
             app:destination="@id/add_course" />
-        <action
-            android:id="@+id/action_nav_exam_to_modify_exam"
-            app:destination="@id/modifyExam" />
         <action
             android:id="@+id/action_nav_home_to_course"
             app:destination="@id/course" />
@@ -35,9 +23,6 @@
         android:name="com.example.collegescheduler.ui.calendar.CalendarFragment"
         android:label="@string/menu_calendar"
         tools:layout="@layout/fragment_calendar">
-        <action
-            android:id="@+id/action_nav_calendar_to_nav_home"
-            app:destination="@id/nav_home" />
     </fragment>
 
     <fragment
@@ -45,9 +30,6 @@
         android:name="com.example.collegescheduler.ui.exam.ExamListFragment"
         android:label="@string/menu_exam"
         tools:layout="@layout/fragment_exam_list">
-        <action
-            android:id="@+id/action_nav_exam_to_nav_home"
-            app:destination="@id/nav_home" />
         <action
             android:id="@+id/action_nav_exam_to_modify_exam"
             app:destination="@id/modifyExam" />
@@ -57,12 +39,12 @@
         android:id="@+id/nav_toDoList"
         android:name="com.example.collegescheduler.ui.toDoList.toDoListFragment"
         android:label="@string/menu_toDoList"
-        tools:layout="@layout/fragment_to_do_list" >
+        tools:layout="@layout/fragment_to_do_list">
         <action
             android:id="@+id/action_nav_toDoList_to_nav_home"
             app:destination="@id/nav_home" />
     </fragment>
-    
+
     <fragment
         android:id="@+id/add_course"
         android:name="com.example.collegescheduler.ui.course.NewCourseFragment"
@@ -71,12 +53,15 @@
 
         <argument
             android:name="courseId"
+            android:defaultValue=""
             app:argType="string"
-            app:nullable="true"
-            android:defaultValue=""/>
+            app:nullable="true" />
         <action
             android:id="@+id/action_add_course_to_nav_home"
             app:destination="@id/nav_home" />
+        <action
+            android:id="@+id/action_course_to_edit_course"
+            app:destination="@id/edit_course" />
     </fragment>
 
     <fragment
@@ -88,12 +73,12 @@
         <argument
             android:name="courseId"
             app:argType="string"
-            app:nullable="false"/>
+            app:nullable="false" />
         <action
             android:id="@+id/action_edit_course_to_course"
             app:destination="@id/course"
             app:popUpTo="@id/course"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -133,6 +118,63 @@
             android:id="@+id/action_add_exam_to_nav_exam"
             app:destination="@id/nav_exam" />
 
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_assignment"
+        android:name="com.example.collegescheduler.ui.assignment.AssignmentList"
+        android:label="Assignments"
+        tools:layout="@layout/fragment_assignment">
+
+        <action
+            android:id="@+id/nav_assignment_to_modifyAssignment"
+            app:destination="@id/modify_assignment" />
+        <action
+            android:id="@+id/nav_assignment_to_assignmentDetails"
+            app:destination="@id/assignmentDetails" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/modify_assignment"
+        android:name="com.example.collegescheduler.ui.assignment.ModifyAssignmentFragment"
+        android:label="Add Assignment"
+        tools:layout="@layout/fragment_modify_assignment">
+
+        <argument
+            android:name="editMode"
+            app:argType="boolean" />
+
+        <argument
+            android:name="id"
+            app:argType="integer" />
+
+        <action
+            android:id="@+id/nav_modifyAssignment_to_nav_assignment"
+            app:destination="@+id/nav_assignment" />
+        <action
+            android:id="@+id/action_modify_assignments_to_assignment_details"
+            app:destination="@id/assignmentDetails"
+            app:popUpTo="@id/nav_assignment"
+            app:popUpToInclusive="false"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/assignmentDetails"
+        android:name="com.example.collegescheduler.ui.assignment.AssignmentDetailsFragment"
+        android:label="Assignment Details"
+        tools:layout="@layout/fragment_assignment_details">
+
+        <argument
+            android:name="assignmentId"
+            app:argType="integer"
+            app:nullable="false"/>
+
+        <action
+            android:id="@+id/action_assignmentDetails_to_nav_assignments"
+            app:destination="@id/nav_assignment" />
+        <action
+            android:id="@+id/action_assignmentDetails_to_modify_assignments"
+            app:destination="@id/modify_assignment" />
     </fragment>
 
 </navigation>

@@ -1,15 +1,8 @@
 package com.example.collegescheduler.ui.exam;
 
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +13,11 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import com.example.collegescheduler.R;
 import com.example.collegescheduler.databinding.FragmentAddExamBinding;
@@ -34,16 +32,11 @@ import java.util.List;
 public class ModifyExamFragment extends Fragment {
 
     private ExamViewModel viewModel;
-
     private FragmentAddExamBinding binding;
-
     private Spinner spinnerCourseId;
-
     private LocalDate selectedDate;
-
     private LocalTime selectedTime;
     private Exam examToEdit;
-
     private boolean isEditMode;
 
     @Override
@@ -63,41 +56,20 @@ public class ModifyExamFragment extends Fragment {
 
         Button datePickerButton = binding.datePickerButton;
 
-        viewModel.getExam(examId).observe(getViewLifecycleOwner(), new Observer<Exam>() {
-            @Override
-            public void onChanged(Exam exam) {
-                if (exam != null && isEditMode) {
+        if (isEditMode) {
+            viewModel.getExam(examId).observe(getViewLifecycleOwner(), exam -> {
+                if (exam != null) {
                     examToEdit = exam;
                     examLocation.setText(examToEdit.getExamLocation());
-                    if (isEditMode) {
-                        int year = examToEdit.getDateTime().getYear();
-                        int month = examToEdit.getDateTime().getMonthValue();
-                        int day = examToEdit.getDateTime().getDayOfMonth();
-
-                        selectedDate = LocalDate.of(year, month, day);
-
-                        int initialHour = examToEdit.getDateTime().toLocalTime().getHour();
-                        int initialMinute =examToEdit.getDateTime().toLocalTime().getMinute();
-                        selectedTime = LocalTime.of(initialHour, initialMinute);
-
-                    }
+                    selectedDate = examToEdit.getDate();
+                    selectedTime = examToEdit.getTime();
                 }
-            }
-        });
-        datePickerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showDatePickerDialog();
-            }
-        });
+            });
+        }
 
+        datePickerButton.setOnClickListener(view -> showDatePickerDialog());
         Button timePickerButton = binding.timePickerButton;
-        timePickerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showTimePickerDialog();
-            }
-        });
+        timePickerButton.setOnClickListener(view -> showTimePickerDialog());
 
         Button saveButton = binding.saveExamButton;
 
@@ -107,7 +79,7 @@ public class ModifyExamFragment extends Fragment {
                 String location = examLocation.getText().toString();
                 String courseId = spinnerCourseId.getSelectedItem().toString();
 
-                if (location.trim().isEmpty()){
+                if (location.trim().isEmpty()) {
                     Toast.makeText(requireContext(), "Please input a location", Toast.LENGTH_SHORT).show();
                 } else if (selectedDate == null || selectedTime == null || location.isEmpty()) {
                     Toast.makeText(requireContext(), "Please select both date and time", Toast.LENGTH_SHORT).show();
@@ -148,15 +120,15 @@ public class ModifyExamFragment extends Fragment {
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     spinnerCourseId.setAdapter(adapter);
 
-                    if (isEditMode){
+                    if (isEditMode) {
                         int position = courseIds.indexOf(examToEdit.getCourseId());
                         spinnerCourseId.setSelection(position);
                     }
-
+                }
             }
-        }
         });
     }
+
     private void showTimePickerDialog() {
         // Get the current time
         Calendar calendar = Calendar.getInstance();
@@ -196,15 +168,13 @@ public class ModifyExamFragment extends Fragment {
         }
 
         // Create a DatePickerDialog
-        DatePickerDialog datePickerDialog = new DatePickerDialog(
-                requireContext(),
-                new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        selectedDate = LocalDate.of(year, month + 1, dayOfMonth);
-                    }
-                },
-                year, month, day);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(), new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                selectedDate = LocalDate.of(year, month + 1, dayOfMonth);
+            }
+        }, year, month, day);
+
 
         // Show the date picker dialog
         datePickerDialog.show();

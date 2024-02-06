@@ -9,8 +9,8 @@ import java.util.List;
 
 public class ExamRepository {
 
-    private ExamDAO examDao;
-    private LiveData<List<Exam>> allExams;
+    private final ExamDAO examDao;
+    private final LiveData<List<Exam>> allExams;
 
     public ExamRepository(Application application) {
         CourseDatabase db = CourseDatabase.getInstance(application);
@@ -52,4 +52,5 @@ public class ExamRepository {
     public LiveData<List<Exam>> getExamsWithCourseId(String courseId) {
         return examDao.getExamsWithCourseId(courseId);
     }
+
 }

@@ -20,5 +20,10 @@
             android:id="@+id/nav_toDoList"
             android:icon="@drawable/rounded_add_task_24"
             android:title="@string/to_Do_List" />
+        <item
+            android:id="@+id/nav_assignment"
+            android:icon="@drawable/baseline_assignment_24"
+            android:title="@string/assignments" />
     </group>
+
 </menu>
