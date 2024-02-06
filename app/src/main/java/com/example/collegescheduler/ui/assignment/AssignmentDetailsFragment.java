@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ import androidx.navigation.Navigation;
 
 import com.example.collegescheduler.R;
 import com.example.collegescheduler.databinding.FragmentAssignmentDetailsBinding;
+import com.example.collegescheduler.db.Assignment;
 import com.example.collegescheduler.ui.course.CourseFragmentDirections;
 import com.example.collegescheduler.ui.exam.ExamListFragmentDirections;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -45,6 +47,7 @@ public class AssignmentDetailsFragment extends Fragment {
         TextView courseTextView = binding.courseTitle;
         TextView dateTextView = binding.dueDate;
         TextView description = binding.description;
+        CheckBox isCompleted = binding.isComplete;
 
         int assignmentId = getArguments().getInt("assignmentId");
         boolean onCoursePage = getArguments().getBoolean("onCoursePage");
@@ -54,7 +57,12 @@ public class AssignmentDetailsFragment extends Fragment {
             courseTextView.setText(assignment.getCourseId());
             dateTextView.setText(assignment.getDate().toString());
             description.setText(assignment.getDescription());
+            isCompleted.setChecked(assignment.getStatus());
             courseId = (assignment.getCourseId());
+
+            isCompleted.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                viewModel.updateAssignmentCompletionStatus(assignment, isChecked);
+            });
         });
 
         deleteButton.setOnClickListener(v -> {
