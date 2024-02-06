@@ -107,6 +107,10 @@ public class EditCourseFragment extends Fragment {
             String cInstructor = courseInstructor.getText().toString();
             if (cID.trim().isEmpty()) {
                 Toast.makeText(requireContext(), "Course ID can not be blank", Toast.LENGTH_SHORT).show();
+            } else if (cTitle.trim().isEmpty()) {
+                Toast.makeText(requireContext(), "Course title can not be blank", Toast.LENGTH_SHORT).show();
+            } else if (cInstructor.trim().isEmpty()) {
+                Toast.makeText(requireContext(), "Course instructor can not be blank", Toast.LENGTH_SHORT).show();
             } else if (selectedStartTime == null) {
                 Toast.makeText(requireContext(), "Select a time!", Toast.LENGTH_SHORT).show();
             } else if (Arrays.stream(repeat).allMatch(element -> element == 0)){
@@ -146,12 +150,12 @@ public class EditCourseFragment extends Fragment {
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 if (start) {
                     selectedStartTime = LocalTime.of(hourOfDay, minute);
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mm a");
                     String formattedTime = selectedStartTime.format(formatter);
                     startTime.setText(formattedTime);
                 } else {
                     selectedEndTime = LocalTime.of(hourOfDay, minute);
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mm a");
                     String formattedTime = selectedEndTime.format(formatter);
                     endTime.setText(formattedTime);
                 }
