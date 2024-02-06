@@ -103,7 +103,7 @@
         android:id="@+id/modifyExam"
         android:name="com.example.collegescheduler.ui.exam.ModifyExamFragment"
         android:label="Add Exam"
-        tools:layout="@layout/fragment_add_exam">
+        tools:layout="@layout/fragment_modify_exam">
 
         <argument
             android:name="editMode"

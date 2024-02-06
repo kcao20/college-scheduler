@@ -23,7 +23,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import com.example.collegescheduler.R;
-import com.example.collegescheduler.databinding.FragmentAddExamBinding;
+import com.example.collegescheduler.databinding.FragmentModifyExamBinding;
 import com.example.collegescheduler.db.Exam;
 
 import java.time.LocalDate;
@@ -36,7 +36,7 @@ import java.util.List;
 public class ModifyExamFragment extends Fragment {
 
     private ExamViewModel viewModel;
-    private FragmentAddExamBinding binding;
+    private FragmentModifyExamBinding binding;
     private Spinner spinnerCourseId;
     private LocalDate selectedDate;
     private LocalTime selectedTime;
@@ -56,7 +56,7 @@ public class ModifyExamFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentAddExamBinding.inflate(inflater, container, false);
+        binding = FragmentModifyExamBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         viewModel = new ViewModelProvider(this).get(ExamViewModel.class);

@@ -23,7 +23,7 @@ public class HomeListAdapter extends ListAdapter<Course, HomeViewHolder> {
     @Override
     public void onBindViewHolder(HomeViewHolder holder, int position) {
         Course current = getItem(position);
-        holder.bind(current.getCid() + "\n" + current.getCourseTitle());
+        holder.bind(current);
         HomeFragmentDirections.ActionNavHomeToCourse action =
                 HomeFragmentDirections.actionNavHomeToCourse(current.getCid());
         holder.itemView.setOnClickListener(v -> {

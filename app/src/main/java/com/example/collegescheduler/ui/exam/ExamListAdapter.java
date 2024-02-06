@@ -20,9 +20,9 @@ import com.example.collegescheduler.db.Exam;
 
 public class ExamListAdapter extends ListAdapter<Exam, ExamViewHolder> {
 
-    private View.OnClickListener itemClickListener;
     private final ExamViewModel examViewModel;
     private final Context context;
+    private View.OnClickListener itemClickListener;
 
     public ExamListAdapter(ExamViewModel examViewModel, Context context) {
         super(new ExamDiffCallback());
@@ -89,14 +89,12 @@ public class ExamListAdapter extends ListAdapter<Exam, ExamViewHolder> {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
         LayoutInflater inflater = LayoutInflater.from(context);
-        View customView = inflater.inflate(R.layout.cuystom_exam_dialog, null);
+        View customView = inflater.inflate(R.layout.custom_exam_dialog, null);
 
         TextView detailsTextView = customView.findViewById(R.id.details);
-
         detailsTextView.setText(exam.getExamDetails());
 
         builder.setView(customView);
-
         builder.setCancelable(true);
 
         AlertDialog alertDialog = builder.create();

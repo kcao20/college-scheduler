@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,6 +27,7 @@ import com.example.collegescheduler.databinding.FragmentModifyAssignmentBinding;
 import com.example.collegescheduler.db.Assignment;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.List;
 
@@ -35,7 +37,7 @@ public class ModifyAssignmentFragment extends Fragment {
     private FragmentModifyAssignmentBinding binding;
     private EditText title;
     private EditText description;
-    private Button dateSelector;
+    private TextView dateSelector;
     private Spinner courseSpinner;
     private LocalDate selectedDate;
     private Assignment assignmentToEdit;
@@ -76,6 +78,7 @@ public class ModifyAssignmentFragment extends Fragment {
                     title.setText(assignment.getTitle());
                     description.setText(assignment.getDescription());
                     selectedDate = assignment.getDate();
+                    dateSelector.setText(selectedDate.toString());
                 }
             });
         }
