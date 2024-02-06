@@ -69,14 +69,18 @@ public class Exam {
     public void setCourseId(String courseId) {
         this.courseId = courseId;
     }
-
+  
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
 
         Exam exam = (Exam) obj;
-        return examId == exam.examId && Objects.equals(examLocation, exam.examLocation) && Objects.equals(dateTime, exam.dateTime) && Objects.equals(courseId, exam.courseId);
+
+        return examId == exam.examId &&
+                Objects.equals(examLocation, exam.examLocation) &&
+                Objects.equals(dateTime, exam.dateTime) &&
+                Objects.equals(courseId, exam.courseId);
     }
 
     static class Converters {

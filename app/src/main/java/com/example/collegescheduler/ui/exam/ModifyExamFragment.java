@@ -68,7 +68,6 @@ public class ModifyExamFragment extends Fragment {
         }
 
         datePickerButton.setOnClickListener(view -> showDatePickerDialog());
-
         Button timePickerButton = binding.timePickerButton;
         timePickerButton.setOnClickListener(view -> showTimePickerDialog());
 
@@ -125,7 +124,6 @@ public class ModifyExamFragment extends Fragment {
                         int position = courseIds.indexOf(examToEdit.getCourseId());
                         spinnerCourseId.setSelection(position);
                     }
-
                 }
             }
         });
@@ -176,6 +174,7 @@ public class ModifyExamFragment extends Fragment {
                 selectedDate = LocalDate.of(year, month + 1, dayOfMonth);
             }
         }, year, month, day);
+
 
         // Show the date picker dialog
         datePickerDialog.show();

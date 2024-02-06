@@ -101,5 +101,5 @@ public class Assignment {
             return date.atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli();
         }
     }
-
+  
 }

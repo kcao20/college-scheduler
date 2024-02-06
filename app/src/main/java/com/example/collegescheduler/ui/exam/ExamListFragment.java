@@ -4,6 +4,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -15,11 +19,13 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.collegescheduler.MainActivity;
 import com.example.collegescheduler.R;
 import com.example.collegescheduler.databinding.FragmentExamListBinding;
 import com.example.collegescheduler.db.Exam;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class ExamListFragment extends Fragment {
@@ -27,12 +33,14 @@ public class ExamListFragment extends Fragment {
     private FragmentExamListBinding binding;
     private RecyclerView recyclerView;
     private ExamListAdapter examListAdapter;
-
     private ExamViewModel examViewModel;
-
+    private Spinner spinnerCourseId;
+  
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentExamListBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
+      
+        spinnerCourseId = binding.examCourseId;
 
         FloatingActionButton addButton = view.findViewById(R.id.addButton);
 
@@ -49,14 +57,36 @@ public class ExamListFragment extends Fragment {
         examListAdapter = new ExamListAdapter(examViewModel);
         recyclerView.setAdapter(examListAdapter);
 
-        LiveData<List<Exam>> examsLiveData = examViewModel.getAllExams();
+        loadCourseIds();
 
-        examsLiveData.observe(getViewLifecycleOwner(), new Observer<List<Exam>>() {
+        spinnerCourseId.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onChanged(List<Exam> examList) {
-                examListAdapter.submitList(examList);
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                String selectedCourseId = (String) parentView.getItemAtPosition(position);
+
+                if (position == 0) {
+                    examViewModel.getAllExams().observe(getViewLifecycleOwner(), new Observer<List<Exam>>() {
+                        @Override
+                        public void onChanged(List<Exam> examList) {
+                            sortByTime(examList);
+                            examListAdapter.submitList(examList);
+                        }
+                    });
+                } else {
+                    examViewModel.getAllExamsWithCourseId(selectedCourseId).observe(getViewLifecycleOwner(), new Observer<List<Exam>>() {
+                        @Override
+                        public void onChanged(List<Exam> examList) {
+                            sortByTime(examList);
+                            examListAdapter.submitList(examList);
+                        }
+                    });
+                }
             }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                return;
+            }
         });
 
         return view;
@@ -67,4 +97,26 @@ public class ExamListFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
+    public void sortByTime(List<Exam> examsList) {
+        examsList.sort(Comparator.comparing(Exam::getDateTime));
+    }
+
+    private void loadCourseIds() {
+        examViewModel.getAllCourseIds().observe(getViewLifecycleOwner(), new Observer<List<String>>() {
+            @Override
+            public void onChanged(List<String> courseIds) {
+                if (courseIds != null) {
+                    // Add "Select Course" option
+                    courseIds.add(0, "All Courses");
+
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, courseIds);
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinnerCourseId.setAdapter(adapter);
+                    spinnerCourseId.setSelection(0);
+                }
+            }
+        });
+    }
+  
 }

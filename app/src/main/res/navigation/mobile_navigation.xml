@@ -59,6 +59,9 @@
         <action
             android:id="@+id/action_add_course_to_nav_home"
             app:destination="@id/nav_home" />
+        <action
+            android:id="@+id/action_course_to_edit_course"
+            app:destination="@id/edit_course" />
     </fragment>
 
     <fragment

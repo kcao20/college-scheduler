@@ -20,6 +20,7 @@ public class ExamViewHolder extends RecyclerView.ViewHolder {
     public TextView textViewExamCourseId;
     private final ImageButton imageButtonDelete;
     private final ImageButton imageButtonEdit;
+
     private View.OnClickListener deleteButtonClickListener;
     private View.OnClickListener editButtonClickListener;
 
