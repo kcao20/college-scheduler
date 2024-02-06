@@ -27,11 +27,22 @@ public class Exam {
 
     @ColumnInfo(name = "course")
     public String courseId;
+    @ColumnInfo(name = "details")
+    public String examDetails;
 
-    public Exam(String examLocation, LocalDateTime dateTime, String courseId) {
+    public Exam(String examLocation, LocalDateTime dateTime, String courseId, String examDetails) {
         this.examLocation = examLocation;
         this.dateTime = dateTime;
         this.courseId = courseId;
+        this.examDetails = examDetails;
+    }
+
+    public String getExamDetails() {
+        return examDetails;
+    }
+
+    public void setExamDetails(String examDetails) {
+        this.examDetails = examDetails;
     }
 
     public int getExamId() {

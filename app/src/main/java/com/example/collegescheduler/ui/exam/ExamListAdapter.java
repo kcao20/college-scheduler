@@ -1,8 +1,12 @@
 package com.example.collegescheduler.ui.exam;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.NavDirections;
@@ -20,9 +24,12 @@ public class ExamListAdapter extends ListAdapter<Exam, ExamViewHolder> {
 
     private ExamViewModel examViewModel;
 
-    public ExamListAdapter(ExamViewModel examViewModel) {
+    private Context context;
+
+    public ExamListAdapter(ExamViewModel examViewModel, Context context) {
         super(new ExamDiffCallback());
         this.examViewModel = examViewModel;
+        this.context = context;
     }
 
     @NonNull
@@ -36,6 +43,16 @@ public class ExamListAdapter extends ListAdapter<Exam, ExamViewHolder> {
     public void onBindViewHolder(@NonNull ExamViewHolder holder, int position) {
         Exam exam = getItem(position);
         holder.bind(exam);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = holder.getBindingAdapterPosition();
+                if (position != RecyclerView.NO_POSITION) {
+                    showDetails(exam);
+                }
+            }
+        });
         holder.setDeleteButtonClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,7 +77,29 @@ public class ExamListAdapter extends ListAdapter<Exam, ExamViewHolder> {
                 }
             }
         });
+
+
     }
+
+
+    private void showDetails(Exam exam) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View customView = inflater.inflate(R.layout.cuystom_exam_dialog, null);
+
+        TextView detailsTextView = customView.findViewById(R.id.details);
+
+        detailsTextView.setText(exam.getExamDetails());
+
+        builder.setView(customView);
+
+        builder.setCancelable(true);
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
 
     static class ExamDiffCallback extends DiffUtil.ItemCallback<Exam> {
 
