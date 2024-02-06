@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData;
 import com.example.collegescheduler.db.Assignment;
 import com.example.collegescheduler.db.AssignmentRepository;
 import com.example.collegescheduler.db.CourseRepository;
+import com.example.collegescheduler.db.Exam;
 
 import java.util.List;
 
@@ -43,6 +44,10 @@ public class AssignmentViewModel extends AndroidViewModel {
 
     public LiveData<List<String>> getAllCourseIds() {
         return courseRepository.getAllCourseIds();
+    }
+
+    public LiveData<List<Assignment>> getAllAssignmentsWithCourseId(String courseId) {
+        return assignmentRepository.getAssignmentsWithCourseId(courseId);
     }
 
     public LiveData<Assignment> getAssignment(int id) {

@@ -7,7 +7,7 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_home">Home</string>
+    <string name="menu_home">Courses</string>
     <string name="menu_calendar">Calendar</string>
     <string name="menu_exam">Exams</string>
     <string name="menu_toDoList">To-Do-List</string>

@@ -38,7 +38,7 @@ public class AssignmentDetailsFragment extends Fragment {
         TextView assignmentTitle = binding.assignmentTitle;
         TextView courseTextView = binding.courseTitle;
         TextView dateTextView = binding.dueDate;
-        TextView statusEditText = binding.status;
+        TextView description = binding.description;
 
         int assignmentId = getArguments().getInt("assignmentId");
 
@@ -46,7 +46,7 @@ public class AssignmentDetailsFragment extends Fragment {
             assignmentTitle.setText(assignment.getTitle());
             courseTextView.setText(assignment.getCourseId());
             dateTextView.setText(assignment.getDate().toString());
-            statusEditText.setText(assignment.getStatus() ? "Uncompleted" : "Completed");
+            description.setText(assignment.getDescription());
         });
 
         deleteButton.setOnClickListener(v -> {

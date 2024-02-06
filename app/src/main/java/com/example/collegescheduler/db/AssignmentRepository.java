@@ -22,6 +22,10 @@ public class AssignmentRepository {
         return allAssignments;
     }
 
+    public LiveData<List<Assignment>> getAssignmentsWithCourseId(String courseId) {
+        return assignmentDAO.getAssignmentWithCourseId(courseId);
+    }
+
     public LiveData<Assignment> getAssignment(int id) {
         MutableLiveData<Assignment> assignmentLiveData = new MutableLiveData<>();
         CourseDatabase.databaseExecutor.execute(() -> {

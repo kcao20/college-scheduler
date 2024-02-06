@@ -18,11 +18,15 @@ public class AssignmentViewHolder extends RecyclerView.ViewHolder {
 
 
     private final TextView assignmentTitle;
+    private final TextView assignmentCourse;
+    private final TextView assignmentDueDate;
     private final CheckBox status;
 
     public AssignmentViewHolder(@NonNull View itemView) {
         super(itemView);
         assignmentTitle = itemView.findViewById(R.id.textViewAssignmentTitle);
+        assignmentCourse = itemView.findViewById(R.id.textViewAssignmentCourse);
+        assignmentDueDate = itemView.findViewById(R.id.textViewAssignmentDueDate);
         status = itemView.findViewById(R.id.checkBox);
     }
 
@@ -34,6 +38,8 @@ public class AssignmentViewHolder extends RecyclerView.ViewHolder {
 
     public void bind(Assignment assignment) {
         assignmentTitle.setText(assignment.getTitle());
+        assignmentCourse.setText(assignment.getCourseId());
+        assignmentDueDate.setText(assignment.getDate().toString());
         status.setChecked(assignment.getStatus());
         if (assignment.getStatus()) {
             assignmentTitle.setPaintFlags(assignmentTitle.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
