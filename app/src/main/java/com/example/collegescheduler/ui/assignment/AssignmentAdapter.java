@@ -1,5 +1,6 @@
 package com.example.collegescheduler.ui.assignment;
 
+import android.graphics.Paint;
 import android.os.Handler;
 import android.view.ViewGroup;
 
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.collegescheduler.db.Assignment;
+import com.example.collegescheduler.db.Task;
 import com.example.collegescheduler.ui.course.CourseFragmentDirections;
 import com.example.collegescheduler.ui.home.HomeFragmentDirections;
 
@@ -42,15 +44,6 @@ public class AssignmentAdapter extends ListAdapter<Assignment, AssignmentViewHol
                 action = AssignmentListFragmentDirections.navAssignmentToAssignmentDetails(current.getId(), false);
             }
             Navigation.findNavController(v).navigate(action);
-        });
-        holder.getStatusCheckBox().setOnCheckedChangeListener((buttonView, isChecked) -> {
-            int adapterPosition = holder.getBindingAdapterPosition();
-            if (adapterPosition != RecyclerView.NO_POSITION) {
-                Assignment clickedAssignment = getItem(adapterPosition);
-                clickedAssignment.setStatus(isChecked);
-                viewModel.updateAssignment(clickedAssignment);
-                new Handler().post(() -> notifyItemChanged(adapterPosition));
-            }
         });
     }
 

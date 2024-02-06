@@ -1,6 +1,7 @@
 package com.example.collegescheduler.ui.assignment;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -10,6 +11,7 @@ import com.example.collegescheduler.db.Assignment;
 import com.example.collegescheduler.db.AssignmentRepository;
 import com.example.collegescheduler.db.CourseRepository;
 import com.example.collegescheduler.db.Exam;
+import com.example.collegescheduler.db.Task;
 
 import java.util.List;
 
@@ -52,6 +54,12 @@ public class AssignmentViewModel extends AndroidViewModel {
 
     public LiveData<Assignment> getAssignment(int id) {
         return assignmentRepository.getAssignment(id);
+    }
+
+    public void updateAssignmentCompletionStatus(Assignment assignment, boolean isCompleted) {
+        assignment.setStatus(isCompleted);
+        assignmentRepository.update(assignment);
+        Log.d("RFT", "Rft");
     }
 
 }
