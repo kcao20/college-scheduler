@@ -53,4 +53,10 @@ public class AssignmentRepository {
         });
     }
 
+    public void deleteAssignmentsWithCourseId(String courseId) {
+        CourseDatabase.databaseExecutor.execute(() -> {
+            assignmentDAO.deleteAssignmentsWithCourseId(courseId);
+        });
+    }
+
 }

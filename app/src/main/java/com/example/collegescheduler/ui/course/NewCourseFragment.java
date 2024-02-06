@@ -30,8 +30,10 @@ public class NewCourseFragment extends Fragment {
 
     private FragmentAddCourseBinding binding;
 
-    private TextView courseTime;
-    private LocalTime selectedTime;
+    private TextView startTime;
+    private TextView endTime;
+    private LocalTime selectedStartTime;
+    private LocalTime selectedEndTime;
     private int[] repeat = new int[5];
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -44,10 +46,12 @@ public class NewCourseFragment extends Fragment {
         final EditText courseTitle = binding.courseTitle.getEditText();
         final EditText courseDescription = binding.courseDescription.getEditText();
         final EditText courseInstructor = binding.courseInstructor.getEditText();
-        courseTime = binding.timePicker;
+        startTime = binding.timePicker;
+        endTime = binding.endTimePicker;
         final Button saveButton = binding.saveButton;
 
-        courseTime.setOnClickListener(view -> showTimePickerDialog());
+        startTime.setOnClickListener(view -> showTimePickerDialog(true));
+        endTime.setOnClickListener(view -> showTimePickerDialog(false));
 
         CheckBox checkboxMonday = root.findViewById(R.id.checkbox_monday);
         CheckBox checkboxTuesday = root.findViewById(R.id.checkbox_tuesday);
@@ -85,12 +89,12 @@ public class NewCourseFragment extends Fragment {
             String cInstructor = courseInstructor.getText().toString();
             if (cID.trim().isEmpty()) {
                 Toast.makeText(requireContext(), "Course ID can not be blank", Toast.LENGTH_SHORT).show();
-            } else if (selectedTime == null) {
-                Toast.makeText(requireContext(), "Select a time!", Toast.LENGTH_SHORT).show();
+            } else if (selectedStartTime == null || selectedEndTime == null) {
+                Toast.makeText(requireContext(), "Select start and end times!", Toast.LENGTH_SHORT).show();
             } else if (Arrays.stream(repeat).allMatch(element -> element == 0)){
                 Toast.makeText(requireContext(), "Courses repeat!", Toast.LENGTH_SHORT).show();
             } else {
-                newCourseViewModel.checkAndSaveCourse(cID, cTitle, cDescription, cInstructor, selectedTime, repeat).observe(getViewLifecycleOwner(), courseSaved -> {
+                newCourseViewModel.checkAndSaveCourse(cID, cTitle, cDescription, cInstructor, selectedStartTime, selectedEndTime, repeat).observe(getViewLifecycleOwner(), courseSaved -> {
                     if (courseSaved) {
                         Toast.makeText(requireContext(), "Course saved successfully", Toast.LENGTH_SHORT).show();
                         Navigation.findNavController(v).navigate(R.id.action_add_course_to_nav_home);
@@ -104,7 +108,7 @@ public class NewCourseFragment extends Fragment {
         return root;
     }
 
-    private void showTimePickerDialog() {
+    private void showTimePickerDialog(Boolean start) {
         // Get the current time
         Calendar calendar = Calendar.getInstance();
         int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
@@ -114,10 +118,18 @@ public class NewCourseFragment extends Fragment {
         TimePickerDialog timePickerDialog = new TimePickerDialog(requireContext(), new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                selectedTime = LocalTime.of(hourOfDay, minute);
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
-                String formattedTime = selectedTime.format(formatter);
-                courseTime.setText(formattedTime);
+                if (start) {
+                    selectedStartTime = LocalTime.of(hourOfDay, minute);
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
+                    String formattedTime = selectedStartTime.format(formatter);
+                    startTime.setText(formattedTime);
+                } else {
+                    selectedEndTime = LocalTime.of(hourOfDay, minute);
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
+                    String formattedTime = selectedEndTime.format(formatter);
+                    endTime.setText(formattedTime);
+                }
+
             }
         }, currentHour, currentMinute, false);
 

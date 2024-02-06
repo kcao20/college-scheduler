@@ -93,7 +93,7 @@ public class AssignmentListFragment extends Fragment {
     private void loadCourseIds() {
         viewModel.getAllCourseIds().observe(getViewLifecycleOwner(), courseIds -> {
             if (courseIds != null) {
-                if (!courseIds.get(0).equals("All Courses")) {
+                if (!courseIds.contains("All Courses")) {
                     courseIds.add(0, "All Courses");
                 }
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, courseIds);

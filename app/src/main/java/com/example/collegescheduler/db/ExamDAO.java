@@ -20,6 +20,9 @@ public interface ExamDAO {
     @Query("SELECT * FROM exam where course in (:courseId)")
     LiveData<List<Exam>> getExamsWithCourseId(String courseId);
 
+    @Query("DELETE FROM exam WHERE course = :courseId")
+    void deleteExamsWithCourseId(String courseId);
+
     @Insert
     void addExam(Exam exam);
 
