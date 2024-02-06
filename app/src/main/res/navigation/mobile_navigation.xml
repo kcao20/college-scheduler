@@ -122,7 +122,7 @@
 
     <fragment
         android:id="@+id/nav_assignment"
-        android:name="com.example.collegescheduler.ui.assignment.AssignmentList"
+        android:name="com.example.collegescheduler.ui.assignment.AssignmentListFragment"
         android:label="Assignments"
         tools:layout="@layout/fragment_assignment">
 

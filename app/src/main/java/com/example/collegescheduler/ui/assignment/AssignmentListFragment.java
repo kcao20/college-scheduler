@@ -1,7 +1,6 @@
 package com.example.collegescheduler.ui.assignment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +14,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavBackStackEntry;
-import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,13 +21,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.collegescheduler.R;
 import com.example.collegescheduler.databinding.FragmentAssignmentBinding;
 import com.example.collegescheduler.db.Assignment;
-import com.example.collegescheduler.db.Exam;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Comparator;
 import java.util.List;
 
-public class AssignmentList extends Fragment {
+public class AssignmentListFragment extends Fragment {
 
     private AssignmentViewModel viewModel;
     private FragmentAssignmentBinding binding;

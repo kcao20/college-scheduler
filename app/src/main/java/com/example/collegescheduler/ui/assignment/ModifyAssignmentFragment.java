@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -43,6 +44,15 @@ public class ModifyAssignmentFragment extends Fragment {
     private Assignment assignmentToEdit;
     private boolean isEditMode;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        isEditMode = getArguments().getBoolean("editMode", false);
+        if (isEditMode) {
+            ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle("Edit Assignment");
+        }
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -51,7 +61,6 @@ public class ModifyAssignmentFragment extends Fragment {
 
         viewModel = new ViewModelProvider(this).get(AssignmentViewModel.class);
 
-        isEditMode = getArguments().getBoolean("editMode", false);
         int id = getArguments().getInt("id");
 
         Button addButton = root.findViewById(R.id.assignment_add_course);

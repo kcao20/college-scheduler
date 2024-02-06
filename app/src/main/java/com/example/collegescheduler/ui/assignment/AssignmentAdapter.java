@@ -31,7 +31,7 @@ public class AssignmentAdapter extends ListAdapter<Assignment, AssignmentViewHol
         Assignment current = getItem(position);
         holder.bind(current);
         holder.itemView.setOnClickListener(v -> {
-            NavDirections action = AssignmentListDirections.navAssignmentToAssignmentDetails(current.getId());
+            NavDirections action = AssignmentListFragmentDirections.navAssignmentToAssignmentDetails(current.getId());
             Navigation.findNavController(v).navigate(action);
         });
         holder.getStatusCheckBox().setOnCheckedChangeListener((buttonView, isChecked) -> {

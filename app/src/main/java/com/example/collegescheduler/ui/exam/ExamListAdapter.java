@@ -2,29 +2,27 @@ package com.example.collegescheduler.ui.exam;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
-import com.example.collegescheduler.R;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.collegescheduler.R;
 import com.example.collegescheduler.db.Exam;
 
 public class ExamListAdapter extends ListAdapter<Exam, ExamViewHolder> {
 
     private View.OnClickListener itemClickListener;
-
-    private ExamViewModel examViewModel;
-
-    private Context context;
+    private final ExamViewModel examViewModel;
+    private final Context context;
 
     public ExamListAdapter(ExamViewModel examViewModel, Context context) {
         super(new ExamDiffCallback());
@@ -59,7 +57,12 @@ public class ExamListAdapter extends ListAdapter<Exam, ExamViewHolder> {
                 int position = holder.getBindingAdapterPosition();
                 if (position != RecyclerView.NO_POSITION) {
                     Exam deletedExam = getItem(position);
-                    examViewModel.deleteExam(deletedExam);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setMessage("Are you sure you want to delete this exam?").setPositiveButton("Delete", (dialog, which) -> {
+                        examViewModel.deleteExam(deletedExam);
+                        Toast.makeText(context, "Exam deleted successfully", Toast.LENGTH_SHORT).show();
+                    }).setNegativeButton("Cancel", (dialog, which) -> {
+                    }).show();
                 }
             }
         });

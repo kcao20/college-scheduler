@@ -15,6 +15,8 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -44,6 +46,15 @@ public class ModifyExamFragment extends Fragment {
     private boolean isEditMode;
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        isEditMode = getArguments().getBoolean("editMode", false);
+        if (isEditMode) {
+            ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle("Edit Exam");
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentAddExamBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -51,7 +62,6 @@ public class ModifyExamFragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(ExamViewModel.class);
         spinnerCourseId = binding.examCourseId;
 
-        isEditMode = getArguments().getBoolean("editMode", false);
         String examId = getArguments().getString("examId");
 
         final EditText examLocation = binding.examLocation.getEditText();
