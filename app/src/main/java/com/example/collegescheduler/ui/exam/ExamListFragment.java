@@ -65,20 +65,20 @@ public class ExamListFragment extends Fragment {
                 String selectedCourseId = (String) parentView.getItemAtPosition(position);
 
                 if (position == 0) {
-                    examViewModel.getAllExams().observe(getViewLifecycleOwner(), new Observer<List<Exam>>() {
-                        @Override
-                        public void onChanged(List<Exam> examList) {
-                            sortByTime(examList);
-                            examListAdapter.submitList(examList);
+                    examViewModel.getAllExams().observe(getViewLifecycleOwner(), examList -> {
+                        if (!examList.isEmpty()) {
+                            binding.youdongxi.setVisibility(View.GONE);
                         }
+                        sortByTime(examList);
+                        examListAdapter.submitList(examList);
                     });
                 } else {
-                    examViewModel.getAllExamsWithCourseId(selectedCourseId).observe(getViewLifecycleOwner(), new Observer<List<Exam>>() {
-                        @Override
-                        public void onChanged(List<Exam> examList) {
-                            sortByTime(examList);
-                            examListAdapter.submitList(examList);
+                    examViewModel.getAllExamsWithCourseId(selectedCourseId).observe(getViewLifecycleOwner(), examList -> {
+                        if (!examList.isEmpty()) {
+                            binding.youdongxi.setVisibility(View.GONE);
                         }
+                        sortByTime(examList);
+                        examListAdapter.submitList(examList);
                     });
                 }
             }

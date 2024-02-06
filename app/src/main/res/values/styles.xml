@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="CustomAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="colorAccent">@color/lavender</item>
         <item name="android:buttonBarPositiveButtonStyle">@style/CustomPositiveButton</item>
@@ -20,7 +21,7 @@
     <style name="CustomButtonBar" parent="Widget.AppCompat.ButtonBar.AlertDialog">
         <item name="android:backgroundTint">@color/lavender</item>
     </style>
-  
+
     <style name="word_title">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_marginBottom">8dp</item>
@@ -29,4 +30,3 @@
         <item name="android:textAppearance">@android:style/TextAppearance.Large</item>
     </style>
 </resources>
-

@@ -35,17 +35,18 @@
         android:id="@+id/imageButtonDelete"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:src="@drawable/rounded_delete_24"
         android:layout_alignParentEnd="true"
-        android:contentDescription="delete" />
+        android:contentDescription="delete"
+        android:src="@drawable/rounded_delete_24" />
 
     <ImageButton
         android:id="@+id/imageButtonEdit"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:layout_toStartOf="@id/imageButtonDelete"
+        android:layout_marginEnd="0dp"
+        android:layout_toStartOf="@+id/imageButtonDelete"
         android:contentDescription="edit"
-        android:src="@android:drawable/ic_menu_edit" />
+        android:src="@drawable/rounded_edit_24" />
 
 
 </RelativeLayout>

@@ -46,6 +46,9 @@ public class HomeFragment extends Fragment {
         courses.observe(getViewLifecycleOwner(), new Observer<List<Course>>() {
             @Override
             public void onChanged(List<Course> courses) {
+                if (!courses.isEmpty()) {
+                    binding.youdongxi.setVisibility(View.GONE);
+                }
                 adapter.submitList(courses);
             }
         });
