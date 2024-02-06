@@ -4,13 +4,14 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
 import com.example.collegescheduler.R;
+import com.example.collegescheduler.db.Task;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class TaskViewHolder extends RecyclerView.ViewHolder {
 
     public TextView textViewTaskTitle;
-
     public CheckBox checkBox;
     private View.OnClickListener clickListener;
 
@@ -31,6 +32,11 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
 
     public void setClickListener(View.OnClickListener clickListener) {
         this.clickListener = clickListener;
+    }
+
+    public void bind(Task task) {
+        textViewTaskTitle.setText(task.getTaskTitle());
+        checkBox.setChecked(task.isCompleted());
     }
 
 }

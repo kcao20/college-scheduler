@@ -65,8 +65,7 @@ public class TaskAdapter extends ListAdapter<Task, TaskViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull TaskViewHolder holder, int position) {
         Task task = getItem(position);
-        holder.textViewTaskTitle.setText(task.getTaskTitle());
-        holder.checkBox.setChecked(task.isCompleted());
+        holder.bind(task);
 
         //Initial UI loading
         if (task.isCompleted()) {
@@ -110,6 +109,7 @@ public class TaskAdapter extends ListAdapter<Task, TaskViewHolder> {
             builder.setMessage("Are you sure you want to delete this task?").setPositiveButton("Delete", (d, which) -> {
                 taskViewModel.deleteTask(task);
                 d.dismiss();
+                dialog.dismiss();
             }).setNegativeButton("Cancel", (d, which) -> {
                 d.dismiss();
             }).show();

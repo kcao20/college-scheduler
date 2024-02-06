@@ -55,7 +55,7 @@
             android:name="courseId"
             android:defaultValue=""
             app:argType="string"
-            app:nullable="true" />
+            app:nullable="false" />
         <action
             android:id="@+id/action_add_course_to_nav_home"
             app:destination="@id/nav_home" />
@@ -97,6 +97,12 @@
         <action
             android:id="@+id/action_course_to_edit_course"
             app:destination="@id/edit_course" />
+        <action
+            android:id="@+id/action_course_to_assignmentDetails"
+            app:destination="@+id/assignmentDetails" />
+        <action
+            android:id="@+id/action_course_to_modify_exam"
+            app:destination="@+id/modifyExam" />
     </fragment>
 
     <fragment
@@ -114,9 +120,18 @@
             app:argType="string"
             app:nullable="true" />
 
+        <argument
+            android:name="onCoursePage"
+            app:argType="boolean"/>
+
         <action
             android:id="@+id/action_add_exam_to_nav_exam"
             app:destination="@id/nav_exam" />
+        <action
+            android:id="@+id/action_modify_exam_to_course"
+            app:destination="@id/course"
+            app:popUpTo="@id/course"
+            app:popUpToInclusive="true"/>
 
     </fragment>
 
@@ -170,6 +185,9 @@
             android:name="assignmentId"
             app:argType="integer"
             app:nullable="false"/>
+        <argument
+            android:name="onCoursePage"
+            app:argType="boolean"/>
 
         <action
             android:id="@+id/action_assignmentDetails_to_nav_assignments"
@@ -179,6 +197,11 @@
         <action
             android:id="@+id/action_assignmentDetails_to_modify_assignments"
             app:destination="@id/modify_assignment" />
+        <action
+            android:id="@+id/action_assignmentDetails_to_course"
+            app:destination="@id/course"
+            app:popUpTo="@id/course"
+            app:popUpToInclusive="true"/>
     </fragment>
 
 </navigation>

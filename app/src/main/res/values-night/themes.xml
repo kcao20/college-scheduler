@@ -11,6 +11,7 @@
         <item name="android:colorBackground">@color/rosé_pine_base</item>
         <item name="android:colorForeground">@color/rosé_pine_text</item>
         <item name="colorSurface">@color/rosé_pine_surface</item>
+        <item name="colorTertiary">@color/rosé_pine_overlay</item>
         <item name="colorError">@color/rosé_pine_love</item>
         <item name="android:textColorPrimary">@color/white</item>
     </style>

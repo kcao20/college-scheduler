@@ -12,6 +12,7 @@
         <item name="android:colorForeground">@color/black</item>
         <item name="colorSurface">@color/rosé_pine_dawn_surface</item>
         <item name="colorError">@color/rosé_pine_dawn_love</item>
+        <item name="colorTertiary">@color/rosé_pine_dawn_overlay</item>
         <item name="android:textColorPrimary">@color/black</item>
     </style>
 

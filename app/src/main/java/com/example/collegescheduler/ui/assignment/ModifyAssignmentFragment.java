@@ -90,21 +90,30 @@ public class ModifyAssignmentFragment extends Fragment {
     }
 
     private void add(View v) {
+        String newTitle = title.getText().toString();
         String courseId = (courseSpinner.getSelectedItem().toString());
-        if (isEditMode) {
-            assignmentToEdit.setCourseId(courseId);
-            assignmentToEdit.setTitle(title.getText().toString());
-            assignmentToEdit.setDescription(description.getText().toString());
-            assignmentToEdit.setDate(selectedDate);
-            viewModel.updateAssignment(assignmentToEdit);
-            Toast.makeText(requireContext(), "Assignment edited successfully", Toast.LENGTH_SHORT).show();
-            NavDirections action = ModifyAssignmentFragmentDirections.actionModifyAssignmentsToAssignmentDetails(assignmentToEdit.getId());
-            Navigation.findNavController(v).navigate(action);
+        if (courseId.equals("Select Course")) {
+            Toast.makeText(requireContext(), "Please select a course", Toast.LENGTH_SHORT).show();
+        } else if (newTitle.trim().isEmpty()) {
+            Toast.makeText(requireContext(), "Please input a title", Toast.LENGTH_SHORT).show();
+        } else if (selectedDate == null) {
+            Toast.makeText(requireContext(), "Please select date", Toast.LENGTH_SHORT).show();
         } else {
-            Assignment newAssignment = new Assignment(title.getText().toString(), description.getText().toString(), selectedDate, courseId);
-            viewModel.createAssignment(newAssignment);
-            Toast.makeText(requireContext(), "Assignment added successfully", Toast.LENGTH_SHORT).show();
-            Navigation.findNavController(v).navigate(R.id.nav_modifyAssignment_to_nav_assignment);
+            if (isEditMode) {
+                assignmentToEdit.setCourseId(courseId);
+                assignmentToEdit.setTitle(newTitle);
+                assignmentToEdit.setDescription(description.getText().toString());
+                assignmentToEdit.setDate(selectedDate);
+                viewModel.updateAssignment(assignmentToEdit);
+                Toast.makeText(requireContext(), "Assignment edited successfully", Toast.LENGTH_SHORT).show();
+                NavDirections action = ModifyAssignmentFragmentDirections.actionModifyAssignmentsToAssignmentDetails(assignmentToEdit.getId(), false);
+                Navigation.findNavController(v).navigate(action);
+            } else {
+                Assignment newAssignment = new Assignment(newTitle, description.getText().toString(), selectedDate, courseId);
+                viewModel.createAssignment(newAssignment);
+                Toast.makeText(requireContext(), "Assignment added successfully", Toast.LENGTH_SHORT).show();
+                Navigation.findNavController(v).navigate(R.id.nav_modifyAssignment_to_nav_assignment);
+            }
         }
     }
 
@@ -127,6 +136,7 @@ public class ModifyAssignmentFragment extends Fragment {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         selectedDate = LocalDate.of(year, month + 1, dayOfMonth);
+                        dateSelector.setText(selectedDate.toString());
                     }
                 },
                 year, month, day);

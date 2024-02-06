@@ -20,11 +20,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
 import com.example.collegescheduler.R;
 import com.example.collegescheduler.databinding.FragmentModifyExamBinding;
 import com.example.collegescheduler.db.Exam;
+import com.example.collegescheduler.ui.assignment.AssignmentDetailsFragmentDirections;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -122,7 +124,13 @@ public class ModifyExamFragment extends Fragment {
                         viewModel.createExam(exam);
                         Toast.makeText(requireContext(), "Exam added successfully", Toast.LENGTH_SHORT).show();
                     }
-                    Navigation.findNavController(view).navigate(R.id.action_add_exam_to_nav_exam);
+                    NavDirections action;
+                    if (getArguments().getBoolean("onCoursePage")) {
+                        action = ModifyExamFragmentDirections.actionModifyExamToCourse(courseId);
+                    } else {
+                        action = ModifyExamFragmentDirections.actionAddExamToNavExam();
+                    }
+                    Navigation.findNavController(view).navigate(action);
                 }
             }
         });

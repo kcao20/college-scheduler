@@ -41,7 +41,7 @@ public class AssignmentListFragment extends Fragment {
         addButton.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.nav_assignment_to_modifyAssignment));
 
         RecyclerView recyclerView = root.findViewById(R.id.assignment_list_recyclerview);
-        final AssignmentAdapter adapter = new AssignmentAdapter(new AssignmentAdapter.AssignmentDiff(), viewModel);
+        final AssignmentAdapter adapter = new AssignmentAdapter(viewModel, false);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         LiveData<List<Assignment>> assignments = viewModel.getAllAssignments();

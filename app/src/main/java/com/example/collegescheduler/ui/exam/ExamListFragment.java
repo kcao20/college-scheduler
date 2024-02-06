@@ -42,14 +42,14 @@ public class ExamListFragment extends Fragment {
 
         FloatingActionButton addButton = view.findViewById(R.id.addButton);
         addButton.setOnClickListener(v -> {
-            NavDirections action = ExamListFragmentDirections.actionNavExamToModifyExam(false, null);
+            NavDirections action = ExamListFragmentDirections.actionNavExamToModifyExam(false, null, false);
             Navigation.findNavController(v).navigate(action);
         });
 
         recyclerView = view.findViewById(R.id.examList);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-        examListAdapter = new ExamListAdapter(examViewModel, getContext());
+        examListAdapter = new ExamListAdapter(examViewModel, getContext(), false);
         recyclerView.setAdapter(examListAdapter);
 
         loadCourseIds();
