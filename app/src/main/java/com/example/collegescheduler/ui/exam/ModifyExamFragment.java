@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ import com.example.collegescheduler.db.Exam;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.List;
 
@@ -37,6 +39,8 @@ public class ModifyExamFragment extends Fragment {
     private LocalDate selectedDate;
     private LocalTime selectedTime;
     private Exam examToEdit;
+    private TextView datePickerButton;
+    private TextView timePickerButton;
     private boolean isEditMode;
 
     @Override
@@ -52,9 +56,13 @@ public class ModifyExamFragment extends Fragment {
 
         final EditText examLocation = binding.examLocation.getEditText();
 
+        final EditText examDetails = binding.examDetails.getEditText();
+
         loadCourseIds();
 
-        Button datePickerButton = binding.datePickerButton;
+        datePickerButton = binding.datePickerButton;
+
+        timePickerButton = binding.timePickerButton;
 
         if (isEditMode) {
             viewModel.getExam(examId).observe(getViewLifecycleOwner(), exam -> {
@@ -63,12 +71,17 @@ public class ModifyExamFragment extends Fragment {
                     examLocation.setText(examToEdit.getExamLocation());
                     selectedDate = examToEdit.getDate();
                     selectedTime = examToEdit.getTime();
+                    datePickerButton.setText(selectedDate.toString());
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
+                    String formattedTime = selectedTime.format(formatter);
+                    timePickerButton.setText(formattedTime);
+                    examDetails.setText(examToEdit.getExamDetails());
                 }
             });
         }
 
         datePickerButton.setOnClickListener(view -> showDatePickerDialog());
-        Button timePickerButton = binding.timePickerButton;
+
         timePickerButton.setOnClickListener(view -> showTimePickerDialog());
 
         Button saveButton = binding.saveExamButton;
@@ -78,6 +91,7 @@ public class ModifyExamFragment extends Fragment {
             public void onClick(View view) {
                 String location = examLocation.getText().toString();
                 String courseId = spinnerCourseId.getSelectedItem().toString();
+                String details = examDetails.getText().toString();
 
                 if (location.trim().isEmpty()) {
                     Toast.makeText(requireContext(), "Please input a location", Toast.LENGTH_SHORT).show();
@@ -92,11 +106,12 @@ public class ModifyExamFragment extends Fragment {
                             examToEdit.setExamLocation(location);
                             examToEdit.setDateTime(selectedDateTime);
                             examToEdit.setCourseId(courseId);
+                            examToEdit.setExamDetails(details);
                             viewModel.updateExam(examToEdit);
                             Toast.makeText(requireContext(), "Exam updated successfully", Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Exam exam = new Exam(location, selectedDateTime, courseId);
+                        Exam exam = new Exam(location, selectedDateTime, courseId, details);
                         viewModel.createExam(exam);
                         Toast.makeText(requireContext(), "Exam saved successfully", Toast.LENGTH_SHORT).show();
                     }
@@ -147,6 +162,9 @@ public class ModifyExamFragment extends Fragment {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 selectedTime = LocalTime.of(hourOfDay, minute);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
+                String formattedTime = selectedTime.format(formatter);
+                timePickerButton.setText(formattedTime);
             }
         }, initialHour, initialMinute, false);
 
@@ -172,6 +190,7 @@ public class ModifyExamFragment extends Fragment {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 selectedDate = LocalDate.of(year, month + 1, dayOfMonth);
+                datePickerButton.setText(selectedDate.toString());
             }
         }, year, month, day);
 

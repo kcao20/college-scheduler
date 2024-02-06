@@ -54,7 +54,7 @@ public class ExamListFragment extends Fragment {
 
         examViewModel = new ViewModelProvider(this).get(ExamViewModel.class);
 
-        examListAdapter = new ExamListAdapter(examViewModel);
+        examListAdapter = new ExamListAdapter(examViewModel, getContext());
         recyclerView.setAdapter(examListAdapter);
 
         loadCourseIds();

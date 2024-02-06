@@ -15,7 +15,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:minHeight="48dp"
-        app:layout_constraintBottom_toTopOf="@+id/examDateTime"
+        app:layout_constraintBottom_toTopOf="@id/datePickerButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -25,33 +25,40 @@
             android:hint="Exam Location" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <LinearLayout
-        android:id="@+id/examDateTime"
+    <TextView
+        android:id="@+id/datePickerButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:minHeight="48dp"
+        android:text="Select Date"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/timePickerButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+    </TextView>
+
+    <TextView
+        android:id="@+id/timePickerButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:minHeight="48dp"
+        android:text="Select Time"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.3"
-        android:orientation="vertical">
-
-        <Button
-            android:id="@+id/datePickerButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Select Date" />
-
-        <Button
-            android:id="@+id/timePickerButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Select Time"
-            android:layout_marginTop="8dp" />
-    </LinearLayout>
+        app:layout_constraintVertical_bias=".4">
+    </TextView>
 
 
     <Spinner
@@ -64,7 +71,25 @@
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/examDateTime"/>
+        app:layout_constraintTop_toBottomOf="@+id/timePickerButton"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/examDetails"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/examCourseId">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Exam Details" />
+    </com.google.android.material.textfield.TextInputLayout>
 
 
     <Button
