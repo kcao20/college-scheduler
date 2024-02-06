@@ -1,12 +1,9 @@
-<!-- dialog_new_task.xml -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:background="?attr/colorPrimary">
+    android:padding="16dp">
 
-    <!-- Task Title EditText -->
     <EditText
         android:id="@+id/editTextTask"
         android:layout_width="match_parent"
@@ -14,7 +11,6 @@
         android:hint="Enter task title"
         android:inputType="text" />
 
-    <!-- Task Description EditText -->
     <EditText
         android:id="@+id/editTextDescription"
         android:layout_width="match_parent"
@@ -23,12 +19,11 @@
         android:inputType="textMultiLine"
         android:lines="3" />
 
-    <!-- Buttons -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/buttonCancel"

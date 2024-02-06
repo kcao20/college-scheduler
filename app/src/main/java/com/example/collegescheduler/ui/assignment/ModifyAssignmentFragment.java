@@ -10,10 +10,12 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -23,11 +25,9 @@ import androidx.navigation.Navigation;
 import com.example.collegescheduler.R;
 import com.example.collegescheduler.databinding.FragmentModifyAssignmentBinding;
 import com.example.collegescheduler.db.Assignment;
-import com.example.collegescheduler.db.Exam;
-import com.example.collegescheduler.ui.exam.ExamListFragmentDirections;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.List;
 
@@ -37,11 +37,20 @@ public class ModifyAssignmentFragment extends Fragment {
     private FragmentModifyAssignmentBinding binding;
     private EditText title;
     private EditText description;
-    private Button dateSelector;
+    private TextView dateSelector;
     private Spinner courseSpinner;
     private LocalDate selectedDate;
     private Assignment assignmentToEdit;
     private boolean isEditMode;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        isEditMode = getArguments().getBoolean("editMode", false);
+        if (isEditMode) {
+            ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle("Edit Assignment");
+        }
+    }
 
     @Nullable
     @Override
@@ -51,7 +60,6 @@ public class ModifyAssignmentFragment extends Fragment {
 
         viewModel = new ViewModelProvider(this).get(AssignmentViewModel.class);
 
-        isEditMode = getArguments().getBoolean("editMode", false);
         int id = getArguments().getInt("id");
 
         Button addButton = root.findViewById(R.id.assignment_add_course);
@@ -63,12 +71,14 @@ public class ModifyAssignmentFragment extends Fragment {
         loadCourseIds();
 
         if (isEditMode) {
+            addButton.setText("Save");
             viewModel.getAssignment(id).observe(getViewLifecycleOwner(), assignment -> {
                 if (assignment != null) {
                     assignmentToEdit = assignment;
                     title.setText(assignment.getTitle());
                     description.setText(assignment.getDescription());
                     selectedDate = assignment.getDate();
+                    dateSelector.setText(selectedDate.toString());
                 }
             });
         }
@@ -93,7 +103,7 @@ public class ModifyAssignmentFragment extends Fragment {
         } else {
             Assignment newAssignment = new Assignment(title.getText().toString(), description.getText().toString(), selectedDate, courseId);
             viewModel.createAssignment(newAssignment);
-            Toast.makeText(requireContext(), "Assignment saved successfully", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), "Assignment added successfully", Toast.LENGTH_SHORT).show();
             Navigation.findNavController(v).navigate(R.id.nav_modifyAssignment_to_nav_assignment);
         }
     }

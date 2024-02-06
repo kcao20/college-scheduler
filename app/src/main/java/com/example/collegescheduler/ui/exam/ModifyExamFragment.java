@@ -15,13 +15,15 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import com.example.collegescheduler.R;
-import com.example.collegescheduler.databinding.FragmentAddExamBinding;
+import com.example.collegescheduler.databinding.FragmentModifyExamBinding;
 import com.example.collegescheduler.db.Exam;
 
 import java.time.LocalDate;
@@ -34,7 +36,7 @@ import java.util.List;
 public class ModifyExamFragment extends Fragment {
 
     private ExamViewModel viewModel;
-    private FragmentAddExamBinding binding;
+    private FragmentModifyExamBinding binding;
     private Spinner spinnerCourseId;
     private LocalDate selectedDate;
     private LocalTime selectedTime;
@@ -44,27 +46,35 @@ public class ModifyExamFragment extends Fragment {
     private boolean isEditMode;
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        isEditMode = getArguments().getBoolean("editMode", false);
+        if (isEditMode) {
+            ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle("Edit Exam");
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentAddExamBinding.inflate(inflater, container, false);
+        binding = FragmentModifyExamBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         viewModel = new ViewModelProvider(this).get(ExamViewModel.class);
         spinnerCourseId = binding.examCourseId;
 
-        isEditMode = getArguments().getBoolean("editMode", false);
         String examId = getArguments().getString("examId");
 
+        Button saveButton = binding.saveExamButton;
         final EditText examLocation = binding.examLocation.getEditText();
-
         final EditText examDetails = binding.examDetails.getEditText();
 
         loadCourseIds();
 
         datePickerButton = binding.datePickerButton;
-
         timePickerButton = binding.timePickerButton;
 
         if (isEditMode) {
+            saveButton.setText("Save");
             viewModel.getExam(examId).observe(getViewLifecycleOwner(), exam -> {
                 if (exam != null) {
                     examToEdit = exam;
@@ -81,10 +91,7 @@ public class ModifyExamFragment extends Fragment {
         }
 
         datePickerButton.setOnClickListener(view -> showDatePickerDialog());
-
         timePickerButton.setOnClickListener(view -> showTimePickerDialog());
-
-        Button saveButton = binding.saveExamButton;
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,7 +120,7 @@ public class ModifyExamFragment extends Fragment {
                     } else {
                         Exam exam = new Exam(location, selectedDateTime, courseId, details);
                         viewModel.createExam(exam);
-                        Toast.makeText(requireContext(), "Exam saved successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(requireContext(), "Exam added successfully", Toast.LENGTH_SHORT).show();
                     }
                     Navigation.findNavController(view).navigate(R.id.action_add_exam_to_nav_exam);
                 }

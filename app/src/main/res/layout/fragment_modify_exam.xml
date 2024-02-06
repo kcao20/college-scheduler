@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.exam.ModifyExamFragment">
+
+    <Spinner
+        android:id="@+id/examCourseId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toTopOf="@+id/examLocation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/examLocation"
@@ -32,11 +44,13 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
+        android:gravity="center_vertical"
         android:minHeight="48dp"
-        android:text="Select Date"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
+        android:text="Select Date"
         android:textSize="15sp"
+        android:textColor="?attr/colorOnPrimary"
         app:layout_constraintBottom_toTopOf="@+id/timePickerButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -48,11 +62,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        android:gravity="center_vertical"
         android:minHeight="48dp"
-        android:text="Select Time"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
+        android:text="Select Time"
         android:textSize="15sp"
+        android:textColor="?attr/colorOnPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,18 +76,6 @@
         app:layout_constraintVertical_bias=".4">
     </TextView>
 
-
-    <Spinner
-        android:id="@+id/examCourseId"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:minHeight="48dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timePickerButton"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/examDetails"
@@ -83,7 +87,7 @@
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/examCourseId">
+        app:layout_constraintTop_toBottomOf="@+id/timePickerButton">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -91,15 +95,14 @@
             android:hint="Exam Details" />
     </com.google.android.material.textfield.TextInputLayout>
 
-
     <Button
         android:id="@+id/saveExamButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Save Exam"
+        android:text="Add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/examCourseId" />
+        app:layout_constraintTop_toBottomOf="@+id/examDetails" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

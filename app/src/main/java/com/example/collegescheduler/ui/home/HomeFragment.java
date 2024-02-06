@@ -23,7 +23,6 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
 
-    public static final int NEW_COURSE_FRAGMENT_REQUEST_CODE = 1;
     private FragmentHomeBinding binding;
     private HomeViewModel homeViewModel;
 

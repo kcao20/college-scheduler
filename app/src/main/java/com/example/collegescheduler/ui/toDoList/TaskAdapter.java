@@ -1,5 +1,6 @@
 package com.example.collegescheduler.ui.toDoList;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
@@ -104,8 +106,13 @@ public class TaskAdapter extends ListAdapter<Task, TaskViewHolder> {
         });
 
         buttonDelete.setOnClickListener(v -> {
-            taskViewModel.deleteTask(task);
-            dialog.dismiss();
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setMessage("Are you sure you want to delete this task?").setPositiveButton("Delete", (d, which) -> {
+                taskViewModel.deleteTask(task);
+                d.dismiss();
+            }).setNegativeButton("Cancel", (d, which) -> {
+                d.dismiss();
+            }).show();
         });
 
         dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);

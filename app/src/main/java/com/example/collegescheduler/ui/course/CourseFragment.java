@@ -77,7 +77,6 @@ public class CourseFragment extends Fragment {
                 courseViewModel.delete(courseId);
                 Navigation.findNavController(view).navigate(R.id.action_course_to_nav_home);
             }).setNegativeButton("Cancel", (dialog, which) -> {
-                // User cancelled the deletion, do nothing
             }).show();
         });
 

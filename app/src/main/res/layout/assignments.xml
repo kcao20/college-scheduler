@@ -28,14 +28,13 @@
             android:id="@+id/textViewAssignmentCourse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@android:style/TextAppearance.Small"/>
-
+            android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/textViewAssignmentDueDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@android:style/TextAppearance.Small"/>
+            android:textSize="14sp"/>
     </LinearLayout>
 
 </LinearLayout>

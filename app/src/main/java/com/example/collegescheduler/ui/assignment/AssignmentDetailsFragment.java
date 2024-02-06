@@ -1,11 +1,13 @@
 package com.example.collegescheduler.ui.assignment;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,6 +27,7 @@ public class AssignmentDetailsFragment extends Fragment {
     @NonNull
     FragmentAssignmentDetailsBinding binding;
     private AssignmentViewModel viewModel;
+
 
     @Nullable
     @Override
@@ -50,8 +53,13 @@ public class AssignmentDetailsFragment extends Fragment {
         });
 
         deleteButton.setOnClickListener(v -> {
-            viewModel.deleteAssignment(assignmentId);
-            Navigation.findNavController(v).navigate(R.id.action_assignmentDetails_to_nav_assignments);
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+            builder.setMessage("Are you sure you want to delete this assignment?").setPositiveButton("Delete", (dialog, which) -> {
+                viewModel.deleteAssignment(assignmentId);
+                Toast.makeText(requireContext(), "Assignment deleted successfully", Toast.LENGTH_SHORT).show();
+                Navigation.findNavController(v).navigate(R.id.action_assignmentDetails_to_nav_assignments);
+            }).setNegativeButton("Cancel", (dialog, which) -> {
+            }).show();
         });
 
         editButton.setOnClickListener(v -> {
